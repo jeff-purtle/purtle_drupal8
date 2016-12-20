@@ -1,0 +1,40 @@
+uuid: f301ac17-36a7-41fc-b6eb-79ca757b0625
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.audio.body
+    - field.field.node.audio.field_audio
+    - node.type.audio
+  module:
+    - media_entity_audio
+    - text
+    - user
+id: node.audio.default
+targetEntityType: node
+bundle: audio
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_audio:
+    weight: 102
+    label: above
+    settings:
+      audio_attributes: ''
+      provide_download_link: 0
+    third_party_settings: {  }
+    type: audio_player_html5
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

@@ -1,0 +1,44 @@
+uuid: 760a9b6c-943b-4975-afc7-1dcf4f62e88f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.content_browser
+    - field.field.node.assignment.field_assignment_1
+    - field.field.node.assignment.field_assignment_2
+    - field.field.node.assignment.field_assignment_3
+    - field.field.node.assignment.field_assignment_a
+    - field.field.node.assignment.field_assignment_b
+    - field.field.node.assignment.field_assignment_c
+    - field.field.node.assignment.field_assignment_d
+    - field.field.node.assignment.field_assignment_notes
+    - field.field.node.assignment.field_breathing_exercise
+    - field.field.node.assignment.field_date
+    - field.field.node.assignment.field_student
+    - node.type.assignment
+  module:
+    - user
+id: node.assignment.content_browser
+targetEntityType: node
+bundle: assignment
+mode: content_browser
+content:
+  links:
+    weight: 100
+hidden:
+  entity_print_view: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_assignment_1: true
+  field_assignment_2: true
+  field_assignment_3: true
+  field_assignment_a: true
+  field_assignment_b: true
+  field_assignment_c: true
+  field_assignment_d: true
+  field_assignment_notes: true
+  field_breathing_exercise: true
+  field_date: true
+  field_student: true
+  langcode: true

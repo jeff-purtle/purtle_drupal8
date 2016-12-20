@@ -1,0 +1,29 @@
+uuid: ca3d8110-423e-432d-99e2-91c70c02d01b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.slides.body
+    - field.field.node.slides.field_image
+    - node.type.slides
+  module:
+    - text
+    - user
+id: node.slides.teaser
+targetEntityType: node
+bundle: slides
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  field_image: true
+  langcode: true

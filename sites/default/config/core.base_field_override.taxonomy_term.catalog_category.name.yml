@@ -1,0 +1,18 @@
+uuid: 7c6d3f42-9b5e-49cc-8a63-2e3fd2fb180e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.catalog_category
+id: taxonomy_term.catalog_category.name
+field_name: name
+entity_type: taxonomy_term
+bundle: catalog_category
+label: Name
+description: 'The term name.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

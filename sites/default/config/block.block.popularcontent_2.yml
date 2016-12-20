@@ -1,0 +1,23 @@
+uuid: ea1621d7-be93-4cab-9338-71ebc3148b42
+langcode: en
+status: true
+dependencies:
+  module:
+    - statistics
+  theme:
+    - bartik
+id: popularcontent_2
+theme: bartik
+region: sidebar_first
+weight: -6
+provider: null
+plugin: statistics_popular_block
+settings:
+  id: statistics_popular_block
+  label: 'Popular content'
+  provider: statistics
+  label_display: visible
+  top_day_num: 3
+  top_all_num: 3
+  top_last_num: 3
+visibility: {  }

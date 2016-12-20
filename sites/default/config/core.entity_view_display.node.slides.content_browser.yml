@@ -1,0 +1,30 @@
+uuid: c5f9ee7c-3078-4ec5-b569-d256d86df6ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.content_browser
+    - field.field.node.slides.body
+    - field.field.node.slides.field_image
+    - node.type.slides
+  module:
+    - text
+    - user
+id: node.slides.content_browser
+targetEntityType: node
+bundle: slides
+mode: content_browser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  entity_print_view: true
+  field_image: true
+  langcode: true

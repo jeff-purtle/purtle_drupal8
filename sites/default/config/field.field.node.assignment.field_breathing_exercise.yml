@@ -1,0 +1,23 @@
+uuid: d4401031-fe41-4f0e-b485-235a852ba1b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_breathing_exercise
+    - node.type.assignment
+  module:
+    - options
+id: node.assignment.field_breathing_exercise
+field_name: field_breathing_exercise
+entity_type: node
+bundle: assignment
+label: 'Breathing Exercise'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '5 x 10'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,9 @@
+uuid: 6067b2b0-547e-4b3b-b7c7-882173579a3f
+langcode: en
+status: true
+dependencies: {  }
+name: 'Catalog Category'
+vid: catalog_category
+description: ''
+hierarchy: 0
+weight: 0

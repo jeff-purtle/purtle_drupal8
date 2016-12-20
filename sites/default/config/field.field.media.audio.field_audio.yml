@@ -1,0 +1,27 @@
+uuid: cdabbcaf-eba2-4438-b82a-026675afed7e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_audio
+    - media_entity.bundle.audio
+  module:
+    - file
+id: media.audio.field_audio
+field_name: field_audio
+entity_type: media
+bundle: audio
+label: field_audio
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'mp3 wav'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

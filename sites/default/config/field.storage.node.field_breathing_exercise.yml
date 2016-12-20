@@ -1,0 +1,60 @@
+uuid: fb4a9167-2f07-41e7-bb63-66fcf24ee9fa
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_breathing_exercise
+field_name: field_breathing_exercise
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '5 x 10'
+      label: '5 Sets Of 10'
+    -
+      value: '5 walking'
+      label: '5 Walking'
+    -
+      value: '6 walking'
+      label: '6 Walking'
+    -
+      value: '7 walking'
+      label: '7 Walking'
+    -
+      value: '8 walking'
+      label: '8 Walking'
+    -
+      value: '9 walking'
+      label: '9 Walking'
+    -
+      value: '10 walking'
+      label: '10 Walking'
+    -
+      value: '5 jogging'
+      label: '5 Jogging'
+    -
+      value: '6 jogging'
+      label: '6 Jogging'
+    -
+      value: '7 jogging'
+      label: '7 Jogging'
+    -
+      value: '8 jogging'
+      label: '8 Jogging'
+    -
+      value: '9 jogging'
+      label: '9 Jogging'
+    -
+      value: '10 jogging'
+      label: '10 Jogging'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

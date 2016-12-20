@@ -1,0 +1,21 @@
+uuid: 7a7d1c3a-7612-430d-8d47-4e2a1b029850
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+    - field.storage.contact_message.field_phone
+  module:
+    - telephone
+id: contact_message.feedback.field_phone
+field_name: field_phone
+entity_type: contact_message
+bundle: feedback
+label: Phone
+description: 'Please, leave a phone number with country code so we can call you if necessary.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

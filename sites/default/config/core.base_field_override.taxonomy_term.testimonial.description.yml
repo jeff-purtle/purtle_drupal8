@@ -1,0 +1,20 @@
+uuid: 958eef3c-9299-4dd7-be4b-86449ff754b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.testimonial
+  module:
+    - text
+id: taxonomy_term.testimonial.description
+field_name: description
+entity_type: taxonomy_term
+bundle: testimonial
+label: Description
+description: 'A description of the term.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

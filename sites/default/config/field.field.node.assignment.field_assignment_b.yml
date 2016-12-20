@@ -1,0 +1,19 @@
+uuid: 044323ec-1139-4b6f-b578-741270f91972
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_assignment_b
+    - node.type.assignment
+id: node.assignment.field_assignment_b
+field_name: field_assignment_b
+entity_type: node
+bundle: assignment
+label: B.
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,23 @@
+display:
+  default:
+    display_options:
+      empty:
+        area_text_custom:
+          content: '첫 화면에 표시할 콘텐츠를 아직 작성하지 않았습니다.'
+      exposed_form:
+        options:
+          submit_button: 적용
+          reset_button_label: 재설정
+          exposed_sorts_label: 정렬기준
+          sort_asc_label: Asc
+          sort_desc_label: 설명
+      pager:
+        options:
+          expose:
+            items_per_page_label: '페이지 당 항목 수'
+            items_per_page_options_all_label: '- 모두 -'
+    display_title: 마스터
+  feed_1:
+    display_title: 피드
+  page_1:
+    display_title: 페이지

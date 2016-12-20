@@ -1,0 +1,8 @@
+label: ترجمه
+tips:
+  locale-language:
+    label: 'ترحمه زبان'
+  locale-search:
+    label: جستجو
+  locale-translate:
+    label: ترجمه

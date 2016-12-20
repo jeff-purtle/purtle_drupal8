@@ -1,0 +1,23 @@
+uuid: 20818ef2-79b1-494b-a5e3-af37ccc3f8bc
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: private
+id: node.field_assignment_notes
+field_name: field_assignment_notes
+entity_type: node
+type: text_with_summary
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

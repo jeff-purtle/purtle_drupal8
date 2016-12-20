@@ -1,0 +1,31 @@
+uuid: ecce2df3-e829-4639-b85e-947c59dfe4f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.slideshow_testimonials
+  module:
+    - system
+    - views
+  theme:
+    - bartik
+id: views_block__slideshow_testimonials_block_1
+theme: bartik
+region: content
+weight: -4
+provider: null
+plugin: 'views_block:slideshow_testimonials-block_1'
+settings:
+  id: 'views_block:slideshow_testimonials-block_1'
+  label: Testimonials
+  provider: views
+  label_display: visible
+  views_label: Testimonials
+  items_per_page: none
+  pager: view
+visibility:
+  request_path:
+    id: request_path
+    pages: "/jeff\r\n"
+    negate: false
+    context_mapping: {  }

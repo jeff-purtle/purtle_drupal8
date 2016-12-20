@@ -1,0 +1,16 @@
+label: 言語
+tips:
+  language-overview:
+    label: 言語
+    body: '<p>「言語」ページではこのサイトの言語の追加と編集、削除、並び替えが行えます。</p>'
+  language-add:
+    label: 言語を追加
+    body: '<p>サイトに言語を追加するには「言語を追加」ボタンを押してください。</p><p>追加した言語は言語リストに表示され、編集や削除ができるようになります。</p>'
+  language-reorder:
+    label: 言語の順番を変更
+  language-default:
+    label: デフォルト言語を設定
+  language-operations:
+    label: 言語を変更
+  language-continue:
+    label: 続き

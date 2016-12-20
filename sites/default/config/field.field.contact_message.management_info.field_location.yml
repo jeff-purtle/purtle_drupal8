@@ -1,0 +1,21 @@
+uuid: daf859f9-22fc-4e19-8c4b-ee5a792abcd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.management_info
+    - field.storage.contact_message.field_location
+  module:
+    - geolocation
+id: contact_message.management_info.field_location
+field_name: field_location
+entity_type: contact_message
+bundle: management_info
+label: Location
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

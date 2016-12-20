@@ -1,0 +1,14 @@
+label: 编辑语言
+tips:
+  language-edit-overview:
+    label: 编辑语言
+    body: '<p>此页面让您编辑您站点上的语言，包括自定义的语言。</p>'
+  language-edit-langcode:
+    label: 语言代码
+    body: '<p>您不能改变站点中语言的代码，因为系统使用它来管理对应的语言。</p>'
+  language-edit-label:
+    label: 语言名称
+  language-edit-direction:
+    label: 语言方向
+  language-edit-continue:
+    label: 接下来

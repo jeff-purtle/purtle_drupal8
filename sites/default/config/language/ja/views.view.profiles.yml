@@ -1,0 +1,25 @@
+label: プロフィール
+display:
+  default:
+    display_title: マスター
+    display_options:
+      exposed_form:
+        options:
+          submit_button: 適用
+          reset_button_label: リセット
+          exposed_sorts_label: 並び替え基準
+          sort_asc_label: 昇順
+          sort_desc_label: 降順
+      arguments:
+        uid:
+          exception:
+            title: すべて
+        type:
+          exception:
+            title: すべて
+        status:
+          exception:
+            title: すべて
+      title: プロフィール
+  user_view:
+    display_title: 'ユーザー ビュー'

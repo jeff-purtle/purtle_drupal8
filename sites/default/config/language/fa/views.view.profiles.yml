@@ -1,0 +1,23 @@
+label: نمایه‌ها
+display:
+  default:
+    display_title: مدیر
+    display_options:
+      exposed_form:
+        options:
+          submit_button: اعمال
+          reset_button_label: بازنشانی
+          exposed_sorts_label: 'مرتب کن بر اساس'
+          sort_asc_label: صعودی
+          sort_desc_label: نزولی
+      arguments:
+        uid:
+          exception:
+            title: همه
+        type:
+          exception:
+            title: همه
+        status:
+          exception:
+            title: همه
+      title: نمایه‌ها

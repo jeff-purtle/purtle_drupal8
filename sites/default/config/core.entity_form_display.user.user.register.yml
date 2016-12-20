@@ -1,0 +1,92 @@
+uuid: c9fb35d3-0cf3-4d31-ba90-58e22431bbc0
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_form_mode.user.register
+    - field.field.user.user.field_birthdate
+    - field.field.user.user.field_full_name
+    - field.field.user.user.field_home_location
+    - field.field.user.user.field_last_location
+    - field.field.user.user.field_phone
+    - field.field.user.user.user_picture
+    - image.style.thumbnail
+  module:
+    - datetime
+    - geolocation
+    - image
+    - telephone
+    - user
+_core:
+  default_config_hash: LLAieeozVsoZDb-2PbFxRJpQqnKmpR7-4OoRJnduz-U
+id: user.user.register
+targetEntityType: user
+bundle: user
+mode: register
+content:
+  account:
+    weight: -10
+    settings: {  }
+    third_party_settings: {  }
+  contact:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  field_birthdate:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_home_location:
+    weight: 32
+    settings:
+      populate_address_field: null
+      target_address_field: null
+      google_map_settings:
+        type: ROADMAP
+        zoom: '10'
+        mapTypeControl: 1
+        streetViewControl: 1
+        zoomControl: 1
+        scrollwheel: 1
+        disableDoubleClickZoom: 0
+        draggable: 1
+        height: 400px
+        width: 100%
+        info_auto_display: 1
+        style: ''
+    third_party_settings: {  }
+    type: geolocation_googlegeocoder
+  field_last_location:
+    weight: 34
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_html5
+  field_phone:
+    weight: 35
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  google_analytics:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  language:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  user_picture:
+    type: image_image
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    weight: -1
+hidden:
+  field_full_name: true
+  path: true

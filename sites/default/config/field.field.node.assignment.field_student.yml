@@ -1,0 +1,25 @@
+uuid: a708061a-6e86-49bc-8ed2-562a148b4d2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_student
+    - node.type.assignment
+id: node.assignment.field_student
+field_name: field_student
+entity_type: node
+bundle: assignment
+label: Student
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: entity_reference_view_test
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

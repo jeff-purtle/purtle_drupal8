@@ -1,0 +1,12 @@
+uuid: c8d1bf4c-72e6-488d-9102-9b345546ba03
+langcode: en
+status: false
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: DTTTZsL_FYw0CKqEdoFF5XZUhZvn74WyY480W-O_Xjg
+id: node.revision
+label: Revision
+targetEntityType: node
+cache: true

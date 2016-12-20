@@ -1,0 +1,26 @@
+display:
+  default:
+    display_options:
+      empty:
+        area_text_custom:
+          content: 'هنوز هیج محتوایی برای صفحه اول ایجاد نشده است.'
+        title:
+          title: 'به [site:name] خوش‌‌آمدید'
+      exposed_form:
+        options:
+          submit_button: اعمال
+          reset_button_label: بازنشانی
+          exposed_sorts_label: 'مرتب کن بر اساس'
+          sort_asc_label: صعودی
+          sort_desc_label: نزولی
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'آیتم‌ها در هر صفحه'
+            items_per_page_options_all_label: '- همه -'
+            offset_label: جابجایی
+    display_title: مدیر
+  feed_1:
+    display_title: خوراک
+  page_1:
+    display_title: صفحه

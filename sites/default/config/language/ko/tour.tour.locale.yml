@@ -1,0 +1,6 @@
+label: 번역
+tips:
+  locale-search:
+    label: 찾기
+  locale-translate:
+    label: 번역
