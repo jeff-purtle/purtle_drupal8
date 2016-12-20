@@ -6,7 +6,6 @@ dependencies:
     - field.storage.node.field_full_name
     - field.storage.node.field_student
   module:
-    - null
     - node
     - user
 id: entity_reference_search
