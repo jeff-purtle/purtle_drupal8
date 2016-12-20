@@ -137,7 +137,7 @@ function template_preprocess_superfish_menu_items(array &$variables) {
         }
 
         // Adding the necessary "active-trail" class.
-        if (($menu_item->link->getUrlObject()->getRouteName() == '<front>' && \Drupal::service('path.matcher')->isFrontPage()) || array_key_exists($item['id'], $active_trails) || $item['inActiveTrail']) {
+        if (($menu_item->link->getUrlObject()->isRouted() !== FALSE && $menu_item->link->getUrlObject()->getRouteName() == '<front>' && \Drupal::service('path.matcher')->isFrontPage()) || array_key_exists($item['id'], $active_trails) || $item['inActiveTrail']) {
           $item_class[] = 'active-trail';
         }
       }
