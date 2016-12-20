@@ -63,11 +63,6 @@ content:
         style: ''
     third_party_settings: {  }
     type: geolocation_googlegeocoder
-  field_last_location:
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    type: geolocation_html5
   field_phone:
     weight: 3
     settings:
@@ -94,4 +89,6 @@ content:
     third_party_settings: {  }
     weight: 5
 hidden:
+  field_last_location: true
+  langcode: true
   path: true
