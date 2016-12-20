@@ -1,0 +1,7 @@
+entity_print_views.view:
+  path: 'entityprint/view/{export_type}/{view_name}/{display_id}'
+  defaults:
+    _controller: '\Drupal\entity_print_views\Controller\ViewPrintController::viewPrint'
+    _title: 'Entity Print Views'
+  requirements:
+    _custom_access: '\Drupal\entity_print_views\Controller\ViewPrintController::checkAccess'
