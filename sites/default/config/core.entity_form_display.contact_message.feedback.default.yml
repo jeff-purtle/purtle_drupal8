@@ -1,0 +1,59 @@
+uuid: a9a9094e-5ac6-4f64-afcd-9be87c53e7cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+    - field.field.contact_message.feedback.field_location
+    - field.field.contact_message.feedback.field_phone
+  module:
+    - geolocation
+    - telephone
+id: contact_message.feedback.default
+targetEntityType: contact_message
+bundle: feedback
+mode: default
+content:
+  copy:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+  field_location:
+    weight: 52
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_html5
+  field_phone:
+    weight: 51
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  mail:
+    weight: -40
+    settings: {  }
+    third_party_settings: {  }
+  message:
+    type: string_textarea
+    weight: 0
+    settings:
+      rows: 12
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    weight: -50
+    settings: {  }
+    third_party_settings: {  }
+  subject:
+    type: string_textfield
+    weight: -10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

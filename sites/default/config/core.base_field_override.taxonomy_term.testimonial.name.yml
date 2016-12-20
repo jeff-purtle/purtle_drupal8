@@ -1,0 +1,18 @@
+uuid: d742c485-3dbc-42c0-acfd-a56f4d7c0ae4
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.testimonial
+id: taxonomy_term.testimonial.name
+field_name: name
+entity_type: taxonomy_term
+bundle: testimonial
+label: Name
+description: 'The term name.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

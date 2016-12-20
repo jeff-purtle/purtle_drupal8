@@ -1,0 +1,22 @@
+uuid: 9be28e0e-66ae-40ec-bdd4-ea5a3b7abf08
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_assignment_notes
+    - node.type.assignment
+  module:
+    - text
+id: node.assignment.field_assignment_notes
+field_name: field_assignment_notes
+entity_type: node
+bundle: assignment
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

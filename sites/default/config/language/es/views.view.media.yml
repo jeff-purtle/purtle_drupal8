@@ -1,0 +1,70 @@
+label: Multimedia
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Reiniciar
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '— Todo(s) —'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ Previous'
+            next: 'Siguiente ›'
+            first: '« First'
+            last: 'Last »'
+      fields:
+        thumbnail__target_id:
+          label: Miniatura
+          separator: ', '
+        name:
+          separator: ', '
+        bundle:
+          label: Proveedor
+          separator: ', '
+        uid:
+          label: Autor
+          separator: ', '
+        status:
+          label: Estado
+          separator: ', '
+        changed:
+          label: Actualizado
+          separator: ', '
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Verdadero
+          group_info:
+            label: 'Estado de publicación'
+            group_items:
+              1:
+                title: Publicado
+                value: '1'
+              2:
+                title: 'No publicado'
+        bundle:
+          expose:
+            label: Proveedor
+        langcode:
+          expose:
+            label: Idioma
+      title: Multimedia
+      empty:
+        area_text_custom:
+          content: 'No content available.'
+  media_page_list:
+    display_title: Multimedia
+    display_options:
+      menu:
+        title: Multimedia

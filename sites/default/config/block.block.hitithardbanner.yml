@@ -1,0 +1,38 @@
+uuid: 20ff0a32-64d3-48de-960e-cd4719008b4e
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:1db4174a-25cf-4d6c-af6e-4c4442590294'
+  module:
+    - block_content
+    - ctools
+    - system
+  theme:
+    - bartik
+id: hitithardbanner
+theme: bartik
+region: '-1'
+weight: -7
+provider: null
+plugin: 'block_content:1db4174a-25cf-4d6c-af6e-4c4442590294'
+settings:
+  id: 'block_content:1db4174a-25cf-4d6c-af6e-4c4442590294'
+  label: 'Hit It Hard Banner'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    bundles:
+      basic: basic
+    negate: false
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: ''
+    negate: true
+    context_mapping: {  }

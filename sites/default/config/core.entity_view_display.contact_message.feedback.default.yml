@@ -1,0 +1,40 @@
+uuid: 8d545d16-fd53-4fcb-8005-64986a6739bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+    - field.field.contact_message.feedback.field_location
+    - field.field.contact_message.feedback.field_phone
+  module:
+    - geolocation
+    - telephone
+id: contact_message.feedback.default
+targetEntityType: contact_message
+bundle: feedback
+mode: default
+content:
+  field_location:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_phone:
+    weight: 1
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+  message:
+    type: basic_string
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

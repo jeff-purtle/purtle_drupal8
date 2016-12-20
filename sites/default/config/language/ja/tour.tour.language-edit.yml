@@ -1,0 +1,11 @@
+label: 言語を編集
+tips:
+  language-edit-overview:
+    label: 言語を編集
+    body: '<p>このページではあなたのサイトの言語（カスタム言語も含む）を編集することができます。</p>'
+  language-edit-langcode:
+    label: 言語コード
+  language-edit-label:
+    label: 言語名
+  language-edit-continue:
+    label: 続き

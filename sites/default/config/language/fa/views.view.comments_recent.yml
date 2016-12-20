@@ -1,0 +1,13 @@
+label: 'دیدگاه‌های اخیر'
+display:
+  default:
+    display_title: مدیر
+    display_options:
+      title: 'دیدگاه‌های اخیر'
+      empty:
+        area_text_custom:
+          content: 'هیچ دیدگاه‌هایی در دسترس نیست.'
+  block_1:
+    display_title: بلوک
+    display_options:
+      block_description: 'دیدگاه‌های اخیر'

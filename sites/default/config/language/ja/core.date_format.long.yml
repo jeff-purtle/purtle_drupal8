@@ -1,0 +1,2 @@
+label: デフォルトの長い日付
+pattern: 'I, F j, Y - H:i'

@@ -1,0 +1,85 @@
+uuid: 37051785-b348-45b5-8beb-42ef0a4aaf85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.testimonial.body
+    - field.field.node.testimonial.field_bio
+    - field.field.node.testimonial.field_category
+    - field.field.node.testimonial.field_image
+    - field.field.node.testimonial.field_location
+    - field.field.node.testimonial.field_name
+    - image.style.medium
+    - node.type.testimonial
+  module:
+    - geolocation
+    - image
+    - text
+    - user
+id: node.testimonial.default
+targetEntityType: node
+bundle: testimonial
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  field_bio:
+    weight: 6
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_category:
+    weight: 7
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_image:
+    weight: 2
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_location:
+    weight: 4
+    label: hidden
+    settings:
+      title: ''
+      info_text: ''
+      google_map_settings:
+        type: ROADMAP
+        zoom: '10'
+        mapTypeControl: 1
+        streetViewControl: 1
+        zoomControl: 1
+        scrollwheel: 1
+        disableDoubleClickZoom: 0
+        draggable: 1
+        height: 400px
+        width: 100%
+        info_auto_display: 1
+        style: ''
+    third_party_settings: {  }
+    type: geolocation_map
+  field_name:
+    weight: 3
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view: true
+  langcode: true

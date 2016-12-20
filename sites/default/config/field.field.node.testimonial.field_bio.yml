@@ -1,0 +1,21 @@
+uuid: 750bef69-a390-40eb-bbaa-962f52326def
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bio
+    - node.type.testimonial
+  module:
+    - text
+id: node.testimonial.field_bio
+field_name: field_bio
+entity_type: node
+bundle: testimonial
+label: Bio
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

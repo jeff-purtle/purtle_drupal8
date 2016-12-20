@@ -1,0 +1,30 @@
+uuid: 0ab8bfbe-21cf-4734-9354-e52766c1fef0
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.slides_store
+  module:
+    - system
+    - views
+  theme:
+    - bartik
+id: views_block__slides_store_block_1
+theme: bartik
+region: content
+weight: -5
+provider: null
+plugin: 'views_block:slides_store-block_1'
+settings:
+  id: 'views_block:slides_store-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /store
+    negate: false
+    context_mapping: {  }

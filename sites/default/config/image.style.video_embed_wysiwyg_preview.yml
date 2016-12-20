@@ -1,0 +1,17 @@
+uuid: 06fc3e01-f71b-4626-8b7d-f4f7856e3888
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: gjTk7RTXnuUkaUQ2IJznrK2q0hHLrBdKjSYWoXxI9rk
+name: video_embed_wysiwyg_preview
+label: 'Video Embed Wysiwyg: Thumbnail Preview'
+effects:
+  ba339f97-d07b-476d-9058-6c86c78329a1:
+    uuid: ba339f97-d07b-476d-9058-6c86c78329a1
+    id: image_scale
+    weight: 1
+    data:
+      width: null
+      height: 270
+      upscale: false

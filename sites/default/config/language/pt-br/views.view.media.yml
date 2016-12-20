@@ -1,0 +1,64 @@
+label: Mídia
+display:
+  default:
+    display_title: Principal
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Reiniciar
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Ascendente
+          sort_desc_label: Decrescente
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Itens por página'
+            items_per_page_options_all_label: '- Tudo -'
+            offset_label: Offset
+      fields:
+        thumbnail__target_id:
+          label: Miniatura
+          separator: ', '
+        name:
+          separator: ', '
+        bundle:
+          label: Provedor
+          separator: ', '
+        uid:
+          label: Autor
+          separator: ', '
+        status:
+          label: Status
+          separator: ', '
+        changed:
+          label: Atualizado
+          separator: ', '
+        operations:
+          label: Operações
+      filters:
+        status:
+          expose:
+            label: Verdadeiro
+          group_info:
+            group_items:
+              1:
+                title: Publicado
+                value: '1'
+              2:
+                title: 'Não publicado'
+        bundle:
+          expose:
+            label: Provedor
+        langcode:
+          expose:
+            label: Idioma
+      title: Mídia
+      empty:
+        area_text_custom:
+          content: 'Sem conteúdo disponivel.'
+  media_page_list:
+    display_title: Mídia
+    display_options:
+      menu:
+        title: Mídia

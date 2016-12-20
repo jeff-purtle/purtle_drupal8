@@ -1,0 +1,41 @@
+uuid: 41952d87-affd-4475-9d57-86aa91f5ee53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.book.body
+    - field.field.node.book.field_image
+    - image.style.medium
+    - node.type.book
+  module:
+    - image
+    - text
+    - user
+_core:
+  default_config_hash: 7UKHHzhlAE0hzKaKG_KHqUXXOp85mAQ1nZTOep8quTc
+id: node.book.default
+targetEntityType: node
+bundle: book
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: content
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view: true
+  langcode: true

@@ -1,0 +1,32 @@
+uuid: bd81d947-675b-4267-b5c2-ef3f22788b9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.audio.body
+    - field.field.node.audio.field_audio
+    - node.type.audio
+  module:
+    - text
+    - user
+id: node.audio.teaser
+targetEntityType: node
+bundle: audio
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_audio: true
+  langcode: true

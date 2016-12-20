@@ -1,0 +1,21 @@
+uuid: 0e8bb92d-e645-46f0-b9da-d42bf0d30edd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_home_location
+  module:
+    - geolocation
+    - user
+id: user.user.field_home_location
+field_name: field_home_location
+entity_type: user
+bundle: user
+label: 'Home Location'
+description: 'Enter your home address in the box below labeled "Enter a location" then click the find icon.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

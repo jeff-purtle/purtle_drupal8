@@ -1,0 +1,20 @@
+uuid: 1a0f4610-01ba-49cc-88ec-1a86978f3852
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.catalog_category
+  module:
+    - text
+id: taxonomy_term.catalog_category.description
+field_name: description
+entity_type: taxonomy_term
+bundle: catalog_category
+label: Description
+description: 'A description of the term.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

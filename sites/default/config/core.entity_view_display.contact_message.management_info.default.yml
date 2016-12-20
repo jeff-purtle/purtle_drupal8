@@ -1,0 +1,37 @@
+uuid: 6e8070b2-89e6-4223-9d39-b2497aa7b39a
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.management_info
+    - field.field.contact_message.management_info.field_location
+    - field.field.contact_message.management_info.field_phone
+  module:
+    - geolocation
+    - telephone
+id: contact_message.management_info.default
+targetEntityType: contact_message
+bundle: management_info
+mode: default
+content:
+  field_location:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_phone:
+    weight: 2
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+  message:
+    type: basic_string
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view: true
