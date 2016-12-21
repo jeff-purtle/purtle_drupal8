@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
     - field.field.node.assignment.field_full_name
-    - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
     - node.type.assignment
   module:
@@ -128,12 +127,6 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
-  field_private_text_field:
-    weight: 11
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
   field_student:
     weight: 1
     label: above
