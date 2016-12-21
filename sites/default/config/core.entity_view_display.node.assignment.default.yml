@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
     - field.field.node.assignment.field_full_name
+    - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
     - node.type.assignment
   module:
@@ -53,6 +54,7 @@ third_party_settings:
         - field_assignment_2
         - field_assignment_3
         - field_assignment_notes
+        - field_private_text_field
       right:
         - field_date
 id: node.assignment.default
@@ -65,55 +67,55 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_assignment_1:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_2:
-    weight: 9
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_3:
-    weight: 10
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_a:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_b:
-    weight: 5
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_c:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_assignment_d:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_assignment_2:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_3:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_a:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_b:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_c:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_d:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_assignment_notes:
-    weight: 13
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_breathing_exercise:
-    weight: 3
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -126,15 +128,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
-  field_full_name:
-    weight: 14
+  field_private_text_field:
+    weight: 11
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: text_default
   field_student:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link: true
@@ -148,4 +149,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_full_name: true
   langcode: true

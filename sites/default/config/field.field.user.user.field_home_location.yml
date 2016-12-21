@@ -13,7 +13,7 @@ entity_type: user
 bundle: user
 label: 'Home Location'
 description: 'Enter your home address in the box below labeled "Enter a location" then click the find icon.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

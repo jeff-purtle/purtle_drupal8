@@ -14,9 +14,11 @@ dependencies:
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
     - field.field.node.assignment.field_full_name
+    - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
     - node.type.assignment
   module:
+    - content_moderation
     - datetime
     - path
     - text
@@ -105,6 +107,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  field_private_text_field:
+    weight: 27
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_student:
     weight: 1
     settings:
