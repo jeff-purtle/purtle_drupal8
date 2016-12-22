@@ -19,6 +19,7 @@ dependencies:
   module:
     - datetime
     - ds
+    - entity_print
     - options
     - text
     - user
@@ -52,10 +53,14 @@ third_party_settings:
         - field_assignment_1
         - field_assignment_2
         - field_assignment_3
+        - entity_print_view_pdf
         - field_assignment_notes
-        - field_private_text_field
       right:
         - field_date
+  entity_print:
+    pdf_label: 'View PDF'
+    epub_label: 'View EPub'
+    word_docx_label: 'View Word Document'
 id: node.assignment.default
 targetEntityType: node
 bundle: assignment
@@ -63,6 +68,10 @@ mode: default
 content:
   entity_print_view:
     weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  entity_print_view_pdf:
+    weight: 10
     settings: {  }
     third_party_settings: {  }
   field_assignment_1:
@@ -108,7 +117,7 @@ content:
     third_party_settings: {  }
     type: basic_string
   field_assignment_notes:
-    weight: 10
+    weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -140,7 +149,6 @@ content:
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
-  entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_full_name: true
   langcode: true

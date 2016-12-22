@@ -14,17 +14,37 @@ dependencies:
     - field.field.node.assignment.field_assignment_notes
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
+    - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_student
     - node.type.assignment
   module:
     - datetime
+    - entity_print
     - options
+    - text
     - user
+third_party_settings:
+  entity_print:
+    pdf_label: 'View PDF'
+    epub_label: 'View EPub'
+    word_docx_label: 'View Word Document'
 id: node.assignment.print
 targetEntityType: node
 bundle: assignment
 mode: print
 content:
+  entity_print_view_epub:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  entity_print_view_pdf:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  entity_print_view_word_docx:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
   field_assignment_1:
     weight: 6
     label: above
@@ -67,6 +87,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_assignment_notes:
+    type: text_summary_or_trimmed
+    weight: 0
+    label: above
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
   field_breathing_exercise:
     weight: 1
     label: above
@@ -81,6 +108,13 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+  field_full_name:
+    type: entity_reference_label
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   field_student:
     weight: 0
     label: above
@@ -102,7 +136,3 @@ content:
     third_party_settings: {  }
 hidden:
   entity_print_view: true
-  entity_print_view_epub: true
-  entity_print_view_pdf: true
-  entity_print_view_word_docx: true
-  field_assignment_notes: true
