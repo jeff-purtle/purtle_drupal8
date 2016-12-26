@@ -56,21 +56,12 @@ third_party_settings:
         - field_assignment_3
         - entity_print_view_pdf
         - field_assignment_notes
-<<<<<<< HEAD
         - field_private_text_field
         - entity_print_view_pdf
       right:
         - field_date
   entity_print:
     pdf_label: 'Download PDF'
-=======
-      right:
-        - field_date
-  entity_print:
-    pdf_label: 'View PDF'
-    epub_label: 'View EPub'
-    word_docx_label: 'View Word Document'
->>>>>>> 35896b34edb1e82b8593588967441ab2ac39a9f5
 id: node.assignment.default
 targetEntityType: node
 bundle: assignment
@@ -81,11 +72,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   entity_print_view_pdf:
-<<<<<<< HEAD
     weight: 12
-=======
-    weight: 10
->>>>>>> 35896b34edb1e82b8593588967441ab2ac39a9f5
     settings: {  }
     third_party_settings: {  }
   field_assignment_1:
