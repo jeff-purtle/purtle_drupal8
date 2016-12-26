@@ -15,7 +15,10 @@ name: Bartik
 type: theme
 base theme: classy
 description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout.'
-package: Core
+package: Entity Print
+entity_print:
+  node:
+    all: bartik/print-styling
 # version: VERSION
 # core: 8.x
 libraries:

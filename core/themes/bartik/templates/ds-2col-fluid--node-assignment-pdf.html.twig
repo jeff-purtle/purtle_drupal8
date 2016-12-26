@@ -1,0 +1,133 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {{ entity_print_css }}
+  <style>
+/*.assignment-date  {
+    float:right;
+  }*/
+  .assignment-footer img{
+    position: absolute;
+    bottom: 7%;
+    width: 100%;
+  }
+  .page{
+    position:relative;
+    padding:0 40px;
+  }
+.assignment-date {
+  display: inline-block;
+  width:60%;
+  color:black;
+  position: absolute;
+  right:9%;
+  color:black!important;
+}
+.logo-img {
+  position: absolute;
+  top: -1%;
+  right: 0%;
+}
+.student-name {
+  display: inline;
+}
+.student-name .field__label{
+  width:10%;
+  display: inline;
+  float:left;
+  color:black!important;
+}
+.student-name .field__item{
+  color:red;
+  width:20%;
+  display: inline;
+}
+.field__label{
+  color:blue;
+  width:10%;
+  display: inline;
+  float:left;
+}
+.field__item{
+  color:black;
+  width:90%;
+  text-align: justify;
+  display: inline;
+  color:black!important;
+}
+.student-name a{
+  text-decoration: none!important;
+  color:black!important;
+  cursor: default;
+  width: 200px;
+  display: inline;
+}
+.clear{
+  clear:both;
+}
+.assignment-field{
+  margin-top: 30px;
+}
+.breathing-exercise {
+  width:200px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+.breathing-exercise .field__label{
+ display:block!important;
+ clear:both;
+}
+.breathing-exercise .field__item{
+ display:block!important;
+ clear:both;
+
+}
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="student-name">
+{{ content.field_student }}
+</div>
+<div class="assignment-date">
+{{ content.field_date }}
+</div>
+<div class="clear">
+</div>
+<div class="logo-img">
+  <img src="/purttle/core/themes/bartik/pdflogo.png"/>
+</div>
+<div class="clear">
+</div>
+<div class="breathing-exercise">
+{{ content.field_breathing_exercise }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_a }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_b }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_c }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_d }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_1 }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_2 }}
+</div>
+<div class="assignment-field">
+{{ content.field_assignment_3 }}
+</div>
+<div class="assignment-footer">
+  <img src="/purttle/sites/default/files/footer.png">
+</div>
+</div>
+</div>
+</body>
+</html>

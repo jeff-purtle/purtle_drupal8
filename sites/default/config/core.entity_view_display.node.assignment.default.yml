@@ -14,11 +14,13 @@ dependencies:
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
     - field.field.node.assignment.field_full_name
+    - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
     - node.type.assignment
   module:
     - datetime
     - ds
+    - entity_print
     - options
     - text
     - user
@@ -54,8 +56,11 @@ third_party_settings:
         - field_assignment_3
         - field_assignment_notes
         - field_private_text_field
+        - entity_print_view_pdf
       right:
         - field_date
+  entity_print:
+    pdf_label: 'Download PDF'
 id: node.assignment.default
 targetEntityType: node
 bundle: assignment
@@ -63,6 +68,10 @@ mode: default
 content:
   entity_print_view:
     weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  entity_print_view_pdf:
+    weight: 12
     settings: {  }
     third_party_settings: {  }
   field_assignment_1:
@@ -120,13 +129,19 @@ content:
     third_party_settings: {  }
     type: list_default
   field_date:
-    weight: 12
+    weight: 13
     label: above
     settings:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+  field_private_text_field:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_student:
     weight: 1
     label: above
@@ -140,7 +155,6 @@ content:
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
-  entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_full_name: true
   langcode: true
