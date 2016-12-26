@@ -81,33 +81,11 @@ display:
           summary: ''
           description: ''
           columns:
-            node_bulk_form: node_bulk_form
             title: title
-            field_student: field_student
-            field_full_name: field_full_name
             field_date: field_date
             created: created
           info:
-            node_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_student:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_full_name:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -128,7 +106,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: created
+          default: title
           empty_table: false
       row:
         type: 'entity:node'

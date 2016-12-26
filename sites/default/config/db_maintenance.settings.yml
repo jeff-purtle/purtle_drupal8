@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 cron_last_run: 1482401046
+=======
+cron_last_run: 1482402203
+>>>>>>> 35896b34edb1e82b8593588967441ab2ac39a9f5
 cron_frequency: 604800
 use_time_interval: false
 time_interval_start: '01:30'
