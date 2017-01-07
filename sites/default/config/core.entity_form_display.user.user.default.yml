@@ -6,11 +6,15 @@ dependencies:
     - field.field.user.user.field_birthdate
     - field.field.user.user.field_full_name
     - field.field.user.user.field_home_location
+    - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
+    - field.field.user.user.field_name
     - field.field.user.user.field_phone
+    - field.field.user.user.field_tokentest
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
+    - address
     - datetime
     - geolocation
     - image
@@ -44,25 +48,16 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_home_location:
+    type: geolocation_latlng
     weight: 9
-    settings:
-      populate_address_field: null
-      target_address_field: null
-      google_map_settings:
-        type: ROADMAP
-        zoom: '10'
-        mapTypeControl: 1
-        streetViewControl: 1
-        zoomControl: 1
-        scrollwheel: 1
-        disableDoubleClickZoom: 0
-        draggable: 1
-        height: 400px
-        width: 100%
-        info_auto_display: 1
-        style: ''
+    settings: {  }
     third_party_settings: {  }
-    type: geolocation_googlegeocoder
+  field_ime_prezime:
+    weight: 10
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
   field_phone:
     weight: 3
     settings:
@@ -90,5 +85,7 @@ content:
     weight: 5
 hidden:
   field_last_location: true
+  field_name: true
+  field_tokentest: true
   langcode: true
   path: true

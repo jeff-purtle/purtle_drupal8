@@ -1,0 +1,35 @@
+uuid: 591f88e0-2830-43ea-8c57-bf19a6b52666
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_ime_prezime
+  module:
+    - address
+    - user
+id: user.user.field_ime_prezime
+field_name: field_ime_prezime
+entity_type: user
+bundle: user
+label: 'Ime prezime'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    givenName: givenName
+    familyName: familyName
+    administrativeArea: '0'
+    locality: '0'
+    dependentLocality: '0'
+    postalCode: '0'
+    sortingCode: '0'
+    addressLine1: '0'
+    addressLine2: '0'
+    organization: '0'
+    additionalName: '0'
+  langcode_override: ''
+field_type: address

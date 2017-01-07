@@ -6,11 +6,15 @@ dependencies:
     - field.field.user.user.field_birthdate
     - field.field.user.user.field_full_name
     - field.field.user.user.field_home_location
+    - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
+    - field.field.user.user.field_name
     - field.field.user.user.field_phone
+    - field.field.user.user.field_tokentest
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
+    - address
     - datetime
     - geolocation
     - image
@@ -59,6 +63,12 @@ content:
       info_text: ''
     third_party_settings: {  }
     type: geolocation_map
+  field_ime_prezime:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
   field_last_location:
     weight: 6
     label: above
@@ -80,6 +90,12 @@ content:
         style: ''
     third_party_settings: {  }
     type: geolocation_map
+  field_name:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
   field_phone:
     weight: 4
     label: above
@@ -104,4 +120,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_tokentest: true
   langcode: true

@@ -1,0 +1,35 @@
+uuid: 1d54b4ab-6b9d-4031-9380-cbc029150aed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_name
+  module:
+    - address
+    - user
+id: user.user.field_name
+field_name: field_name
+entity_type: user
+bundle: user
+label: KURAC
+description: 'Enter full name here.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  fields:
+    givenName: givenName
+    familyName: familyName
+    administrativeArea: '0'
+    locality: '0'
+    dependentLocality: '0'
+    postalCode: '0'
+    sortingCode: '0'
+    addressLine1: '0'
+    addressLine2: '0'
+    organization: '0'
+    additionalName: '0'
+  langcode_override: ''
+field_type: address

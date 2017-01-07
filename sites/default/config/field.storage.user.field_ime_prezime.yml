@@ -1,0 +1,23 @@
+uuid: 4d539390-63f8-4006-9a1c-0519e50555dd
+langcode: en
+status: true
+dependencies:
+  module:
+    - address
+    - field_permissions
+    - user
+third_party_settings:
+  field_permissions:
+    permission_type: private
+id: user.field_ime_prezime
+field_name: field_ime_prezime
+entity_type: user
+type: address
+settings: {  }
+module: address
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

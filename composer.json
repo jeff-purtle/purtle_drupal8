@@ -6,7 +6,9 @@
     "require": {
         "composer/installers": "^1.0.21",
         "wikimedia/composer-merge-plugin": "~1.3",
-        "dompdf/dompdf": "0.7.0-beta3"
+        "dompdf/dompdf": "0.7.0-beta3",
+        "drupal/address": "^1.0@RC",
+        "drupal/token_filter": "^1.0@beta"
     },
     "replace": {
         "drupal/core": "~8.2"
@@ -41,5 +43,11 @@
         "post-autoload-dump": "Drupal\\Core\\Composer\\Composer::ensureHtaccess",
         "post-package-install": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
         "post-package-update": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup"
+    },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
     }
 }

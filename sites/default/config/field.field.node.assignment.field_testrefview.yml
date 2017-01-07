@@ -1,0 +1,25 @@
+uuid: b7a716be-f79a-49e7-9e50-c5c1a7ef710c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_testrefview
+    - node.type.assignment
+id: node.assignment.field_testrefview
+field_name: field_testrefview
+entity_type: node
+bundle: assignment
+label: TestRefView
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: first_and_last_name
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

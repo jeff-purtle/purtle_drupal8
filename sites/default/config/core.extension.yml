@@ -1,6 +1,7 @@
 module:
   acl: 0
   action: 0
+  address: 0
   admin_toolbar: 0
   admin_toolbar_tools: 0
   aggregator: 0
@@ -69,6 +70,7 @@ module:
   locale: 0
   media_entity: 0
   media_entity_audio: 0
+  media_entity_image: 0
   menu_ui: 0
   node: 0
   node_clone: 0
@@ -93,6 +95,7 @@ module:
   terms_of_use: 0
   text: 0
   token: 0
+  token_filter: 0
   toolbar: 0
   tour: 0
   tracker: 0
