@@ -137,3 +137,4 @@ content:
 hidden:
   entity_print_view: true
   field_private_text_field: true
+  field_testrefview: true

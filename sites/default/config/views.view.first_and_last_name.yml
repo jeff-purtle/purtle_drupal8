@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_tokentest
+    - field.storage.user.field_ime_prezime
   module:
-    - text
+    - address
     - user
 id: first_and_last_name
 label: 'First and Last name'
@@ -80,18 +80,18 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
-        field_tokentest:
-          id: field_tokentest
-          table: user__field_tokentest
-          field: field_tokentest
+        field_ime_prezime:
+          id: field_ime_prezime
+          table: user__field_ime_prezime
+          field: field_ime_prezime
           relationship: none
           group_type: group
           admin_label: ''
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '{{ field_ime_prezime__given_name }}  {{ field_ime_prezime__family_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -128,10 +128,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: text_default
+          click_sort_column: langcode
+          type: address_default
           settings: {  }
-          group_column: value
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -158,7 +158,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_tokentest'
+        - 'config:field.storage.user.field_ime_prezime'
   block_1:
     display_plugin: block
     id: block_1
@@ -174,7 +174,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_tokentest'
+        - 'config:field.storage.user.field_ime_prezime'
   entity_reference_1:
     display_plugin: entity_reference
     id: entity_reference_1
@@ -186,7 +186,7 @@ display:
         type: entity_reference
         options:
           search_fields:
-            field_tokentest: field_tokentest
+            field_ime_prezime: field_ime_prezime
       pager:
         type: none
         options:
@@ -199,4 +199,4 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_tokentest'
+        - 'config:field.storage.user.field_ime_prezime'

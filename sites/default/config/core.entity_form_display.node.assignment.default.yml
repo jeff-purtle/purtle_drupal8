@@ -21,6 +21,7 @@ dependencies:
   module:
     - content_moderation
     - datetime
+    - entity_reference_views_select
     - path
     - text
 id: node.assignment.default
@@ -117,12 +118,9 @@ content:
     type: text_textarea
   field_testrefview:
     weight: 26
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: erviews_options_buttons
   path:
     type: path
     weight: 14

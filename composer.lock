@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "86ae29c5fdc323bb7bcb190ea4523531",
-    "content-hash": "31d71eca6848aae1fee0a13faf800ca3",
+    "hash": "7ac0a5e3230cc6f7c8b817280c3333e7",
+    "content-hash": "5c14e167ffd0f341e3258998c85ce6d0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -926,6 +926,53 @@
             }
         },
         {
+            "name": "drupal/entity_reference_views_select",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/entity_reference_views_select",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_views_select-8.x-1.1.zip",
+                "reference": null,
+                "shasum": "762fc09044b2a86ab1a415adb45bcc2b83314238"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1462746239"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bertrama",
+                    "homepage": "https://www.drupal.org/user/343472"
+                },
+                {
+                    "name": "el1_1el",
+                    "homepage": "https://www.drupal.org/user/1795292"
+                }
+            ],
+            "description": "Entity Reference Views displayed as a select list, checkboxes or radio buttons in forms",
+            "homepage": "https://www.drupal.org/project/entity_reference_views_select",
+            "support": {
+                "source": "http://cgit.drupalcode.org/entity_reference_views_select"
+            }
+        },
+        {
             "name": "drupal/token",
             "version": "1.0.0-rc1",
             "source": {
@@ -1000,7 +1047,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/token_filter-8.x-1.0-beta1.zip",
-                "reference": null,
+                "reference": "8.x-1.0-beta1",
                 "shasum": "a5fa4eef46cf410353315dbb348bc99669b54b9a"
             },
             "require": {
