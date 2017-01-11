@@ -312,43 +312,6 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        uid_current:
-          id: uid_current
-          table: users
-          field: uid_current
-          relationship: field_student
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         title:
           id: title
           table: node_field_data
@@ -391,6 +354,43 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: string
+        uid_current_1:
+          id: uid_current_1
+          table: users
+          field: uid_current
+          relationship: field_student_s_first_and_last_n
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: user
+          plugin_id: user_current
       sorts:
         field_date_value:
           id: field_date_value
@@ -425,23 +425,13 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        reverse__node__field_full_name:
-          id: reverse__node__field_full_name
-          table: node_field_data
-          field: reverse__node__field_full_name
+        field_student_s_first_and_last_n:
+          id: field_student_s_first_and_last_n
+          table: node__field_student_s_first_and_last_n
+          field: field_student_s_first_and_last_n
           relationship: none
           group_type: group
-          admin_label: field_full_name
-          required: false
-          entity_type: node
-          plugin_id: entity_reverse
-        field_student:
-          id: field_student
-          table: node__field_student
-          field: field_student
-          relationship: none
-          group_type: group
-          admin_label: 'field_student: User'
+          admin_label: 'field_student_s_first_and_last_n: User'
           required: true
           plugin_id: standard
       arguments:

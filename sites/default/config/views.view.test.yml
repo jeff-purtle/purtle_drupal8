@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_ime_prezime
+    - field.storage.user.field_first_and_last_name
     - node.type.assignment
     - user.role.administrator
   module:
@@ -147,18 +147,18 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_ime_prezime:
-          id: field_ime_prezime
-          table: user__field_ime_prezime
-          field: field_ime_prezime
-          relationship: field_testrefview
+        field_first_and_last_name:
+          id: field_first_and_last_name
+          table: user__field_first_and_last_name
+          field: field_first_and_last_name
+          relationship: field_student_s_first_and_last_n
           group_type: group
           admin_label: ''
-          label: 'Ime prezime'
+          label: 'First and Last name'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_ime_prezime__given_name }} {{ field_ime_prezime__family_name }}'
+            text: '{{ field_first_and_last_name__given_name }} {{ field_first_and_last_name__family_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -230,11 +230,11 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_ime_prezime_given_name:
-          id: field_ime_prezime_given_name
-          table: user__field_ime_prezime
-          field: field_ime_prezime_given_name
-          relationship: field_testrefview
+        field_first_and_last_name_given_name:
+          id: field_first_and_last_name_given_name
+          table: user__field_first_and_last_name
+          field: field_first_and_last_name_given_name
+          relationship: field_student_s_first_and_last_n
           group_type: group
           admin_label: ''
           operator: contains
@@ -242,12 +242,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_ime_prezime_given_name_op
-            label: 'First name'
+            operator_id: field_first_and_last_name_given_name_op
+            label: 'First and Last name (field_first_and_last_name:given_name)'
             description: ''
             use_operator: false
-            operator: field_ime_prezime_given_name_op
-            identifier: field_ime_prezime_given_name
+            operator: field_first_and_last_name_given_name_op
+            identifier: field_first_and_last_name_given_name
             required: false
             remember: true
             multiple: false
@@ -290,13 +290,13 @@ display:
       footer: {  }
       empty: {  }
       relationships:
-        field_testrefview:
-          id: field_testrefview
-          table: node__field_testrefview
-          field: field_testrefview
+        field_student_s_first_and_last_n:
+          id: field_student_s_first_and_last_n
+          table: node__field_student_s_first_and_last_n
+          field: field_student_s_first_and_last_n
           relationship: none
           group_type: group
-          admin_label: 'field_testrefview: User'
+          admin_label: 'field_student_s_first_and_last_n: User'
           required: true
           plugin_id: standard
       arguments: {  }
@@ -312,7 +312,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.user.field_ime_prezime'
+        - 'config:field.storage.user.field_first_and_last_name'
   page_1:
     display_plugin: page
     id: page_1
@@ -331,4 +331,4 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.user.field_ime_prezime'
+        - 'config:field.storage.user.field_first_and_last_name'

@@ -16,7 +16,7 @@ dependencies:
     - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
-    - field.field.node.assignment.field_testrefview
+    - field.field.node.assignment.field_student_s_first_and_last_n
     - node.type.assignment
   module:
     - datetime
@@ -143,11 +143,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_testrefview:
-    weight: 1
+  field_student_s_first_and_last_n:
+    weight: 14
     label: above
     settings:
-      link: false
+      link: true
     third_party_settings: {  }
     type: entity_reference_label
   links:

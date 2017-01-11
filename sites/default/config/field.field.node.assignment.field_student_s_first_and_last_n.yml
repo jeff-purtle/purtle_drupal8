@@ -1,15 +1,15 @@
-uuid: b7a716be-f79a-49e7-9e50-c5c1a7ef710c
+uuid: a81b18bc-d0cf-4ad6-a059-851be15a56ca
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_testrefview
+    - field.storage.node.field_student_s_first_and_last_n
     - node.type.assignment
-id: node.assignment.field_testrefview
-field_name: field_testrefview
+id: node.assignment.field_student_s_first_and_last_n
+field_name: field_student_s_first_and_last_n
 entity_type: node
 bundle: assignment
-label: TestRefView
+label: 'Student''s first and last name'
 description: ''
 required: false
 translatable: false

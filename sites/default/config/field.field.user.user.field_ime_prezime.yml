@@ -11,7 +11,7 @@ id: user.user.field_ime_prezime
 field_name: field_ime_prezime
 entity_type: user
 bundle: user
-label: 'Ime prezime'
+label: 'First and Last name za brisanje'
 description: ''
 required: false
 translatable: false

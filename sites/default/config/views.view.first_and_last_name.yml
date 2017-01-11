@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_ime_prezime
+    - field.storage.user.field_first_and_last_name
   module:
     - address
     - user
@@ -80,10 +80,10 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
-        field_ime_prezime:
-          id: field_ime_prezime
-          table: user__field_ime_prezime
-          field: field_ime_prezime
+        field_first_and_last_name:
+          id: field_first_and_last_name
+          table: user__field_first_and_last_name
+          field: field_first_and_last_name
           relationship: none
           group_type: group
           admin_label: ''
@@ -91,7 +91,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_ime_prezime__given_name }}  {{ field_ime_prezime__family_name }}'
+            text: '{{ field_first_and_last_name__given_name }} {{ field_first_and_last_name__family_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -158,7 +158,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_ime_prezime'
+        - 'config:field.storage.user.field_first_and_last_name'
   block_1:
     display_plugin: block
     id: block_1
@@ -174,7 +174,7 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_ime_prezime'
+        - 'config:field.storage.user.field_first_and_last_name'
   entity_reference_1:
     display_plugin: entity_reference
     id: entity_reference_1
@@ -186,7 +186,7 @@ display:
         type: entity_reference
         options:
           search_fields:
-            field_ime_prezime: field_ime_prezime
+            field_first_and_last_name: field_first_and_last_name
       pager:
         type: none
         options:
@@ -199,4 +199,4 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
-        - 'config:field.storage.user.field_ime_prezime'
+        - 'config:field.storage.user.field_first_and_last_name'

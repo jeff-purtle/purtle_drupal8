@@ -16,7 +16,7 @@ dependencies:
     - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
-    - field.field.node.assignment.field_testrefview
+    - field.field.node.assignment.field_student_s_first_and_last_n
     - node.type.assignment
   module:
     - content_moderation
@@ -92,35 +92,20 @@ content:
     third_party_settings: {  }
     type: text_textarea_with_summary
   field_breathing_exercise:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_date:
-    weight: 2
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
-  field_full_name:
-    weight: 15
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-  field_private_text_field:
-    weight: 16
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-  field_testrefview:
-    weight: 26
+  field_student_s_first_and_last_n:
+    type: erviews_options_buttons
+    weight: 3
     settings: {  }
     third_party_settings: {  }
-    type: erviews_options_buttons
   path:
     type: path
     weight: 14
@@ -142,6 +127,8 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  field_full_name: true
+  field_private_text_field: true
   field_student: true
   langcode: true
   promote: true

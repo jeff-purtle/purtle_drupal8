@@ -4,13 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.user.user.field_birthdate
+    - field.field.user.user.field_first_and_last_name
     - field.field.user.user.field_full_name
     - field.field.user.user.field_home_location
     - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
-    - field.field.user.user.field_name
     - field.field.user.user.field_phone
-    - field.field.user.user.field_tokentest
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -35,6 +34,12 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+  field_first_and_last_name:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
   field_full_name:
     weight: 1
     label: hidden
@@ -90,12 +95,6 @@ content:
         style: ''
     third_party_settings: {  }
     type: geolocation_map
-  field_name:
-    weight: 7
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: address_default
   field_phone:
     weight: 4
     label: above
@@ -120,5 +119,4 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_tokentest: true
   langcode: true

@@ -1,21 +1,20 @@
-uuid: 01dedb33-fd0b-4941-b97d-16ac4f90e337
+uuid: 3d8dbdc5-196a-4276-a60b-8ccd88af688b
 langcode: en
 status: true
 dependencies:
   module:
+    - address
     - field_permissions
-    - node
     - user
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_testrefview
-field_name: field_testrefview
-entity_type: node
-type: entity_reference
-settings:
-  target_type: user
-module: core
+id: user.field_first_and_last_name
+field_name: field_first_and_last_name
+entity_type: user
+type: address
+settings: {  }
+module: address
 locked: false
 cardinality: 1
 translatable: true
