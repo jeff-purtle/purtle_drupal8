@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.user.user.field_birthdate
     - field.field.user.user.field_first_and_last_name
-    - field.field.user.user.field_full_name
     - field.field.user.user.field_home_location
     - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
@@ -45,13 +44,6 @@ content:
       default_country: null
     third_party_settings: {  }
     type: address_default
-  field_full_name:
-    weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_home_location:
     type: geolocation_latlng
     weight: 9
