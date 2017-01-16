@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_private_text_field
     - field.field.node.assignment.field_student
+    - field.field.node.assignment.field_student_s_first_and_last_n
     - node.type.assignment
   module:
     - datetime
@@ -42,8 +43,10 @@ third_party_settings:
         classes:
           layout_class: {  }
     regions:
+      right:
+        - field_student_s_first_and_last_n
+        - field_date
       left:
-        - field_student
         - field_breathing_exercise
         - field_assignment_a
         - field_assignment_b
@@ -52,8 +55,6 @@ third_party_settings:
         - field_assignment_1
         - field_assignment_2
         - field_assignment_3
-      right:
-        - field_date
 id: node.assignment.pdf
 targetEntityType: node
 bundle: assignment
@@ -119,10 +120,10 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
-  field_student:
+  field_student_s_first_and_last_n:
     type: author
     weight: 0
-    label: inline
+    label: above
     settings: {  }
     third_party_settings: {  }
 hidden:
@@ -132,5 +133,6 @@ hidden:
   field_assignment_notes: true
   field_full_name: true
   field_private_text_field: true
+  field_student: true
   langcode: true
   links: true
