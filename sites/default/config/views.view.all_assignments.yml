@@ -167,7 +167,7 @@ display:
           relationship: field_student_s_first_and_last_n
           group_type: group
           admin_label: ''
-          label: 'First and Last name'
+          label: Name
           exclude: false
           alter:
             alter_text: true

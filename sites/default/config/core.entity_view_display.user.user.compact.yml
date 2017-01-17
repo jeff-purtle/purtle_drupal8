@@ -7,7 +7,6 @@ dependencies:
     - field.field.user.user.field_birthdate
     - field.field.user.user.field_first_and_last_name
     - field.field.user.user.field_home_location
-    - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
     - field.field.user.user.field_phone
     - field.field.user.user.user_picture
@@ -38,7 +37,6 @@ hidden:
   field_birthdate: true
   field_first_and_last_name: true
   field_home_location: true
-  field_ime_prezime: true
   field_last_location: true
   field_phone: true
   langcode: true

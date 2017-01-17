@@ -6,7 +6,6 @@ dependencies:
     - field.field.user.user.field_birthdate
     - field.field.user.user.field_first_and_last_name
     - field.field.user.user.field_home_location
-    - field.field.user.user.field_ime_prezime
     - field.field.user.user.field_last_location
     - field.field.user.user.field_phone
     - field.field.user.user.user_picture
@@ -49,12 +48,6 @@ content:
     weight: 9
     settings: {  }
     third_party_settings: {  }
-  field_ime_prezime:
-    weight: 10
-    settings:
-      default_country: null
-    third_party_settings: {  }
-    type: address_default
   field_phone:
     weight: 3
     settings:
