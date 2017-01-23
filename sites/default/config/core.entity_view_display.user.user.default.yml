@@ -8,6 +8,7 @@ dependencies:
     - field.field.user.user.field_home_location
     - field.field.user.user.field_last_location
     - field.field.user.user.field_phone
+    - field.field.user.user.field_testtoken
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -25,7 +26,7 @@ bundle: user
 mode: default
 content:
   field_birthdate:
-    weight: 3
+    weight: 2
     label: above
     settings:
       format_type: medium
@@ -33,13 +34,13 @@ content:
     third_party_settings: {  }
     type: datetime_default
   field_first_and_last_name:
-    weight: 9
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_home_location:
-    weight: 5
+    weight: 4
     label: above
     settings:
       title: Home
@@ -60,7 +61,7 @@ content:
     third_party_settings: {  }
     type: geolocation_map
   field_last_location:
-    weight: 6
+    weight: 5
     label: above
     settings:
       title: ''
@@ -81,14 +82,14 @@ content:
     third_party_settings: {  }
     type: geolocation_map
   field_phone:
-    weight: 4
+    weight: 3
     label: above
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   member_for:
-    weight: 2
+    weight: 1
     settings: {  }
     third_party_settings: {  }
   user_picture:
@@ -104,4 +105,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_testtoken: true
   langcode: true

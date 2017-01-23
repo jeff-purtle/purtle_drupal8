@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
     type: datetime_default
   field_student_s_first_and_last_n:
-    type: erviews_options_buttons
+    type: erviews_options_select
     weight: 3
     settings: {  }
     third_party_settings: {  }

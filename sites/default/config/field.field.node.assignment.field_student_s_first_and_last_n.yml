@@ -9,7 +9,7 @@ id: node.assignment.field_student_s_first_and_last_n
 field_name: field_student_s_first_and_last_n
 entity_type: node
 bundle: assignment
-label: Name
+label: 'Name:'
 description: ''
 required: false
 translatable: false

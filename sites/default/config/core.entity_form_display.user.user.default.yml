@@ -8,6 +8,7 @@ dependencies:
     - field.field.user.user.field_home_location
     - field.field.user.user.field_last_location
     - field.field.user.user.field_phone
+    - field.field.user.user.field_testtoken
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -75,5 +76,6 @@ content:
     weight: 5
 hidden:
   field_last_location: true
+  field_testtoken: true
   langcode: true
   path: true

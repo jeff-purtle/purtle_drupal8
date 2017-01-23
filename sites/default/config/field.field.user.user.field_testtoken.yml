@@ -1,0 +1,24 @@
+uuid: afd6022e-9915-49db-a0b6-4489d7a8ef19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_testtoken
+  module:
+    - text
+    - user
+id: user.user.field_testtoken
+field_name: field_testtoken
+entity_type: user
+bundle: user
+label: 'Name token'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '[current-user:field_first_and_last_name:given_name] [current-user:field_first_and_last_name:family_name]'
+    format: basic_html
+default_value_callback: ''
+settings: {  }
+field_type: text

@@ -43,10 +43,8 @@ third_party_settings:
         classes:
           layout_class: {  }
     regions:
-      right:
-        - field_student_s_first_and_last_n
-        - field_date
       left:
+        - field_student_s_first_and_last_n
         - field_breathing_exercise
         - field_assignment_a
         - field_assignment_b
@@ -55,6 +53,8 @@ third_party_settings:
         - field_assignment_1
         - field_assignment_2
         - field_assignment_3
+      right:
+        - field_date
 id: node.assignment.pdf
 targetEntityType: node
 bundle: assignment
@@ -121,10 +121,12 @@ content:
     third_party_settings: {  }
     type: datetime_default
   field_student_s_first_and_last_n:
-    type: author
+    type: entity_reference_entity_view
     weight: 0
-    label: above
-    settings: {  }
+    label: inline
+    settings:
+      view_mode: fullname
+      link: false
     third_party_settings: {  }
 hidden:
   entity_print_view_epub: true

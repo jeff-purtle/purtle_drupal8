@@ -85,6 +85,7 @@ display:
           columns:
             title: title
             field_first_and_last_name: field_first_and_last_name
+            created: created
             field_date: field_date
           info:
             title:
@@ -95,6 +96,13 @@ display:
               empty_column: false
               responsive: ''
             field_first_and_last_name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -222,6 +230,73 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Authored on'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: medium
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: created
+          plugin_id: field
         field_date:
           id: field_date
           table: node__field_date
@@ -326,7 +401,47 @@ display:
             operator: field_first_and_last_name_given_name_op
             identifier: field_first_and_last_name_given_name
             required: false
-            remember: true
+            remember: false
+            multiple: false
+            remember_roles:
+              administrator: administrator
+              anonymous: '0'
+              authenticated: '0'
+              student: '0'
+              translator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_first_and_last_name_family_name:
+          id: field_first_and_last_name_family_name
+          table: user__field_first_and_last_name
+          field: field_first_and_last_name_family_name
+          relationship: field_student_s_first_and_last_n
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_first_and_last_name_family_name_op
+            label: 'Last name'
+            description: ''
+            use_operator: false
+            operator: field_first_and_last_name_family_name_op
+            identifier: field_first_and_last_name_family_name
+            required: false
+            remember: false
             multiple: false
             remember_roles:
               administrator: administrator
@@ -348,34 +463,18 @@ display:
             group_items: {  }
           plugin_id: string
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          order: DESC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          relationship: none
+        field_first_and_last_name_given_name:
+          id: field_first_and_last_name_given_name
+          table: user__field_first_and_last_name
+          field: field_first_and_last_name_given_name
+          relationship: field_student_s_first_and_last_n
           group_type: group
           admin_label: ''
+          order: ASC
           exposed: false
           expose:
             label: ''
-          granularity: second
-        field_date_value:
-          id: field_date_value
-          table: node__field_date
-          field: field_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: Date
-          granularity: minute
-          plugin_id: datetime
+          plugin_id: standard
       title: 'All assignments'
       header: {  }
       footer: {  }
