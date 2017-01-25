@@ -17,8 +17,12 @@
     position:relative;
     padding:0 10px;
   }
+  .clear{
+    clear: both;
+  }
   .assignment-footer{
-    bottom:0%;
+    position: absolute;
+    bottom: 0%;
   }
 .assignment-date {
   display: inline-block;
@@ -76,7 +80,7 @@
   clear:both;
 }
 .assignment-field{
-  margin-top: 30px;
+  margin-top: 15px;
 }
 .breathing-exercise {
   width:400px;
@@ -131,7 +135,7 @@
   margin-bottom: 45px;
 }
 .assignment-field{
-height: 75px;
+height: 50px;
 }
 .assignment-field h4{
   color:blue;
@@ -139,7 +143,29 @@ height: 75px;
   display: inline;
 }
 .assignment-field p{
-  margin-top:20px;
+  margin-top:10px;
+}
+.red-left{
+  margin: 0px;
+  padding: 0px;
+  margin-left: 20px;
+  color:red;
+}
+.red-right{
+  position: absolute;
+  top: 0%;
+  margin-left: 500px;
+  font-style: italic;
+  color: red;
+}
+.margin-top{
+  margin-top: -10px;
+}
+.margin-bot {
+  margin-bottom: 0px;
+}
+.wrapper{
+  position: relative;
 }
 
   </style>
@@ -155,14 +181,16 @@ height: 75px;
 <div class="clear">
 </div>
 <div class="logo-img">
-  <img src="/purttle/sites/default/files/purtle.png"/>
+  <img src="default/files/purtle.png"/>
 </div>
-<div class="clear">
-</div>
-<div class="breathing-exercise">
+<div class="breathing-exercise margin-bot">
 {{ content.field_breathing_exercise }}
 </div>
-<div class="assignment-field">
+<div ="wrapper">
+  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+  <div class="red-right"> <h3>Watch</br> The Tongue</h3> </div>
+</div>
+<div class="assignment-field margin-top">
 <h4>
  A.
 </h4>
@@ -186,7 +214,7 @@ height: 75px;
 {{ content.field_assignment_c }}
 </p>
 </div>
-<div class="assignment-field">
+<div class="assignment-field margin-bot">
   <h4>
    D.
   </h4>
@@ -194,7 +222,11 @@ height: 75px;
 {{ content.field_assignment_d }}
 </p>
 </div>
-<div class="assignment-field">
+<div ="wrapper">
+  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+  <div class="red-right"> <h3>Lift Fingers High</br>Strike Valves Hard</h3> </div>
+</div>
+<div class="assignment-field margin-top">
   <h4>
    I.
   </h4>
@@ -202,7 +234,11 @@ height: 75px;
 {{ content.field_assignment_1 }}
 </p>
 </div>
-<div class="assignment-field">
+<div ="wrapper">
+  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+</div>
+
+<div class="assignment-field margin-bot margin-top">
   <h4>
    II.
   </h4>
@@ -210,15 +246,24 @@ height: 75px;
 {{ content.field_assignment_2 }}
 </p>
 </div>
-<div id="assignment-field3"class="assignment-field">
+<div ="wrapper">
+  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+</div>
+
+<div id="assignment-field3"class="assignment-field margin-top margin-bot">
   <h4>
    III.
   </h4>
   <p>
 {{ content.field_assignment_3 }}
 </p>
+<div ="wrapper ">
+  <div class="red-right"> <h3>Relax Lip</br>Long Rest </h3> </div>
 </div>
-<div class="assignment-footer">
+</div>
+
+
+<div class="assignment-footer ">
   <div class="name">
     <h4> Jeff Purtle</h4>
   </div>
