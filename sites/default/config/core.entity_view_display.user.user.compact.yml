@@ -39,5 +39,6 @@ hidden:
   field_home_location: true
   field_last_location: true
   field_phone: true
+  field_testtoken: true
   langcode: true
   member_for: true

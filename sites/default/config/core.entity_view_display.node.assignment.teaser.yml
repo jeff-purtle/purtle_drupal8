@@ -137,4 +137,5 @@ content:
 hidden:
   entity_print_view: true
   field_private_text_field: true
+  field_student_s_first_and_last_n: true
   field_testrefview: true

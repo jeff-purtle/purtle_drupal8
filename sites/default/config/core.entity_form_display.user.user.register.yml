@@ -89,5 +89,6 @@ content:
     weight: -1
 hidden:
   field_first_and_last_name: true
+  field_testtoken: true
   langcode: true
   path: true
