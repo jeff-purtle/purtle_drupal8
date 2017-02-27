@@ -17,7 +17,6 @@ dependencies:
     - geolocation
     - image
     - telephone
-    - text
     - user
 _core:
   default_config_hash: L2mtwGWH_7wDRCMIR4r_Iu_jmvQ10DV1L8ht8iNZ5qY
@@ -89,13 +88,6 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-  field_testtoken:
-    type: text_trimmed
-    weight: 7
-    label: above
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
   member_for:
     weight: 1
     settings: {  }
@@ -113,4 +105,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_testtoken: true
   langcode: true

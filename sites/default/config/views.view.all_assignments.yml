@@ -119,7 +119,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: field_first_and_last_name
+          default: '-1'
           empty_table: false
       row:
         type: fields
@@ -182,7 +182,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_first_and_last_name__given_name }} {{ field_first_and_last_name__family_name }}'
+            text: '{{ field_first_and_last_name__given_name }}  {{ field_first_and_last_name__family_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -219,7 +219,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: langcode
+          click_sort_column: given_name
           type: address_default
           settings: {  }
           group_column: ''
@@ -385,6 +385,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          group: 1
         field_first_and_last_name_given_name:
           id: field_first_and_last_name_given_name
           table: user__field_first_and_last_name
@@ -407,11 +408,11 @@ display:
             remember: false
             multiple: false
             remember_roles:
-              administrator: administrator
+              authenticated: authenticated
               anonymous: '0'
-              authenticated: '0'
               student: '0'
               translator: '0'
+              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -447,11 +448,11 @@ display:
             remember: false
             multiple: false
             remember_roles:
-              administrator: administrator
+              authenticated: authenticated
               anonymous: '0'
-              authenticated: '0'
               student: '0'
               translator: '0'
+              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -465,19 +466,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
-      sorts:
-        field_first_and_last_name_given_name:
-          id: field_first_and_last_name_given_name
-          table: user__field_first_and_last_name
-          field: field_first_and_last_name_given_name
-          relationship: field_student_s_first_and_last_n
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: standard
+      sorts: {  }
       title: 'All assignments'
       header:
         result:
@@ -504,6 +493,10 @@ display:
           plugin_id: standard
       arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: 0
       contexts:
