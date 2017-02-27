@@ -92,7 +92,7 @@ content:
   field_testtoken:
     type: text_trimmed
     weight: 7
-    label: hidden
+    label: above
     settings:
       trim_length: 600
     third_party_settings: {  }
