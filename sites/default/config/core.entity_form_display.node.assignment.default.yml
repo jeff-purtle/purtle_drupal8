@@ -13,9 +13,7 @@ dependencies:
     - field.field.node.assignment.field_assignment_notes
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
-    - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_private_text_field
-    - field.field.node.assignment.field_student
     - field.field.node.assignment.field_student_s_first_and_last_n
     - node.type.assignment
   module:
@@ -127,9 +125,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_full_name: true
   field_private_text_field: true
-  field_student: true
   langcode: true
   promote: true
   sticky: true

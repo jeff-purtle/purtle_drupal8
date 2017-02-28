@@ -14,9 +14,7 @@ dependencies:
     - field.field.node.assignment.field_assignment_notes
     - field.field.node.assignment.field_breathing_exercise
     - field.field.node.assignment.field_date
-    - field.field.node.assignment.field_full_name
     - field.field.node.assignment.field_private_text_field
-    - field.field.node.assignment.field_student
     - field.field.node.assignment.field_student_s_first_and_last_n
     - node.type.assignment
   module:
@@ -133,8 +131,6 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_assignment_notes: true
-  field_full_name: true
   field_private_text_field: true
-  field_student: true
   langcode: true
   links: true

@@ -182,7 +182,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_first_and_last_name__given_name }}  {{ field_first_and_last_name__family_name }}'
+            text: '{{ field_first_and_last_name__given_name }} {{ field_first_and_last_name__family_name }}'
             make_link: false
             path: ''
             absolute: false

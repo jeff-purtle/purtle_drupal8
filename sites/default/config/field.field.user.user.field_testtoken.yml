@@ -13,11 +13,11 @@ entity_type: user
 bundle: user
 label: 'Name token'
 description: ''
-required: true
+required: false
 translatable: false
 default_value:
   -
-    value: '[current-user:field_first_and_last_name:given_name] [current-user:field_first_and_last_name:family_name]'
+    value: '[user:field_first_and_last_name:given_name] [user:field_first_and_last_name:family_name]'
     format: basic_html
 default_value_callback: ''
 settings: {  }
