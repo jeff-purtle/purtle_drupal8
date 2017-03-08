@@ -14,7 +14,8 @@ interface ZoneMemberInterface extends ExternalZoneMemberInterface, ConfigurableP
   /**
    * Gets the zone member weight.
    *
-   * @return string The zone member weight.
+   * @return string
+   *   The zone member weight.
    */
   public function getWeight();
 

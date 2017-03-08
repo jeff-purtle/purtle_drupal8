@@ -152,7 +152,7 @@ class ZoneMemberCountry extends ZoneMemberBase implements ContainerFactoryPlugin
    * @param array $values
    *   The form values.
    * @param \CommerceGuys\Addressing\AddressFormat\AddressFormat $address_format
-   *  The address format for the selected country.
+   *   The address format for the selected country.
    *
    * @return array
    *   The form with the added subdivision elements.
@@ -209,7 +209,7 @@ class ZoneMemberCountry extends ZoneMemberBase implements ContainerFactoryPlugin
    * @param array $values
    *   The form values.
    * @param \CommerceGuys\Addressing\AddressFormat\AddressFormat $address_format
-   *  The address format for the selected country.
+   *   The address format for the selected country.
    *
    * @return array
    *   The form with the added postal code elements.
@@ -289,8 +289,8 @@ class ZoneMemberCountry extends ZoneMemberBase implements ContainerFactoryPlugin
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function match(AddressInterface $address) {
     if ($address->getCountryCode() != $this->configuration['country_code']) {
       return FALSE;

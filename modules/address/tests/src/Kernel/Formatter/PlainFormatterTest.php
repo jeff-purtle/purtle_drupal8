@@ -28,7 +28,7 @@ class PlainFormatterTest extends KernelTestBase {
     'text',
     'entity_test',
     'user',
-    'address'
+    'address',
   ];
 
   /**

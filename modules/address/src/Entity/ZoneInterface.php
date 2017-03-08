@@ -71,7 +71,8 @@ interface ZoneInterface extends ExternalZoneInterface, ConfigEntityInterface, En
    * @param \Drupal\address\Plugin\ZoneMember\ZoneMemberInterface $member
    *   The zone member.
    *
-   * @return bool TRUE if the zone member was found, FALSE otherwise.
+   * @return bool
+   *   TRUE if the zone member was found, FALSE otherwise.
    */
   public function hasMember(ZoneMemberInterface $member);
 

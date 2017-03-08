@@ -56,7 +56,7 @@ class ZoneTest extends JavascriptTestBase {
   /**
    * Tests creating a zone via UI.
    */
-  function testCreateZone() {
+  public function testCreateZone() {
     $this->drupalGet('admin/config/regional/zones/add');
     $session = $this->getSession();
 
@@ -145,7 +145,7 @@ class ZoneTest extends JavascriptTestBase {
   /**
    * Tests editing a zone via UI.
    */
-  function testEditZone() {
+  public function testEditZone() {
     $zone = $this->createZone([
       'id' => strtolower($this->randomMachineName(6)),
       'name' => $this->randomMachineName(),
@@ -166,7 +166,7 @@ class ZoneTest extends JavascriptTestBase {
   /**
    * Tests deleting a zone via UI.
    */
-  function testDeleteZone() {
+  public function testDeleteZone() {
     $zone = $this->createZone([
       'id' => strtolower($this->randomMachineName(6)),
       'name' => $this->randomMachineName(),
@@ -201,7 +201,7 @@ class ZoneTest extends JavascriptTestBase {
     $status = $zone->save();
     $this->assertEquals($status, SAVED_NEW, new FormattableMarkup('Created %label entity %type.', [
       '%label' => $zone->getEntityType()->getLabel(),
-      '%type' => $zone->id()
+      '%type' => $zone->id(),
     ]));
     // The newly saved entity isn't identical to a loaded one, and would fail
     // comparisons.

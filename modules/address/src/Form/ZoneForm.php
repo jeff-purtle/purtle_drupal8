@@ -226,7 +226,7 @@ class ZoneForm extends EntityForm {
   /**
    * Validation callback for the embedded zone member form.
    */
-  public function memberFormValidate($member_form, FormStateInterface $form_state) {
+  public function memberFormValidate(array $member_form, FormStateInterface $form_state) {
     /** @var \Drupal\address\Plugin\ZoneMember\ZoneMemberInterface $member */
     $member = $member_form['#member'];
     $member_form_state = $this->buildMemberFormState($member_form['#parents'], $form_state);
@@ -283,7 +283,7 @@ class ZoneForm extends EntityForm {
    * @return \Drupal\Core\Form\FormStateInterface
    *   The new member form state.
    */
-  protected function buildMemberFormState($member_parents, FormStateInterface $form_state) {
+  protected function buildMemberFormState(array $member_parents, FormStateInterface $form_state) {
     $member_values = $form_state->getValue($member_parents, []);
     $member_user_input = (array) NestedArray::getValue($form_state->getUserInput(), $member_parents);
     $member_form_state = new FormState();

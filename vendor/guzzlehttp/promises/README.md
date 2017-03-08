@@ -315,11 +315,8 @@ A promise has the following methods:
 
 - `then(callable $onFulfilled, callable $onRejected) : PromiseInterface`
   
-  Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler.
-
-- `otherwise(callable $onRejected) : PromiseInterface`
-  
-  Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
+  Creates a new promise that is fulfilled or rejected when the promise is
+  resolved.
 
 - `wait($unwrap = true) : mixed`
 

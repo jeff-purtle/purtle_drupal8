@@ -15,10 +15,7 @@ name: Bartik
 type: theme
 base theme: classy
 description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout.'
-package: Entity Print
-entity_print:
-  node:
-    all: bartik/print-styling
+package: Core
 # version: VERSION
 # core: 8.x
 libraries:
@@ -49,8 +46,8 @@ regions:
   footer_fourth: 'Footer fourth'
   footer_fifth: 'Footer fifth'
 
-# Information added by Drupal.org packaging script on 2016-12-07
-version: '8.2.4'
+# Information added by Drupal.org packaging script on 2017-02-01
+version: '8.2.6'
 core: '8.x'
 project: 'drupal'
-datestamp: 1481136831
+datestamp: 1485975642

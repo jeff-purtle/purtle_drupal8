@@ -33,13 +33,3 @@
 .views-ui-display-tab-actions .dropbutton .form-submit:focus {
   color: #018FE2;
 }
-@media(max-width: 400px) {
-      #edit-title {
-        width: 200px!important;
-      }
-    }
-  @media(max-width: 400px) {
-          #edit-uid {
-            width: 200px!important;
-          }
-        }

@@ -60,9 +60,6 @@ global-styling:
     theme:
       css/colors.css: {}
       css/print.css: { media: print }
-    print-styling:
-    theme:
-      css/print-style.css: {}
 
 messages:
   version: VERSION

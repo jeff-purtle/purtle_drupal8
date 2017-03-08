@@ -69,6 +69,7 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
    * Loads the base country definitions.
    *
    * @return array
+   *   The base country definitions.
    */
   protected function loadBaseDefinitions() {
     if (!empty($this->baseDefinitions)) {

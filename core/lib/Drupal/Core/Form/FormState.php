@@ -1017,7 +1017,7 @@ class FormState implements FormStateInterface {
   public function getRedirect() {
     // Skip redirection for form submissions invoked via
     // \Drupal\Core\Form\FormBuilderInterface::submitForm().
-    if ($this->isProgrammed() && isset($this->getUserInput()['APS']) && 'ON' !== $this->getUserInput()['APS']) {
+    if ($this->isProgrammed()) {
       return FALSE;
     }
     // Skip redirection if rebuild is activated.

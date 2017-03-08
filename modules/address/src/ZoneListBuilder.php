@@ -27,4 +27,3 @@ class ZoneListBuilder extends ConfigEntityListBuilder {
   }
 
 }
-

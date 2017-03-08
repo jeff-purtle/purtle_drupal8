@@ -6,10 +6,7 @@
     "require": {
         "composer/installers": "^1.0.21",
         "wikimedia/composer-merge-plugin": "~1.3",
-        "dompdf/dompdf": "0.7.0-beta3",
-        "drupal/address": "^1.0@RC",
-        "drupal/token_filter": "^1.0@beta",
-        "drupal/entity_reference_views_select": "^1.1"
+        "drupal/address": "~1.0"
     },
     "replace": {
         "drupal/core": "~8.2"

@@ -63,11 +63,11 @@ class CountryConstraintValidator extends ConstraintValidator implements Containe
     }
 
     $available_countries = $constraint->availableCountries;
-     if (!empty($available_countries) && !in_array($country_code, $available_countries)) {
-       $this->context->buildViolation($constraint->notAvailableMessage)
-          ->atPath('country_code')
-          ->setParameter('%value', $this->formatValue($country_code))
-          ->addViolation();
+    if (!empty($available_countries) && !in_array($country_code, $available_countries)) {
+      $this->context->buildViolation($constraint->notAvailableMessage)
+        ->atPath('country_code')
+        ->setParameter('%value', $this->formatValue($country_code))
+        ->addViolation();
     }
   }
 

@@ -7,7 +7,7 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines a zone member annotation object.
  *
- * Plugin Namespace: Plugin\ZoneMember
+ * Plugin Namespace: Plugin\ZoneMember.
  *
  * @Annotation
  */
@@ -30,4 +30,3 @@ class ZoneMember extends Plugin {
   public $name;
 
 }
-

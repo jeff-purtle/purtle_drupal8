@@ -52,31 +52,14 @@ class Client extends BaseClient
 
     public function setHeader($name, $value)
     {
-        $this->headers[strtolower($name)] = $value;
+        $this->headers[$name] = $value;
 
         return $this;
     }
 
     public function removeHeader($name)
     {
-        unset($this->headers[strtolower($name)]);
-    }
-
-    public function resetHeaders()
-    {
-        $this->headers = array();
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function restart()
-    {
-        parent::restart();
-        $this->resetAuth()
-             ->resetHeaders();
+        unset($this->headers[$name]);
     }
 
     public function setAuth($user, $password = '', $type = 'basic')
