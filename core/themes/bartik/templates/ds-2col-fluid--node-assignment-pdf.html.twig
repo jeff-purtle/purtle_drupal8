@@ -53,6 +53,7 @@
   color:black!important;
   margin-left:10px;
 }
+.student-name,
 .student-name *{
   display: inline-block;
   vertical-align: top;
@@ -181,7 +182,7 @@ margin-top: 0px!important;
 <div class="page">
 
         <div class="student-name">
-      {{ content.field_student_s_first_and_last_n }}
+      {{ content.field_student_s_first_and_last_n | raw }}
       </div>
       <div class="assignment-date">
       {{ content.field_date }}
