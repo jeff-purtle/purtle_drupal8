@@ -42,22 +42,21 @@
   right: 0%;
 }
 .student-name {
-  display: inline;
   position: relative;
   vertical-align: middle;
 }
 .student-name .field__label{
+  display: inline;
   width:10%;
   display: inline;
   float:left;
   color:black!important;
-  margin-top: 15px;
   margin-left:10px;
 }
 .student-name .field__item{
+  display: inline;
   color:red;
   width:20%;
-  display: inline;
 }
 .field__label{
   color:blue;
@@ -75,12 +74,6 @@
 .student-name{
   color: black!important;
 }
-.student-name a{
-  text-decoration: none!important;
-  color:black!important;
-  cursor: default;
-  width: 100px;
-  display: inline;
 }
 .clear{
   clear:both;
@@ -101,7 +94,6 @@
 .breathing-exercise .field__item{
  display:block!important;
  clear:both;
-
 }
 #facetime{
   color:blue;
@@ -178,16 +170,19 @@ height: 50px;
 #last {
 margin-top: 0px!important;
 }
+
   </style>
 </head>
 <body>
 <div class="page">
+
         <div class="student-name">
       {{ content.field_student_s_first_and_last_n }}
       </div>
       <div class="assignment-date">
       {{ content.field_date }}
       </div>
+
 <div class="clear">
 </div>
 <div class="logo-img">
