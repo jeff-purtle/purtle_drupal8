@@ -39,5 +39,7 @@
 
     {{ label }}
     {% for item in items %}
-      {{ item.content['#item'].entity.value }}
+    <span class="pdf-name">
+      {{ item.content }}
+    </span>
     {% endfor %}

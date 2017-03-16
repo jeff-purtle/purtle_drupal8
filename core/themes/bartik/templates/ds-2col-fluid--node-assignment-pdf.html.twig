@@ -53,14 +53,17 @@
   color:black!important;
   margin-left:10px;
 }
-.student-name,
-.student-name *{
-  display: inline-block;
+.pdf-name{
+  display: inline;
   vertical-align: top;
   white-space: nowrap;
-  background-color: red;
-  width: 200px;
-  height:30px;
+
+}
+.pdf-name *{
+  display: inline;
+  vertical-align: top;
+  white-space: nowrap;
+
 }
 .student-name .field__item{
   display: inline;
@@ -69,7 +72,7 @@
   margin-right: 0px;
   padding-right: 0px;
   margin-left: 0px;
-  background-color: blue;
+
 }
 .field__label{
   color:blue;
@@ -198,7 +201,7 @@ margin-top: 0px!important;
 <div class="clear">
 </div>
 <div class="logo-img">
-  <img src="/sites/default/files/purtle.png"/>
+  <img src="/purttle/sites/default/files/purtle.png"/>
 </div>
 <div class="breathing-exercise margin-bot">
 {{ content.field_breathing_exercise }}
