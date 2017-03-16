@@ -39,5 +39,5 @@
 
     {{ label }}
     {% for item in items %}
-      {{ item.content }}
+      {{ item.content['#item'].entity.value }}
     {% endfor %}
