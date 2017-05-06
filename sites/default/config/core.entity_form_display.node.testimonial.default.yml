@@ -1,0 +1,101 @@
+uuid: c2c9053a-c957-4622-8f1f-94c38b8b93b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.testimonial.body
+    - field.field.node.testimonial.field_bio
+    - field.field.node.testimonial.field_category
+    - field.field.node.testimonial.field_image
+    - field.field.node.testimonial.field_location
+    - field.field.node.testimonial.field_name
+    - image.style.thumbnail
+    - node.type.testimonial
+  module:
+    - geolocation
+    - image
+    - path
+    - text
+id: node.testimonial.default
+targetEntityType: node
+bundle: testimonial
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 5
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+  field_bio:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_category:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_image:
+    weight: 6
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_location:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_googlegeocoder
+  field_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  path:
+    type: path
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 7
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true

@@ -1,0 +1,23 @@
+label: 翻译
+tips:
+  locale-overview:
+    label: 用户界面翻译
+  locale-language:
+    label: 翻译语言
+    body: 选择你想要翻译的语言
+  locale-search:
+    label: 搜索
+    body: 请输入您想翻译的词或句子，您也可以只输入一个词的一部分。
+  locale-filter:
+    label: 过滤搜索结果
+    body: 如果你想翻译还未翻译的内容，请搜索未翻译的字符串。如果你想修正已有的翻译结果，请搜索已翻译的字符串。
+  locale-submit:
+    label: 应用您的搜索过滤条件
+    body: 要应用您的搜索过滤条件，请点击<em>过滤</em>按钮。
+  locale-translate:
+    label: 翻译
+    body: 在左栏文本域中你可以写下自己的翻译结果。为了更好的翻译效果，试着找到翻译文本的使用位置。
+  locale-validate:
+    label: 验证翻译
+  locale-continue:
+    label: 接下来

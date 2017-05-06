@@ -1,0 +1,11 @@
+deploy_development:
+  script:
+    - cd /var/www/misc/purttle.circlewf.com
+    - git pull origin develop
+    - drush cim -y
+    - drush cr
+  environment:
+    name: development
+    url: http://purttle.circlewf.com
+  only:
+  - develop

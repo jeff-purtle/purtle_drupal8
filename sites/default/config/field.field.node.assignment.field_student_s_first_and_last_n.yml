@@ -1,0 +1,25 @@
+uuid: a81b18bc-d0cf-4ad6-a059-851be15a56ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_student_s_first_and_last_n
+    - node.type.assignment
+id: node.assignment.field_student_s_first_and_last_n
+field_name: field_student_s_first_and_last_n
+entity_type: node
+bundle: assignment
+label: 'Name:'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: first_and_last_name
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

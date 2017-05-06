@@ -1,0 +1,14 @@
+uuid: 748816d2-53c2-4115-99f5-be14006ff34f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: c4zaT5cyPxuTXI6JOWt3qRtMvICT9tHB6d9a5VG-CmQ
+id: feedback
+label: 'Website feedback'
+recipients:
+  - jeff@purtle.com
+reply: "We will get back to you shortly preferably by phone.\r\nCall 864-354-3223 for a quicker response.\r\nThank you for your inquiry!"
+weight: 0
+message: 'Your message has been sent.'
+redirect: ''

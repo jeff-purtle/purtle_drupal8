@@ -1,0 +1,4 @@
+label: 'Προβιβασμένο στην πρώτη σελίδα'
+settings:
+  on_label: Στις
+  off_label: Κλειστό

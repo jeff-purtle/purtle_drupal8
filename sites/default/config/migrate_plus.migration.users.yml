@@ -1,0 +1,33 @@
+uuid: 3df35c7f-b787-41c1-aa43-3f0578512116
+langcode: en
+status: true
+dependencies: {  }
+id: users
+migration_tags: null
+migration_group: null
+label: 'Import users'
+source:
+  plugin: csv
+  path: /home/cwf-dev-02/Downloads/purtleusers.csv
+  header_row_count: 1
+  keys:
+    - ID
+process:
+  name: name
+  mail: mail
+  status: status
+  roles: roles
+  field_first_and_last_name/country_code: field_address_country_code
+  field_first_and_last_name/given_name: field_address_given_name
+  field_first_and_last_name/family_name: field_address_family_name
+  field_birthdate: field_birthdate
+  field_testtoken: field_testtoken
+  type:
+    plugin: default_value
+    default_value: user
+destination:
+  plugin: 'entity:user'
+  md5_passwords: true
+migration_dependencies:
+  required: {  }
+  optional: {  }

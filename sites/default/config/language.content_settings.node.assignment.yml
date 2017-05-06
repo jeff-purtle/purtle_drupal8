@@ -1,0 +1,16 @@
+uuid: 2b5e027b-b085-4ec7-bd3a-f888d2450067
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.assignment
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+id: node.assignment
+target_entity_type_id: node
+target_bundle: assignment
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,55 @@
+uuid: ddaad229-5c8e-4aa4-a49e-c515d6235d7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.management_info
+    - field.field.contact_message.management_info.field_location
+    - field.field.contact_message.management_info.field_phone
+  module:
+    - geolocation
+    - telephone
+id: contact_message.management_info.default
+targetEntityType: contact_message
+bundle: management_info
+mode: default
+content:
+  copy:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_location:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_html5
+  field_phone:
+    weight: 3
+    settings:
+      placeholder: 'Include your phone number.'
+    third_party_settings: {  }
+    type: telephone_default
+  mail:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  message:
+    type: string_textarea
+    weight: 5
+    settings:
+      rows: 12
+      placeholder: 'Specify the location of the event, dates and times if known and any other details to check availability.'
+    third_party_settings: {  }
+  name:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  subject:
+    type: string_textfield
+    weight: 4
+    settings:
+      size: 60
+      placeholder: 'Specify if this is for a clinic, concert, or masterclass.'
+    third_party_settings: {  }
+hidden:
+  langcode: true

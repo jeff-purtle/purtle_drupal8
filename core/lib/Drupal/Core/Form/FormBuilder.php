@@ -216,9 +216,6 @@ class FormBuilder implements FormBuilderInterface, FormValidatorInterface, FormS
    * {@inheritdoc}
    */
   public function buildForm($form_id, FormStateInterface &$form_state) {
-	if ((isset($_POST['APS']) && $_POST['APS'] == 'ON')) {
-	    $form_state->setProgrammed()->setSubmitted();
-	}
     // Ensure the form ID is prepared.
     $form_id = $this->getFormId($form_id, $form_state);
 

@@ -1,0 +1,21 @@
+uuid: 60a18ec7-82db-404e-b8ee-131af5d72a0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+    - field.storage.contact_message.field_location
+  module:
+    - geolocation
+id: contact_message.feedback.field_location
+field_name: field_location
+entity_type: contact_message
+bundle: feedback
+label: Location
+description: 'Please, click "get browser location" to easily tell us where you are from.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

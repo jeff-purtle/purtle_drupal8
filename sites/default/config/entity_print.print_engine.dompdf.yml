@@ -1,0 +1,12 @@
+uuid: d53efcf8-40dc-4200-b99b-ec611a5acd7e
+langcode: en
+status: true
+dependencies: {  }
+id: dompdf
+settings:
+  enable_html5_parser: true
+  enable_remote: true
+  default_paper_size: letter
+  cafile: ''
+  verify_peer: true
+  verify_peer_name: true

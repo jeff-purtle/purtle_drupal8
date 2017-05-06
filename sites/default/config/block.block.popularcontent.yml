@@ -1,0 +1,29 @@
+uuid: 1bf94799-0512-4434-ae0e-456f201d219f
+langcode: en
+status: true
+dependencies:
+  module:
+    - statistics
+    - system
+  theme:
+    - bartik
+id: popularcontent
+theme: bartik
+region: sidebar_first
+weight: -10
+provider: null
+plugin: statistics_popular_block
+settings:
+  id: statistics_popular_block
+  label: Popular
+  provider: statistics
+  label_display: visible
+  top_day_num: 3
+  top_all_num: 5
+  top_last_num: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: ''
+    negate: true
+    context_mapping: {  }

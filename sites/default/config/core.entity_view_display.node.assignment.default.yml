@@ -1,0 +1,151 @@
+uuid: 9d703467-39c3-455e-83a0-b0c174d6ef8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.assignment.field_assignment_1
+    - field.field.node.assignment.field_assignment_2
+    - field.field.node.assignment.field_assignment_3
+    - field.field.node.assignment.field_assignment_a
+    - field.field.node.assignment.field_assignment_b
+    - field.field.node.assignment.field_assignment_c
+    - field.field.node.assignment.field_assignment_d
+    - field.field.node.assignment.field_assignment_notes
+    - field.field.node.assignment.field_breathing_exercise
+    - field.field.node.assignment.field_date
+    - field.field.node.assignment.field_private_text_field
+    - field.field.node.assignment.field_student_s_first_and_last_n
+    - node.type.assignment
+  module:
+    - datetime
+    - ds
+    - entity_print
+    - options
+    - text
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: ds_2col_fluid
+      path: modules/ds
+      library: layout_plugin/ds_2col_fluid
+      disable_css: false
+      entity_classes: old_view_mode
+      settings:
+        wrappers:
+          left: div
+          right: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class: {  }
+    regions:
+      left:
+        - links
+        - field_breathing_exercise
+        - field_assignment_a
+        - field_assignment_b
+        - field_assignment_c
+        - field_assignment_d
+        - field_assignment_1
+        - field_assignment_2
+        - field_assignment_3
+        - field_assignment_notes
+        - field_private_text_field
+        - entity_print_view_pdf
+      right:
+        - field_date
+  entity_print:
+    pdf_label: 'Download PDF'
+id: node.assignment.default
+targetEntityType: node
+bundle: assignment
+mode: default
+content:
+  entity_print_view:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  entity_print_view_pdf:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+  field_assignment_1:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_2:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_3:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_a:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_b:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_c:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_d:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_assignment_notes:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_breathing_exercise:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_date:
+    weight: 13
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_private_text_field:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_word_docx: true
+  field_student_s_first_and_last_n: true
+  langcode: true

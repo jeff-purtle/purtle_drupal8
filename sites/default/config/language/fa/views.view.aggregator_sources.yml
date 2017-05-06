@@ -1,0 +1,27 @@
+display:
+  default:
+    display_title: مدیر
+    display_options:
+      exposed_form:
+        options:
+          submit_button: اعمال
+          reset_button_label: بازنشانی
+          exposed_sorts_label: 'مرتب کن بر اساس'
+          sort_asc_label: صعودی
+          sort_desc_label: نزولی
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'آیتم‌ها در هر صفحه'
+            items_per_page_options_all_label: '- همه -'
+            offset_label: جابجایی
+      title: منابع
+  feed_1:
+    display_title: خوراک
+    display_options:
+      title: 'خوراک OPML'
+  page_1:
+    display_title: صفحه
+    display_options:
+      menu:
+        title: منابع

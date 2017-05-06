@@ -1,0 +1,10 @@
+uuid: 131a36b8-611e-400c-9887-5fcf03aef42d
+langcode: en
+status: true
+dependencies: {  }
+id: student
+label: Student
+weight: -8
+is_admin: null
+permissions:
+  - 'entity print access bundle assignment'

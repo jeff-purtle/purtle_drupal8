@@ -1,0 +1,13 @@
+tips:
+  views-main:
+    body: 'Ver ou editar as configurações.'
+  views-ui-format:
+    label: 'Formato de saída'
+  views-ui-fields:
+    label: Campos
+  views-ui-sorts:
+    label: 'Critérios de ordenação'
+  views-ui-sorts-operations:
+    label: 'Ações de ordenação'
+  views-ui-preview:
+    label: Pré-visualizar

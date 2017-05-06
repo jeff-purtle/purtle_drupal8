@@ -1,0 +1,33 @@
+uuid: 8541c8d3-fa26-42bd-bd0b-36e77dc6aee3
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: assignments
+label: Assignments
+type: 'canonical_entities:node'
+pattern: '/[node:field_student:entity]/[node:field_date:value]'
+selection_criteria:
+  01a3cda7-d230-42dd-b27f-8f39dc6a5f2b:
+    id: node_type
+    bundles:
+      assignment: assignment
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 01a3cda7-d230-42dd-b27f-8f39dc6a5f2b
+  20eff491-fac7-4073-bc14-b2128b9f867f:
+    id: language
+    langcodes:
+      en: en
+    negate: false
+    context_mapping:
+      language: 'node:langcode:language'
+    uuid: 20eff491-fac7-4073-bc14-b2128b9f867f
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Language

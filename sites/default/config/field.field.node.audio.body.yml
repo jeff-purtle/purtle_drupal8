@@ -1,0 +1,22 @@
+uuid: db7e3394-93f9-4480-a0da-0843fadf3439
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.audio
+  module:
+    - text
+id: node.audio.body
+field_name: body
+entity_type: node
+bundle: audio
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

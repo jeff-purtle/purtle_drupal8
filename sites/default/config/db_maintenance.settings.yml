@@ -1,0 +1,14 @@
+cron_last_run: 1489758948
+cron_frequency: 604800
+use_time_interval: false
+time_interval_start: '01:30'
+time_interval_end: '02:30'
+all_tables: 1
+write_log: 1
+_core:
+  default_config_hash: T_ds3REH4r3NJRKBQ8cLc-RVnb4uooa-F_oEyWxdB8w
+table_list_d8_purtle_2016: {  }
+actions: null
+form_build_id: form-2ldXqysNdtN3lgTJCSkKSoK82Kd6F8AOw4SIuPQGKbU
+form_token: hskf0tWJvlWpV-1Qa0viqjC0JTzhc_0l7BPzeh7xfqM
+form_id: db_maintenance_admin_settings

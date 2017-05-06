@@ -1,0 +1,21 @@
+uuid: 09ba0117-7e0e-4d2c-9a2d-e5a9bea037ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_last_location
+  module:
+    - geolocation
+    - user
+id: user.user.field_last_location
+field_name: field_last_location
+entity_type: user
+bundle: user
+label: 'Last Location'
+description: 'Click "Get browser location" below.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

@@ -1,0 +1,9 @@
+tips:
+  views-ui-format:
+    label: 'قالب‌بندی خروجی'
+  views-ui-fields:
+    label: فیلدها
+  views-ui-sorts:
+    label: 'معیار مرتب‌سازی'
+  views-ui-preview:
+    label: پیش‌نمایش

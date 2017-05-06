@@ -1,0 +1,42 @@
+uuid: bdb3a7a2-1ee1-4e16-903c-3a98235afcf2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.fullname
+    - field.field.user.user.field_birthdate
+    - field.field.user.user.field_first_and_last_name
+    - field.field.user.user.field_home_location
+    - field.field.user.user.field_last_location
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_testtoken
+    - field.field.user.user.user_picture
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: L2mtwGWH_7wDRCMIR4r_Iu_jmvQ10DV1L8ht8iNZ5qY
+id: user.user.fullname
+targetEntityType: user
+bundle: user
+mode: fullname
+content:
+  field_testtoken:
+    type: text_default
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_birthdate: true
+  field_first_and_last_name: true
+  field_home_location: true
+  field_last_location: true
+  field_phone: true
+  langcode: true
+  member_for: true
+  user_picture: true

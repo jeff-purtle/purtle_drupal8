@@ -1,0 +1,19 @@
+uuid: 9d48873a-3ce4-40e4-b917-c88eadca74d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+    - media_entity_audio
+third_party_settings:
+  crop:
+    image_field: null
+id: audio
+label: Audio
+description: ''
+type: audio
+queue_thumbnail_downloads: false
+new_revision: false
+type_configuration:
+  source_field: ''
+field_map: {  }
