@@ -26,6 +26,9 @@ display:
           label: Tamanho
         status:
           label: Status
+          settings:
+            format_custom_false: Temporário
+            format_custom_true: Permanente
         created:
           label: 'Data em que foi enviado'
         changed:

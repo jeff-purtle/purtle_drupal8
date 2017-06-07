@@ -1,8 +1,27 @@
-label: Περιεχόμενο
-description: 'Εύρεση και διαχείριση περιεχομένου'
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Δημοσιευμένο
+              2:
+                title: 'Μη δημοσιευμένο'
+            label: 'Κατάσταση δημοσίευσης'
+          expose:
+            label: Κατάσταση
+        title:
+          expose:
+            label: Τίτλος
+        type:
+          expose:
+            label: 'Τύπος περιεχομένου'
+        langcode:
+          expose:
+            label: Γλώσσα
       exposed_form:
         options:
           submit_button: Φίλτρο
@@ -25,31 +44,13 @@ display:
           label: Συντάκτης
         status:
           label: Κατάσταση
+          settings:
+            format_custom_true: Δημοσιευμένο
+            format_custom_false: 'Μη δημοσιευμένο'
         changed:
           label: Ενημερώθηκε
         operations:
           label: Λειτουργίες
-      filters:
-        status:
-          expose:
-            label: Κατάσταση
-          group_info:
-            label: 'Κατάσταση δημοσίευσης'
-            group_items:
-              1:
-                title: Δημοσιευμένο
-                value: '1'
-              2:
-                title: 'Μη δημοσιευμένο'
-        type:
-          expose:
-            label: 'Τύπος περιεχομένου'
-        title:
-          expose:
-            label: Τίτλος
-        langcode:
-          expose:
-            label: Γλώσσα
       title: Περιεχόμενο
       empty:
         area_text_custom:
@@ -62,3 +63,5 @@ display:
         title: Περιεχόμενο
         description: 'Αναζήτηση και διαχείριση περιεχομένου'
     display_title: Σελίδα
+label: Περιεχόμενο
+description: 'Εύρεση και διαχείριση περιεχομένου'

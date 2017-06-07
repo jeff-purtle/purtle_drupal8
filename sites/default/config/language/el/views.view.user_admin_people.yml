@@ -1,8 +1,25 @@
-label: Χρήστες
-description: 'Εύρεση και διαχείριση χρηστών που αλληλεπιδρούν με τον ιστοτόπο σας.'
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Ενεργό
+              2:
+                title: Αποκλεισμένος
+            label: Κατάσταση
+        combine:
+          expose:
+            label: 'Το όνομα ή το επίθετο περιέχει'
+        roles_target_id:
+          expose:
+            label: Ρόλος
+        permission:
+          expose:
+            label: Άδεια
       exposed_form:
         options:
           submit_button: Φίλτρο
@@ -26,6 +43,9 @@ display:
           label: 'Όνομα χρήστη'
         status:
           label: Κατάσταση
+          settings:
+            format_custom_true: Ενεργό
+            format_custom_false: Αποκλεισμένος
         roles_target_id:
           label: Ρόλοι
         created:
@@ -36,25 +56,6 @@ display:
           label: Λειτουργίες
         mail:
           separator: ', '
-      filters:
-        combine:
-          expose:
-            label: 'Το όνομα ή το επίθετο περιέχει'
-        roles_target_id:
-          expose:
-            label: Ρόλος
-        permission:
-          expose:
-            label: Άδεια
-        status:
-          group_info:
-            label: Κατάσταση
-            group_items:
-              1:
-                title: Ενεργό
-                value: '1'
-              2:
-                title: Αποκλεισμένος
       title: Χρήστες
       empty:
         area_text_custom:
@@ -69,3 +70,5 @@ display:
       tab_options:
         title: Χρήστες
         description: 'Διαχείριση λογαριασμών χρηστών, ρόλων και αδειών'
+label: Χρήστες
+description: 'Εύρεση και διαχείριση χρηστών που αλληλεπιδρούν με τον ιστοτόπο σας.'

@@ -1,0 +1,32 @@
+uuid: 2e0118b3-ff90-492c-89b0-900183f910ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.lecture.body
+    - node.type.lecture
+  module:
+    - text
+    - user
+id: node.lecture.teaser
+targetEntityType: node
+bundle: lecture
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

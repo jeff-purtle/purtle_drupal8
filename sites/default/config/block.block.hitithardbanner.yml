@@ -12,7 +12,7 @@ dependencies:
     - bartik
 id: hitithardbanner
 theme: bartik
-region: '-1'
+region: header
 weight: -7
 provider: null
 plugin: 'block_content:1db4174a-25cf-4d6c-af6e-4c4442590294'

@@ -1,8 +1,24 @@
-label: Média
 display:
   default:
-    display_title: Maître
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Publié
+              2:
+                title: 'Non publié'
+            label: 'Statut de publication'
+          expose:
+            label: Vrai
+        bundle:
+          expose:
+            label: Fournisseur
+        langcode:
+          expose:
+            label: Langue
       exposed_form:
         options:
           submit_button: Appliquer
@@ -35,36 +51,23 @@ display:
           separator: ', '
         status:
           label: Statut
+          settings:
+            format_custom_true: Publié
+            format_custom_false: 'Non publié'
           separator: ', '
         changed:
           label: 'Mis à jour'
           separator: ', '
         operations:
           label: Actions
-      filters:
-        status:
-          expose:
-            label: Vrai
-          group_info:
-            label: 'Statut de publication'
-            group_items:
-              1:
-                title: Publié
-                value: '1'
-              2:
-                title: 'Non publié'
-        bundle:
-          expose:
-            label: Fournisseur
-        langcode:
-          expose:
-            label: Langue
       title: Média
       empty:
         area_text_custom:
           content: 'Aucun contenu disponible.'
+    display_title: Maître
   media_page_list:
     display_title: Média
     display_options:
       menu:
         title: Média
+label: Média

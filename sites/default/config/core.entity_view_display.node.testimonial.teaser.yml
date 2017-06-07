@@ -28,6 +28,7 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   field_bio:
     type: text_trimmed
     weight: 4
@@ -35,6 +36,7 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   field_image:
     type: image
     weight: 2
@@ -43,6 +45,7 @@ content:
       image_style: medium
       image_link: ''
     third_party_settings: {  }
+    region: content
   field_name:
     type: string
     weight: 3
@@ -50,12 +53,17 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   entity_print_view: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_category: true
   field_location: true
   langcode: true

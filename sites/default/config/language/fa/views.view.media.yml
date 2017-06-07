@@ -1,8 +1,23 @@
-label: رسانه
 display:
   default:
-    display_title: مدیر
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: ۱
+                title: 'منتشر شده'
+              2:
+                title: 'منتشر نشده'
+          expose:
+            label: صحیح
+        bundle:
+          expose:
+            label: ارائه‌دهنده
+        langcode:
+          expose:
+            label: زبان
       exposed_form:
         options:
           submit_button: اعمال
@@ -25,33 +40,21 @@ display:
           label: نویسنده
         status:
           label: وضعیت
+          settings:
+            format_custom_true: 'منتشر شده'
+            format_custom_false: 'منتشر نشده'
         changed:
           label: به‌روز
         operations:
           label: کارکردها
-      filters:
-        status:
-          expose:
-            label: صحیح
-          group_info:
-            group_items:
-              1:
-                title: 'منتشر شده'
-                value: ۱
-              2:
-                title: 'منتشر نشده'
-        bundle:
-          expose:
-            label: ارائه‌دهنده
-        langcode:
-          expose:
-            label: زبان
       title: رسانه
       empty:
         area_text_custom:
           content: 'هیچ محتوایی در دسترس نیست.'
+    display_title: مدیر
   media_page_list:
     display_title: رسانه
     display_options:
       menu:
         title: رسانه
+label: رسانه

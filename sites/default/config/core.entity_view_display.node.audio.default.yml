@@ -21,6 +21,7 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_audio:
     weight: 102
     label: above
@@ -29,10 +30,12 @@ content:
       provide_download_link: 0
     third_party_settings: {  }
     type: audio_player_html5
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

@@ -1,8 +1,23 @@
-label: Mídia
 display:
   default:
-    display_title: Principal
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Publicado
+              2:
+                title: 'Não publicado'
+          expose:
+            label: Verdadeiro
+        bundle:
+          expose:
+            label: Provedor
+        langcode:
+          expose:
+            label: Idioma
       exposed_form:
         options:
           submit_button: Aplicar
@@ -30,35 +45,23 @@ display:
           separator: ', '
         status:
           label: Status
+          settings:
+            format_custom_true: Publicado
+            format_custom_false: 'Não publicado'
           separator: ', '
         changed:
           label: Atualizado
           separator: ', '
         operations:
           label: Operações
-      filters:
-        status:
-          expose:
-            label: Verdadeiro
-          group_info:
-            group_items:
-              1:
-                title: Publicado
-                value: '1'
-              2:
-                title: 'Não publicado'
-        bundle:
-          expose:
-            label: Provedor
-        langcode:
-          expose:
-            label: Idioma
       title: Mídia
       empty:
         area_text_custom:
           content: 'Sem conteúdo disponivel.'
+    display_title: Principal
   media_page_list:
     display_title: Mídia
     display_options:
       menu:
         title: Mídia
+label: Mídia

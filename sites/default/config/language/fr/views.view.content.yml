@@ -1,8 +1,27 @@
-label: Contenu
-description: 'Trouver et gérer le contenu.'
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Publié
+              2:
+                title: 'Non publié'
+            label: 'Statut de publication'
+          expose:
+            label: Statut
+        title:
+          expose:
+            label: Titre
+        type:
+          expose:
+            label: 'Type de contenu'
+        langcode:
+          expose:
+            label: Langue
       exposed_form:
         options:
           submit_button: Filtrer
@@ -27,31 +46,13 @@ display:
           label: Auteur
         status:
           label: Statut
+          settings:
+            format_custom_true: Publié
+            format_custom_false: 'Non publié'
         changed:
           label: 'Mis à jour'
         operations:
           label: Actions
-      filters:
-        status:
-          expose:
-            label: Statut
-          group_info:
-            label: 'Statut de publication'
-            group_items:
-              1:
-                title: Publié
-                value: '1'
-              2:
-                title: 'Non publié'
-        type:
-          expose:
-            label: 'Type de contenu'
-        title:
-          expose:
-            label: Titre
-        langcode:
-          expose:
-            label: Langue
       title: Contenu
       empty:
         area_text_custom:
@@ -65,3 +66,5 @@ display:
         title: Contenu
         description: 'Trouver et gérer le contenu'
     display_title: Page
+label: Contenu
+description: 'Trouver et gérer le contenu.'

@@ -20,6 +20,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_phone:
     weight: 2
     label: inline
@@ -27,11 +28,17 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   message:
     type: basic_string
     weight: 0
     label: above
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   entity_print_view: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

@@ -62,54 +62,63 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_assignment_1:
     weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_2:
     weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_3:
     weight: 8
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_a:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_b:
     weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_c:
     weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_d:
     weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_breathing_exercise:
     weight: 1
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: left
   field_date:
     weight: 9
     label: inline
@@ -118,6 +127,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: right
   field_student_s_first_and_last_n:
     type: entity_reference_entity_view
     weight: 0
@@ -126,6 +136,7 @@ content:
       view_mode: fullname
       link: false
     third_party_settings: {  }
+    region: left
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true

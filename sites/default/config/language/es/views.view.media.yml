@@ -1,8 +1,24 @@
-label: Multimedia
 display:
   default:
-    display_title: Máster
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Publicado
+              2:
+                title: 'No publicado'
+            label: 'Estado de publicación'
+          expose:
+            label: Verdadero
+        bundle:
+          expose:
+            label: Proveedor
+        langcode:
+          expose:
+            label: Idioma
       exposed_form:
         options:
           submit_button: Aplicar
@@ -35,36 +51,23 @@ display:
           separator: ', '
         status:
           label: Estado
+          settings:
+            format_custom_true: Publicado
+            format_custom_false: 'No publicado'
           separator: ', '
         changed:
           label: Actualizado
           separator: ', '
         operations:
           label: Operaciones
-      filters:
-        status:
-          expose:
-            label: Verdadero
-          group_info:
-            label: 'Estado de publicación'
-            group_items:
-              1:
-                title: Publicado
-                value: '1'
-              2:
-                title: 'No publicado'
-        bundle:
-          expose:
-            label: Proveedor
-        langcode:
-          expose:
-            label: Idioma
       title: Multimedia
       empty:
         area_text_custom:
           content: 'No content available.'
+    display_title: Máster
   media_page_list:
     display_title: Multimedia
     display_options:
       menu:
         title: Multimedia
+label: Multimedia

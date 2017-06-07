@@ -30,6 +30,9 @@ display:
           label: Μέγεθος
         status:
           label: Κατάσταση
+          settings:
+            format_custom_false: Προσωρινό
+            format_custom_true: Μόνιμο
         created:
           label: 'Ημερομηνία αποστολής'
         changed:

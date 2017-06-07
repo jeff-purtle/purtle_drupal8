@@ -1,8 +1,27 @@
-label: 内容
-description: 查找及管理内容。
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: 已发表
+              2:
+                title: 未发布
+            label: 发布状态
+          expose:
+            label: 状态
+        title:
+          expose:
+            label: 标题
+        type:
+          expose:
+            label: 内容类型
+        langcode:
+          expose:
+            label: 语言
       exposed_form:
         options:
           submit_button: 过滤
@@ -27,31 +46,13 @@ display:
           label: 作者
         status:
           label: 状态
+          settings:
+            format_custom_true: 已发表
+            format_custom_false: 未发布
         changed:
           label: 已更新
         operations:
           label: 操作
-      filters:
-        status:
-          expose:
-            label: 状态
-          group_info:
-            label: 发布状态
-            group_items:
-              1:
-                title: 已发表
-                value: '1'
-              2:
-                title: 未发布
-        type:
-          expose:
-            label: 内容类型
-        title:
-          expose:
-            label: 标题
-        langcode:
-          expose:
-            label: 语言
       title: 内容
       empty:
         area_text_custom:
@@ -65,3 +66,5 @@ display:
         title: 内容
         description: 查找与管理内容
     display_title: 页面
+label: 内容
+description: 查找及管理内容。

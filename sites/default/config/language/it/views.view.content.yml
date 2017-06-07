@@ -1,8 +1,27 @@
-label: Contenuto
-description: 'Trova e gestisci contenuti.'
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Pubblicato
+              2:
+                title: 'Non pubblicato'
+            label: 'Stato pubblicazione'
+          expose:
+            label: Stato
+        title:
+          expose:
+            label: Titolo
+        type:
+          expose:
+            label: 'Tipo di contenuto'
+        langcode:
+          expose:
+            label: Lingua
       exposed_form:
         options:
           submit_button: Filtra
@@ -27,31 +46,13 @@ display:
           label: Autore
         status:
           label: Stato
+          settings:
+            format_custom_true: Pubblicato
+            format_custom_false: 'Non pubblicato'
         changed:
           label: Aggiornato
         operations:
           label: Operazioni
-      filters:
-        status:
-          expose:
-            label: Stato
-          group_info:
-            label: 'Stato pubblicazione'
-            group_items:
-              1:
-                title: Pubblicato
-                value: '1'
-              2:
-                title: 'Non pubblicato'
-        type:
-          expose:
-            label: 'Tipo di contenuto'
-        title:
-          expose:
-            label: Titolo
-        langcode:
-          expose:
-            label: Lingua
       title: Contenuto
       empty:
         area_text_custom:
@@ -65,3 +66,5 @@ display:
         title: Contenuto
         description: 'Trova e gestisci contenuti'
     display_title: Pagina
+label: Contenuto
+description: 'Trova e gestisci contenuti.'

@@ -1,9 +1,25 @@
-label: Usuarios
-description: 'Encontrar y gestionar qué personas interactúan con su sitio.'
 display:
   default:
-    display_title: Máster
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Activo
+              2:
+                title: Blocked
+            label: Estado
+        combine:
+          expose:
+            label: 'Nombre o correo contienen'
+        roles_target_id:
+          expose:
+            label: Rol
+        permission:
+          expose:
+            label: Permission
       exposed_form:
         options:
           submit_button: Filtro
@@ -29,6 +45,9 @@ display:
           label: 'Nombre de usuario'
         status:
           label: Estado
+          settings:
+            format_custom_true: Activo
+            format_custom_false: Blocked
         roles_target_id:
           label: Roles
         created:
@@ -39,30 +58,12 @@ display:
           label: Operaciones
         mail:
           separator: ', '
-      filters:
-        combine:
-          expose:
-            label: 'Nombre o correo contienen'
-        roles_target_id:
-          expose:
-            label: Rol
-        permission:
-          expose:
-            label: Permission
-        status:
-          group_info:
-            label: Estado
-            group_items:
-              1:
-                title: Activo
-                value: '1'
-              2:
-                title: Blocked
       title: Usuarios
       empty:
         area_text_custom:
           content: 'No people available.'
       use_more_text: más
+    display_title: Máster
   page_1:
     display_title: Página
     display_options:
@@ -72,3 +73,5 @@ display:
       tab_options:
         title: Usuarios
         description: 'Manage user accounts, roles, and permissions.'
+label: Usuarios
+description: 'Encontrar y gestionar qué personas interactúan con su sitio.'

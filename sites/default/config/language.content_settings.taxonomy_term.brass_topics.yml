@@ -1,0 +1,11 @@
+uuid: b69dfc86-246e-4289-a8fe-60e340c9f3f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.brass_topics
+id: taxonomy_term.brass_topics
+target_entity_type_id: taxonomy_term
+target_bundle: brass_topics
+default_langcode: site_default
+language_alterable: false

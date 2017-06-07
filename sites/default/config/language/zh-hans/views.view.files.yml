@@ -30,6 +30,9 @@ display:
           label: 大小
         status:
           label: 状态
+          settings:
+            format_custom_false: 临时
+            format_custom_true: 永久
         created:
           label: 上传日期
         changed:
