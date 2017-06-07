@@ -6,6 +6,8 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\user\Entity\Role;
 
 /**
+ * Test file.
+ *
  * @group entity_print
  */
 class EntityPrintTest extends BrowserTestBase {
@@ -15,7 +17,13 @@ class EntityPrintTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['user', 'node', 'entity_print_test'];
+  public static $modules = [
+    'user',
+    'node',
+    'entity_print_test',
+    'entity_print_views',
+    'entity_print_views_test_views',
+  ];
 
   /**
    * The node we're printing.
@@ -37,7 +45,12 @@ class EntityPrintTest extends BrowserTestBase {
     $config
       ->set('print_engines.pdf_engine', 'print_exception_engine')
       ->save();
-    user_role_grant_permissions(Role::ANONYMOUS_ID, ['access content', 'bypass entity print access', 'administer nodes']);
+    user_role_grant_permissions(Role::ANONYMOUS_ID, [
+      'access content',
+      'bypass entity print access',
+      'entity print views access',
+      'administer nodes',
+    ]);
   }
 
   /**
@@ -50,6 +63,17 @@ class EntityPrintTest extends BrowserTestBase {
     $text = $this->getSession()->getPage()->find('css', '.messages--error')->getText();
     $this->assertContains('Exception thrown by PrintExceptionEngine', $text);
     $assert->pageTextNotContains('The website encountered an unexpected error');
+  }
+
+  /**
+   * Exceptions during the rendering of the View PDF should be handled.
+   */
+  public function testViewsExceptionOnRender() {
+    $this->drupalGet('/my-test-view');
+    $this->clickLink('View PDF');
+    $text = $this->getSession()->getPage()->find('css', '.messages--error')->getText();
+    $this->assertContains('Error generating document: Exception thrown by PrintExceptionEngine', $text);
+    $this->assertSession()->pageTextNotContains('The website encountered an unexpected error');
   }
 
 }

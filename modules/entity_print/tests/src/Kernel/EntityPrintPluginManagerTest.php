@@ -66,6 +66,8 @@ class EntityPrintPluginManagerTest extends KernelTestBase {
   }
 
   /**
+   * Test disabled definition discovery.
+   *
    * @covers ::getDisabledDefinitions
    * @dataProvider getDisabledDefinitionsDataProvider
    */
@@ -81,7 +83,10 @@ class EntityPrintPluginManagerTest extends KernelTestBase {
    */
   public function getDisabledDefinitionsDataProvider() {
     return [
-      'Filter by pdf' => ['pdf', ['dompdf', 'phpwkhtmltopdf', 'tcpdfv1', 'not_available_print_engine']],
+      'Filter by pdf' => [
+        'pdf',
+        ['dompdf', 'phpwkhtmltopdf', 'tcpdfv1', 'not_available_print_engine'],
+      ],
       'Filter by another type' => ['word_docx', []],
     ];
   }

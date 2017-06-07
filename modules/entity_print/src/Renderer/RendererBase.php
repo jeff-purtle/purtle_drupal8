@@ -2,51 +2,21 @@
 
 namespace Drupal\entity_print\Renderer;
 
-use Drupal\Core\Asset\AssetCollectionRendererInterface;
-use Drupal\Core\Asset\AssetResolverInterface;
-use Drupal\Core\Asset\AttachedAssets;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Extension\InfoParserInterface;
-use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\Entity\EntityHandlerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Render\RenderContext;
-use Drupal\entity_print\Event\PrintCssAlterEvent;
+use Drupal\entity_print\Asset\AssetRendererInterface;
 use Drupal\entity_print\Event\PrintEvents;
 use Drupal\entity_print\Event\PrintHtmlAlterEvent;
+use Drupal\entity_print\FilenameGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Render\RendererInterface as CoreRendererInterface;
 
 /**
  * The RendererBase class.
  */
-abstract class RendererBase implements RendererInterface {
-
-  /**
-   * The theme handler.
-   *
-   * @var \Drupal\Core\Extension\ThemeHandlerInterface
-   */
-  protected $themeHandler;
-
-  /**
-   * The info parser for yml files.
-   *
-   * @var \Drupal\Core\Extension\InfoParserInterface
-   */
-  protected $infoParser;
-
-  /**
-   * The asset resolver.
-   *
-   * @var \Drupal\Core\Asset\AssetResolverInterface
-   */
-  protected $assetResolver;
-
-  /**
-   * The css asset renderer.
-   *
-   * @var \Drupal\Core\Asset\CssCollectionRenderer
-   */
-  protected $cssRenderer;
+abstract class RendererBase implements RendererInterface, EntityHandlerInterface {
 
   /**
    * The renderer for renderable arrays.
@@ -56,39 +26,62 @@ abstract class RendererBase implements RendererInterface {
   protected $renderer;
 
   /**
+   * The asset renderer.
+   *
+   * @var \Drupal\entity_print\Asset\AssetRendererInterface
+   */
+  protected $assetRenderer;
+
+  /**
+   * Generate filename's for a printed document.
+   *
+   * @var \Drupal\entity_print\FilenameGeneratorInterface
+   */
+  protected $filenameGenerator;
+
+  /**
    * The event dispatcher.
    *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
    */
   protected $dispatcher;
 
-  public function __construct(ThemeHandlerInterface $theme_handler, InfoParserInterface $info_parser, AssetResolverInterface $asset_resolver, AssetCollectionRendererInterface $css_renderer, CoreRendererInterface $renderer, EventDispatcherInterface $event_dispatcher) {
-    $this->themeHandler = $theme_handler;
-    $this->infoParser = $info_parser;
-    $this->assetResolver = $asset_resolver;
-    $this->cssRenderer = $css_renderer;
+  /**
+   * RendererBase constructor.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   Cores renderer.
+   * @param \Drupal\entity_print\Asset\AssetRendererInterface $asset_renderer
+   *   The asset renderer.
+   * @param \Drupal\entity_print\FilenameGeneratorInterface $filename_generator
+   *   Filename generator.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
+   */
+  public function __construct(CoreRendererInterface $renderer, AssetRendererInterface $asset_renderer, FilenameGeneratorInterface $filename_generator, EventDispatcherInterface $event_dispatcher) {
     $this->renderer = $renderer;
+    $this->assetRenderer = $asset_renderer;
+    $this->filenameGenerator = $filename_generator;
     $this->dispatcher = $event_dispatcher;
   }
 
   /**
    * {@inheritdoc}
    */
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+    return new static (
+      $container->get('renderer'),
+      $container->get('entity_print.asset_renderer'),
+      $container->get('entity_print.filename_generator'),
+      $container->get('event_dispatcher')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function generateHtml(array $entities, array $render, $use_default_css, $optimize_css) {
-    // Inject some generic CSS across all templates.
-    if ($use_default_css) {
-      $render['#attached']['library'][] = 'entity_print/default';
-    }
-
-    foreach ($entities as $entity) {
-      // Inject CSS from the theme info files and then render the CSS.
-      $render = $this->addCss($render, $entity);
-    }
-
-    $this->dispatcher->dispatch(PrintEvents::CSS_ALTER, new PrintCssAlterEvent($render, $entities));
-    $css_assets = $this->assetResolver->getCssAssets(AttachedAssets::createFromRenderArray($render), $optimize_css);
-    $rendered_css = $this->cssRenderer->render($css_assets);
-
+    $rendered_css = $this->assetRenderer->render($entities, $use_default_css, $optimize_css);
     $render['#entity_print_css'] = $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$rendered_css) {
       return $this->renderer->render($rendered_css);
     });
@@ -104,72 +97,10 @@ abstract class RendererBase implements RendererInterface {
   }
 
   /**
-   * Gets a safe filename.
-   *
-   * @param string $filename
-   *   The un-processed filename.
-   *
-   * @return string
-   *   The filename stripped to only safe characters.
+   * {@inheritdoc}
    */
-  protected function sanitizeFilename($filename) {
-    return preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
-  }
-
-  /**
-   * Inject the relevant css for the template.
-   *
-   * You can specify CSS files to be included per entity type and bundle in your
-   * themes css file. This code uses your current theme which is likely to be the
-   * front end theme.
-   *
-   * Examples:
-   *
-   * entity_print:
-   *   all: 'yourtheme/all-pdfs',
-   *   commerce_order:
-   *     all: 'yourtheme/orders'
-   *   node:
-   *     article: 'yourtheme/article-pdf'
-   *
-   * @param array $render
-   *   The renderable array.
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity info from entity_get_info().
-   *
-   * @return array
-   *   An array of stylesheets to be used for this template.
-   */
-  protected function addCss($render, EntityInterface $entity) {
-    $theme = $this->themeHandler->getTheme($this->themeHandler->getDefault());
-    $theme_info = $this->infoParser->parse($theme->getPathname());
-
-    if (!isset($theme_info['entity_print'])) {
-      return $render;
-    }
-
-    // See if we have the special "all" key which is added to every PDF.
-    if (isset($theme_info['entity_print']['all'])) {
-      $render['#attached']['library'][] = $theme_info['entity_print']['all'];
-      unset($theme_info['entity_print']['all']);
-    }
-
-    foreach ($theme_info['entity_print'] as $key => $value) {
-      // If the entity type doesn't match just skip.
-      if ($key !== $entity->getEntityTypeId()) {
-        continue;
-      }
-
-      // Parse our css files per entity type and bundle.
-      foreach ($value as $css_bundle => $css) {
-        // If it's magic key "all" add it otherwise check the bundle.
-        if ($css_bundle === 'all' || $entity->bundle() === $css_bundle) {
-          $render['#attached']['library'][] = $css;
-        }
-      }
-    }
-
-    return $render;
+  public function getFilename(array $entities) {
+    return $this->filenameGenerator->generateFilename($entities);
   }
 
 }

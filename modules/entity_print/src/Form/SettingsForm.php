@@ -6,7 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
-use Drupal\entity_print\Plugin\ExportTypeManager;
+use Drupal\entity_print\Plugin\ExportTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Form\FormStateInterface;
@@ -33,7 +33,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * The export type manager.
    *
-   * @var \Drupal\entity_print\Plugin\ExportTypeManager
+   * @var \Drupal\entity_print\Plugin\ExportTypeManagerInterface
    */
   protected $exportTypeManager;
 
@@ -44,10 +44,12 @@ class SettingsForm extends ConfigFormBase {
    *   The factory for configuration objects.
    * @param \Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface $plugin_manager
    *   The plugin manager object.
+   * @param \Drupal\entity_print\Plugin\ExportTypeManagerInterface $export_type_manager
+   *   The export type manager interface.
    * @param \Drupal\Core\Entity\EntityStorageInterface $entity_storage
    *   The config storage.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityPrintPluginManagerInterface $plugin_manager, ExportTypeManager $export_type_manager, EntityStorageInterface $entity_storage) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityPrintPluginManagerInterface $plugin_manager, ExportTypeManagerInterface $export_type_manager, EntityStorageInterface $entity_storage) {
     parent::__construct($config_factory);
     $this->pluginManager = $plugin_manager;
     $this->exportTypeManager = $export_type_manager;
@@ -69,7 +71,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormID() {
+  public function getFormId() {
     return 'entity_print_admin_settings_form';
   }
 
@@ -131,9 +133,9 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     foreach ($this->exportTypeManager->getDefinitions() as $export_type => $definition) {
-      // If we have a print_engine in the form_state then use that otherwise, fall
-      // back to what was saved as this is a fresh form. Check explicitly for NULL
-      // in case they selected the None option which is false'y.
+      // If we have a print_engine in the form_state then use that otherwise,
+      // fall back to what was saved as this is a fresh form. Check explicitly
+      // for NULL in case they selected the None option which is false'y.
       $selected_plugin_id = !is_null($form_state->getValue($export_type)) ? $form_state->getValue($export_type) : $config->get('print_engines.' . $export_type . '_engine');
       $form['entity_print'][$export_type] = [
         '#type' => 'select',
@@ -166,7 +168,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function ajaxPluginFormCallback(&$form, FormStateInterface $form_state) {
     $export_type = $form_state->getTriggeringElement()['#name'];
-    return $form['entity_print'][$export_type. '_config'];
+    return $form['entity_print'][$export_type . '_config'];
   }
 
   /**
@@ -185,6 +187,7 @@ class SettingsForm extends ConfigFormBase {
     $form = [
       '#type' => 'fieldset',
       '#title' => $this->t('@engine Settings', ['@engine' => $plugin->getPluginDefinition()['label']]),
+      '#tree' => TRUE,
     ];
     return $form + $plugin->buildConfigurationForm([], $form_state);
   }

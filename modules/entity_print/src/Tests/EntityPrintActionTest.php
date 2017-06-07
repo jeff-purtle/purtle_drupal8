@@ -24,10 +24,10 @@ class EntityPrintActionTest extends WebTestBase {
   protected function setUp() {
     parent::setUp();
     // Create a content type and a dummy node.
-    $this->drupalCreateContentType(array(
+    $this->drupalCreateContentType([
       'type' => 'page',
       'name' => 'Page',
-    ));
+    ]);
     $this->node = $this->drupalCreateNode();
 
     $account = $this->drupalCreateUser([

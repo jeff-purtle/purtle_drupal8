@@ -2,9 +2,14 @@
 
 namespace Drupal\entity_print\Renderer;
 
+/**
+ * The renderer factory inteface.
+ */
 interface RendererFactoryInterface {
 
   /**
+   * Create a new entity renderer.
+   *
    * @param mixed $item
    *   The item we require a renderer for.
    * @param string $context

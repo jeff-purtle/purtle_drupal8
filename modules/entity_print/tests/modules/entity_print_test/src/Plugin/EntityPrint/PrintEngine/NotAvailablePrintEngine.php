@@ -5,6 +5,8 @@ namespace Drupal\entity_print_test\Plugin\EntityPrint\PrintEngine;
 use Drupal\entity_print\Plugin\PrintEngineBase;
 
 /**
+ * Unavailable print engine for testing.
+ *
  * @PrintEngine(
  *   id = "not_available_print_engine",
  *   label = @Translation("Not Available Print Engine"),
@@ -16,7 +18,12 @@ class NotAvailablePrintEngine extends PrintEngineBase {
   /**
    * {@inheritdoc}
    */
-  public function send($filename = NULL) {}
+  public function send($filename, $force_download = TRUE) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlob() {}
 
   /**
    * {@inheritdoc}
@@ -34,5 +41,10 @@ class NotAvailablePrintEngine extends PrintEngineBase {
   public static function dependenciesAvailable() {
     return FALSE;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrintObject() {}
 
 }

@@ -15,7 +15,7 @@ use Drupal\image\Entity\ImageStyle;
  *
  * @ViewsStyle(
  *   id = "maps_common",
- *   title = @Translation("Geolocation - CommonMap"),
+ *   title = @Translation("Geolocation Google Maps API - CommonMap"),
  *   help = @Translation("Display geolocations on a common map."),
  *   theme = "views_view_list",
  *   display_types = {"normal"},
@@ -58,7 +58,6 @@ class CommonMap extends StylePluginBase {
 
       switch ($filter['plugin_id']) {
         case 'geolocation_filter_boundary':
-          $map_update_target_options['boundary_filters'][$filter_name] = $filter_handler;
           if ($filter_handler->isExposed()) {
             $options['boundary_filters_exposed'][$filter_name] = $filter_handler;
           }
@@ -107,6 +106,14 @@ class CommonMap extends StylePluginBase {
       $icon_field = $this->options['icon_field'];
     }
 
+    if (
+      !empty($this->options['marker_scroll_to_result'])
+      && !empty($this->options['id_field'])
+      && $this->options['id_field'] != 'none'
+    ) {
+      $id_field = $this->options['id_field'];
+    }
+
     $map_id = $this->view->dom_id;
 
     $build = [
@@ -123,43 +130,61 @@ class CommonMap extends StylePluginBase {
                 'settings' => $this->getGoogleMapsSettings($this->options),
               ],
             ],
-            'google_map_api_key' => \Drupal::config('geolocation.settings')->get('google_map_api_key'),
-            'google_map_additional_parameters' => \Drupal::config('geolocation.settings')->get('google_map_additional_parameters'),
+            'google_map_url' => $this->getGoogleMapsApiUrl(),
           ],
         ],
       ],
     ];
+
+    if (!empty($this->options['show_raw_locations'])) {
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['showRawLocations'] = TRUE;
+    }
+
+    /*
+     * Context popup content.
+     */
+    if (!empty($this->options['context_popup_content'])) {
+      $context_popup_content = \Drupal::token()->replace($this->options['context_popup_content']);
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent'] = [];
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent']['enable'] = TRUE;
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent']['content'] = $context_popup_content;
+    }
+
+    /*
+     * Marker clusterer.
+     */
+    if (!empty($this->options['marker_clusterer'])) {
+      $build['#attached']['library'][] = 'geolocation/geolocation.markerclusterer';
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer'] = [];
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['enable'] = TRUE;
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['imagePath'] = $this->options['marker_clusterer_image_path'];
+      if (!empty($this->options['marker_clusterer_styles'])) {
+        $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['styles'] = json_decode($this->options['marker_clusterer_styles']);
+      }
+    }
 
     /*
      * Dynamic map handling.
      */
     if (!empty($this->options['dynamic_map']['enabled'])) {
 
-      if (!empty($this->options['dynamic_map']['update_target']) && $this->view->displayHandlers->has($this->options['dynamic_map']['update_target'])) {
-        $update_view_id = $this->view->id();
+      if (
+        !empty($this->options['dynamic_map']['update_target'])
+        && $this->view->displayHandlers->has($this->options['dynamic_map']['update_target'])
+      ) {
         $update_view_display_id = $this->options['dynamic_map']['update_target'];
-        $update_dom_id = NULL;
       }
       else {
-        $update_dom_id = $this->view->dom_id;
-        $update_view_id = $this->view->id();
         $update_view_display_id = $this->view->current_display;
       }
 
       $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['dynamic_map'] = [
         'enable' => TRUE,
         'hide_form' => $this->options['dynamic_map']['hide_form'],
+        'views_refresh_delay' => $this->options['dynamic_map']['views_refresh_delay'],
+        'update_view_id' => $this->view->id(),
+        'update_view_display_id' => $update_view_display_id,
       ];
-
-      if (!empty($update_dom_id)) {
-        $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['dynamic_map']['update_dom_id'] = $update_dom_id;
-      }
-      else {
-        $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['dynamic_map'] += [
-          'update_view_id' => $update_view_id,
-          'update_view_display_id' => $update_view_display_id,
-        ];
-      }
 
       if (substr($this->options['dynamic_map']['update_handler'], 0, strlen('boundary_filter_')) === 'boundary_filter_') {
         $filter_id = substr($this->options['dynamic_map']['update_handler'], strlen('boundary_filter_'));
@@ -178,12 +203,12 @@ class CommonMap extends StylePluginBase {
     foreach ($this->view->result as $row) {
       if (!empty($title_field)) {
         $title_field_handler = $this->view->field[$title_field];
-        $title_build = array(
+        $title_build = [
           '#theme' => $title_field_handler->themeFunctions(),
           '#view' => $title_field_handler->view,
           '#field' => $title_field_handler,
           '#row' => $row,
-        );
+        ];
       }
 
       if ($this->view->field[$geo_field] instanceof GeolocationField) {
@@ -193,6 +218,15 @@ class CommonMap extends StylePluginBase {
       }
       else {
         return $build;
+      }
+
+      if (!empty($id_field)) {
+        $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerScrollToResult'] = TRUE;
+        /** @var \Drupal\views\Plugin\views\field\Field $id_field_handler */
+        $id_field_handler = $this->view->field[$id_field];
+        if (!empty($id_field_handler)) {
+          $location_id = $id_field_handler->getValue($row);
+        }
       }
 
       if (!empty($icon_field)) {
@@ -208,6 +242,12 @@ class CommonMap extends StylePluginBase {
             if (!empty($style)) {
               $icon_url = $style->buildUrl($item->entity->getFileUri());
             }
+            else {
+              $icon_url = file_create_url($item->entity->getFileUri());
+            }
+          }
+          else {
+            $icon_url = NULL;
           }
         }
       }
@@ -228,6 +268,9 @@ class CommonMap extends StylePluginBase {
 
         if (!empty($icon_url)) {
           $location['#icon'] = $icon_url;
+        }
+        if (!empty($location_id)) {
+          $location['#location_id'] = $location_id;
         }
 
         $build['#locations'][] = $location;
@@ -251,13 +294,21 @@ class CommonMap extends StylePluginBase {
         continue;
       }
 
-      // Ignore if fitBounds is enabled, as it will supersede any other option.
+      // Break if fitBounds is enabled, as it will supersede any other option.
       if ($fitbounds) {
         break;
       }
-
-      // Ignore if center is already set.
-      if (isset($centre['lat']) && isset($centre['lng'])) {
+      // Break if center is already set.
+      elseif (isset($centre['lat']) && isset($centre['lng'])) {
+        break;
+      }
+      // Break if center bounds are already set.
+      elseif (
+        isset($centre['lat_north_east'])
+        && isset($centre['lng_north_east'])
+        && isset($centre['lat_south_west'])
+        && isset($centre['lng_south_west'])
+      ) {
         break;
       }
 
@@ -289,10 +340,7 @@ class CommonMap extends StylePluginBase {
             'enable' => TRUE,
           ];
 
-          if (
-            !empty($option['settings']['update_map'])
-            && !empty($option['settings']['update_map_option'])
-          ) {
+          if ($option['settings']['update_map']) {
             $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['client_location']['update_map'] = TRUE;
           }
           break;
@@ -307,8 +355,8 @@ class CommonMap extends StylePluginBase {
             $handler = $this->displayHandler->getHandler('filter', $filter_id);
             if (isset($handler->value['lat']) && isset($handler->value['lng'])) {
               $centre = [
-                'lat' => (float) $handler->value['lat'],
-                'lng' => (float) $handler->value['lng'],
+                'lat' => (float) $handler->getLatitudeValue(),
+                'lng' => (float) $handler->getLongitudeValue(),
               ];
             }
             break;
@@ -319,9 +367,13 @@ class CommonMap extends StylePluginBase {
             $handler = $this->displayHandler->getHandler('filter', $filter_id);
             if (
               isset($handler->value['lat_north_east'])
+              && $handler->value['lat_north_east'] !== ""
               && isset($handler->value['lng_north_east'])
+              && $handler->value['lng_north_east'] !== ""
               && isset($handler->value['lat_south_west'])
+              && $handler->value['lat_south_west'] !== ""
               && isset($handler->value['lng_south_west'])
+              && $handler->value['lng_south_west'] !== ""
             ) {
               $centre = [
                 'lat_north_east' => (float) $handler->value['lat_north_east'],
@@ -349,17 +401,27 @@ class CommonMap extends StylePluginBase {
   protected function defineOptions() {
     $options = parent::defineOptions();
 
+    $options['show_raw_locations'] = ['default' => '0'];
     $options['even_empty'] = ['default' => '0'];
     $options['geolocation_field'] = ['default' => ''];
     $options['title_field'] = ['default' => ''];
     $options['icon_field'] = ['default' => ''];
+    $options['marker_scroll_to_result'] = ['default' => 0];
+    $options['id_field'] = ['default' => ''];
+    $options['marker_clusterer'] = ['default' => 0];
+    $options['marker_clusterer_image_path'] = ['default' => ''];
+    $options['marker_clusterer_styles'] = ['default' => []];
     $options['dynamic_map'] = [
-      'default' => TRUE,
-      'enabled' => ['default' => 0],
-      'update_handler' => ['default' => ''],
-      'hide_form' => ['default' => 0],
+      'contains' => [
+        'enabled' => ['default' => 0],
+        'update_handler' => ['default' => ''],
+        'update_target' => ['default' => ''],
+        'hide_form' => ['default' => 0],
+        'views_refresh_delay' => ['default' => '1200'],
+      ],
     ];
     $options['centre'] = ['default' => ''];
+    $options['context_popup_content'] = ['default' => ''];
 
     foreach (self::getGoogleMapDefaultSettings() as $key => $setting) {
       $options[$key] = ['default' => $setting];
@@ -380,6 +442,7 @@ class CommonMap extends StylePluginBase {
     $geo_options = [];
     $title_options = [];
     $icon_options = [];
+    $id_options = [];
 
     $fields = $this->displayHandler->getOption('fields');
     foreach ($fields as $field_name => $field) {
@@ -407,13 +470,11 @@ class CommonMap extends StylePluginBase {
       if (!empty($field['type']) && $field['type'] == 'string') {
         $title_options[$field_name] = $labels[$field_name];
       }
-    }
 
-    $form['even_empty'] = [
-      '#title' => $this->t('Display map when no locations are found.'),
-      '#type' => 'checkbox',
-      '#default_value' => $this->options['even_empty'],
-    ];
+      if (!empty($field['type']) && $field['type'] == 'number_integer') {
+        $id_options[$field_name] = $labels[$field_name];
+      }
+    }
 
     $form['geolocation_field'] = [
       '#title' => $this->t('Geolocation source field'),
@@ -430,15 +491,6 @@ class CommonMap extends StylePluginBase {
       '#default_value' => $this->options['title_field'],
       '#description' => $this->t("The source of the title for each entity. Field type must be 'string'."),
       '#options' => $title_options,
-      '#empty_value' => 'none',
-    ];
-
-    $form['icon_field'] = [
-      '#title' => $this->t('Icon source field'),
-      '#type' => 'select',
-      '#default_value' => $this->options['icon_field'],
-      '#description' => $this->t("Optional image (field) to use as icon."),
-      '#options' => $icon_options,
       '#empty_value' => 'none',
     ];
 
@@ -483,14 +535,27 @@ class CommonMap extends StylePluginBase {
         ],
       ];
 
+      $form['dynamic_map']['views_refresh_delay'] = [
+        '#title' => $this->t('Minimum idle time in milliseconds required to trigger views refresh'),
+        '#description' => $this->t('Once the view refresh is triggered, any further change of the map bounds will have no effect until the map update is finished. User interactions like scrolling in and out or dragging the map might trigger the map idle event, before the user is finished interacting. This setting adds a delay before the view is refreshed to allow further map interactions.'),
+        '#type' => 'number',
+        '#min' => 0,
+        '#default_value' => $this->options['dynamic_map']['views_refresh_delay'],
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[dynamic_map][enabled]"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+
       if ($this->displayHandler->getPluginId() !== 'page') {
         $update_targets = [
-          $this->displayHandler->display['id'] => t('- This display -'),
+          $this->displayHandler->display['id'] => $this->t('- This display -'),
         ];
         foreach ($this->view->displayHandlers->getInstanceIds() as $instance_id) {
           $display_instance = $this->view->displayHandlers->get($instance_id);
           if ($display_instance->getPluginId() == 'page') {
-            $update_targets[$instance_id] = $display_instance->getPluginDefinition()['admin'];
+            $update_targets[$instance_id] = $display_instance->display['display_title'];
           }
         }
         if (!empty($update_targets)) {
@@ -526,11 +591,11 @@ class CommonMap extends StylePluginBase {
       '#type' => 'table',
       '#prefix' => $this->t('<h3>Centre options</h3>Please note: Each option will, if it can be applied, supersede any following option.'),
       '#header' => [
-        t('Enable'),
-        t('Option'),
-        t('settings'),
+        $this->t('Enable'),
+        $this->t('Option'),
+        $this->t('settings'),
         [
-          'data' => t('Settings'),
+          'data' => $this->t('Settings'),
           'colspan' => '1',
         ],
       ],
@@ -561,7 +626,7 @@ class CommonMap extends StylePluginBase {
       $form['centre'][$id]['#attributes']['class'][] = 'draggable';
       $form['centre'][$id]['weight'] = [
         '#type' => 'weight',
-        '#title' => t('Weight for @option', ['@option' => $label]),
+        '#title' => $this->t('Weight for @option', ['@option' => $label]),
         '#title_display' => 'invisible',
         '#size' => 4,
         '#default_value' => $weight,
@@ -588,14 +653,14 @@ class CommonMap extends StylePluginBase {
       '#type' => 'container',
       'latitude' => [
         '#type' => 'textfield',
-        '#title' => t('Latitude'),
+        '#title' => $this->t('Latitude'),
         '#default_value' => isset($this->options['centre']['fixed_value']['settings']['latitude']) ? $this->options['centre']['fixed_value']['settings']['latitude'] : '',
         '#size' => 60,
         '#maxlength' => 128,
       ],
       'longitude' => [
         '#type' => 'textfield',
-        '#title' => t('Longitude'),
+        '#title' => $this->t('Longitude'),
         '#default_value' => isset($this->options['centre']['fixed_value']['settings']['longitude']) ? $this->options['centre']['fixed_value']['settings']['longitude'] : '',
         '#size' => 60,
         '#maxlength' => 128,
@@ -610,9 +675,134 @@ class CommonMap extends StylePluginBase {
     uasort($form['centre'], 'Drupal\Component\Utility\SortArray::sortByWeightProperty');
 
     /*
-     * Additional map settings.
+     * Advanced settings
      */
-    $form += $this->getGoogleMapsSettingsForm($this->options);
+
+    $form['advanced_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Advanced settings'),
+    ];
+
+    $form['show_raw_locations'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#title' => $this->t('Show raw locations'),
+      '#description' => $this->t('By default, the location data for the map will be hidden when the map loads.'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->options['show_raw_locations'],
+    ];
+
+    $form['even_empty'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#title' => $this->t('Display map when no locations are found'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->options['even_empty'],
+    ];
+
+    if ($icon_options) {
+      $form['icon_field'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('Icon source field'),
+        '#type' => 'select',
+        '#default_value' => $this->options['icon_field'],
+        '#description' => $this->t("Optional image (field) to use as icon."),
+        '#options' => $icon_options,
+        '#empty_value' => 'none',
+        '#process' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ],
+        '#pre_render' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ],
+      ];
+    }
+
+    if ($id_options) {
+      $form['marker_scroll_to_result'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('On clicking marker scroll to result instead of opening marker bubble'),
+        '#type' => 'checkbox',
+        '#default_value' => $this->options['marker_scroll_to_result'],
+      ];
+      $form['id_field'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('ID source field'),
+        '#type' => 'select',
+        '#default_value' => $this->options['id_field'],
+        '#description' => $this->t("Unique location ID used as scrolling target. If not targeting the raw location output, either add a class structured as 'geolocation-location-id-[ID]' or an attribute 'data-location-id=\"[ID]\"' to the target element."),
+        '#options' => $id_options,
+        '#empty_value' => 'none',
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[marker_scroll_to_result]"]' => ['checked' => TRUE],
+          ],
+        ],
+        '#process' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+        ],
+        '#pre_render' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ],
+      ];
+    }
+
+    $form['context_popup_content'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#type' => 'textarea',
+      '#title' => $this->t('Context popup content'),
+      '#description' => $this->t('A right click on the map will open a context popup with this content. Tokens supported. Additionally "@lat, @lng" will be replaced dynamically.'),
+      '#default_value' => $this->options['context_popup_content'],
+    ];
+
+    /*
+     * Marker Clusterer
+     */
+
+    $form['marker_clusterer_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Marker Clusterer'),
+    ];
+    $form['marker_clusterer'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Cluster markers'),
+      '#type' => 'checkbox',
+      '#description' => $this->t('Various <a href=":url">examples</a> are available.', [':url' => 'https://developers.google.com/maps/documentation/javascript/marker-clustering']),
+      '#default_value' => $this->options['marker_clusterer'],
+    ];
+    $form['marker_clusterer_image_path'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Cluster image path'),
+      '#type' => 'textfield',
+      '#default_value' => $this->options['marker_clusterer_image_path'],
+      '#description' => $this->t("Set the marker image path. If omitted, the default image path %url will be used.", ['%url' => 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m']),
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[marker_clusterer]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $form['marker_clusterer_styles'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Styles of the Cluster'),
+      '#type' => 'textarea',
+      '#default_value' => $this->options['marker_clusterer_styles'],
+      '#description' => $this->t(
+        'Set custom Cluster styles in JSON Format. Custom Styles have to be set for all 5 Cluster Images. See the <a href=":reference">reference</a> for details.',
+        [
+          ':reference' => 'https://googlemaps.github.io/js-marker-clusterer/docs/reference.html',
+        ]
+      ),
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[marker_clusterer]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    /*
+     * Google Maps settings
+     */
+
+    $form += $this->getGoogleMapsSettingsForm($this->options, 'style_options][');
   }
 
   /**
@@ -620,6 +810,23 @@ class CommonMap extends StylePluginBase {
    */
   public function validateOptionsForm(&$form, FormStateInterface $form_state) {
     parent::validateOptionsForm($form, $form_state);
+
+    $values = $form_state->getValues()['style_options'];
+
+    $marker_clusterer_styles = $values['marker_clusterer_styles'];
+    if (!empty($marker_clusterer_styles)) {
+      if (!is_string($marker_clusterer_styles)) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Please enter a JSON string as style.'));
+      }
+      $json_result = json_decode($marker_clusterer_styles);
+      if ($json_result === NULL) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Decoding style JSON failed. Error: %error.', ['%error' => json_last_error()]));
+      }
+      elseif (!is_array($json_result)) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Decoded style JSON is not an array.'));
+      }
+    }
+
     $this->validateGoogleMapsSettingsForm($form, $form_state, 'style_options');
   }
 

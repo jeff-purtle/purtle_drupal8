@@ -2,12 +2,15 @@
 
 namespace Drupal\Tests\entity_print_views\Kernel;
 
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\entity_print_views\Controller\ViewPrintController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\simpletest\UserCreationTrait;
 
 /**
+ * Views access test.
+ *
  * @group entity_print_views
  */
 class ViewsAccessTest extends KernelTestBase {
@@ -71,7 +74,7 @@ class ViewsAccessTest extends KernelTestBase {
    * @return bool
    *   TRUE if the user has access otherwise FALSE.
    */
-  protected function checkAccess($account, $view_name, $display_id) {
+  protected function checkAccess(AccountInterface $account, $view_name, $display_id) {
     $this->container->get('current_user')->setAccount($account);
     $controller = ViewPrintController::create($this->container);
     return $controller->checkAccess('pdf', $view_name, $display_id)->isAllowed();

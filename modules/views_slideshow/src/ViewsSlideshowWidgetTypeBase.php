@@ -32,6 +32,20 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    // Add field to see if they would like to hide controls if there is only
+    // one slide.
+    $form['hide_on_single_slide'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Hide controls if there is only one slide'),
+      '#default_value' => $this->getConfiguration()['hide_on_single_slide'],
+      '#description' => t('Should the controls be hidden if there is only one slide.'),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $this->getConfiguration()['dependency'] . '[enable]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
     return $form;
   }
 
@@ -48,6 +62,7 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
     return [
       'enable' => ['default' => 0],
       'weight' => ['default' => 1],
+      'hide_on_single_slide' => ['default' => 0],
     ];
   }
 

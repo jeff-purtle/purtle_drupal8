@@ -4,6 +4,9 @@ namespace Drupal\entity_print\Plugin;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 
+/**
+ * Export type plugin interface.
+ */
 interface ExportTypeInterface extends PluginInspectionInterface {
 
   /**

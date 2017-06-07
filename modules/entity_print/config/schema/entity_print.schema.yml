@@ -14,6 +14,23 @@ entity_print.settings:
       sequence:
         type: string
 
+entint_print_engine_pdf:
+  type: mapping
+  label: 'Base settings for engines using the PDF base class'
+  mapping:
+    default_paper_size:
+      type: string
+      label: 'Default Paper Size'
+    orientation:
+      type: string
+      label: 'Paper Orientation'
+    username:
+      type: string
+      label: 'HTTP Auth username'
+    password:
+      type: string
+      label: 'HTTP Auth password'
+
 entity_print.print_engine.*:
   type: config_entity
   label: 'Print Engine'
@@ -26,12 +43,9 @@ entity_print.print_engine.*:
       label: 'Settings for the Print Engine.'
 
 entity_print_print_engine.dompdf:
-  type: mapping
+  type: entint_print_engine_pdf
   label: 'Dompdf specific settings'
   mapping:
-    default_paper_size:
-      type: string
-      label: 'Default Paper Size'
     enable_html5_parser:
       type: boolean
       label: 'Enable HTML5 parsing'
@@ -49,7 +63,7 @@ entity_print_print_engine.dompdf:
       label: 'Verify Peer Name'
 
 entity_print_print_engine.phpwkhtmltopdf:
-  type: mapping
+  type: entint_print_engine_pdf
   label: 'PHP Wkhtmltopdf'
   type: mapping
   mapping:
@@ -67,7 +81,7 @@ entity_print_print_engine.tcpdfv1:
       label: 'The page format. E.g. A3, A4 or many more options'
     orientation:
       type: string
-      label: 'One of Landscape or Portrait'
+      label: 'Paper Orientation'
 
 # Add schema for our extra field settings.
 core.entity_view_display.*.*.*.third_party.entity_print:
@@ -88,3 +102,26 @@ field.formatter.settings.entity_print_base64_image_formatter:
     image_style:
       type: string
       label: 'Image style'
+
+block.settings.print_links:
+  type: block_settings
+  label: 'Print Links'
+  mapping:
+    pdf_enabled:
+      type: boolean
+      label: 'Flag to enable PDF link'
+    pdf_link_text:
+      type: label
+      label: 'PDF link text'
+    epub_enabled:
+      type: boolean
+      label: 'Flag to enable EPub link'
+    epub_link_text:
+      type: label
+      label: 'EPub link text'
+    word_docx_enabled:
+      type: boolean
+      label: 'Flag to enable Word Document link'
+    word_docx_link_text:
+      type: label
+      label: 'Word Document link text'

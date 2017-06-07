@@ -2,20 +2,19 @@
 
 namespace Drupal\entity_print\Controller;
 
-use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_print\Plugin\ExportTypeManagerInterface;
 use Drupal\entity_print\PrintBuilderInterface;
-use Drupal\entity_print\PrintEngineException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ * Print controller.
+ */
 class EntityPrintController extends ControllerBase {
 
   /**
@@ -87,7 +86,7 @@ class EntityPrintController extends ControllerBase {
     $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
 
     $print_engine = $this->pluginManager->createSelectedInstance($export_type);
-    return (new StreamedResponse(function() use ($entity, $print_engine, $config) {
+    return (new StreamedResponse(function () use ($entity, $print_engine, $config) {
       // The Print is sent straight to the browser.
       $this->printBuilder->deliverPrintable([$entity], $print_engine, $config->get('force_download'), $config->get('default_css'));
     }))->send();

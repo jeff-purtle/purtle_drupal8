@@ -25,28 +25,28 @@ class GeolocationLatlngWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    $element['lat'] = array(
+    $element['lat'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Latitude'),
       '#empty_value' => '',
       '#default_value' => (isset($items[$delta]->lat)) ? $items[$delta]->lat : NULL,
       '#maxlength' => 255,
       '#required' => $this->fieldDefinition->isRequired(),
-    );
+    ];
     if (!empty($element['lat']['#default_value'])) {
-      $element['lat']['#description'] = $this->t('<span>Sexagesimal/DMS notation value: %sexagesimal</span>', ['%sexagesimal' => GeolocationCore::DecimalToSexagesimal($element['lat']['#default_value'])]);
+      $element['lat']['#description'] = $this->t('<span>Sexagesimal/DMS notation value: %sexagesimal</span>', ['%sexagesimal' => GeolocationCore::decimalToSexagesimal($element['lat']['#default_value'])]);
     }
 
-    $element['lng'] = array(
+    $element['lng'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Longitude'),
       '#empty_value' => '',
       '#default_value' => (isset($items[$delta]->lng)) ? $items[$delta]->lng : NULL,
       '#maxlength' => 255,
       '#required' => $this->fieldDefinition->isRequired(),
-    );
+    ];
     if (!empty($element['lng']['#default_value'])) {
-      $element['lng']['#description'] = $this->t('<span>Sexagesimal/DMS notation value: %sexagesimal</span>', ['%sexagesimal' => GeolocationCore::DecimalToSexagesimal($element['lng']['#default_value'])]);
+      $element['lng']['#description'] = $this->t('<span>Sexagesimal/DMS notation value: %sexagesimal</span>', ['%sexagesimal' => GeolocationCore::decimalToSexagesimal($element['lng']['#default_value'])]);
     }
 
     return $element;
@@ -62,8 +62,8 @@ class GeolocationLatlngWidget extends WidgetBase {
         !empty($geolocation['lat'])
         && !empty($geolocation['lng'])
       ) {
-        $latitude = GeolocationCore::SexagesimalToDecimal($values[$index]['lat']);
-        $longitude = GeolocationCore::SexagesimalToDecimal($values[$index]['lng']);
+        $latitude = GeolocationCore::sexagesimalToDecimal($values[$index]['lat']);
+        $longitude = GeolocationCore::sexagesimalToDecimal($values[$index]['lng']);
 
         if (!empty($latitude) && !empty($longitude)) {
           $values[$index]['lat'] = $latitude;

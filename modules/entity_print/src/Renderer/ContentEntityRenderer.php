@@ -2,15 +2,18 @@
 
 namespace Drupal\entity_print\Renderer;
 
-use Drupal\Core\Asset\AssetCollectionRendererInterface;
-use Drupal\Core\Asset\AssetResolverInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Extension\InfoParserInterface;
-use Drupal\Core\Extension\ThemeHandlerInterface;
-use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Render\RendererInterface as CoreRendererInterface;
+use Drupal\entity_print\Asset\AssetRendererInterface;
+use Drupal\entity_print\FilenameGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * A renderer for content entities.
+ */
 class ContentEntityRenderer extends RendererBase {
 
   /**
@@ -20,28 +23,48 @@ class ContentEntityRenderer extends RendererBase {
    */
   protected $entityTypeManager;
 
-  public function __construct(ThemeHandlerInterface $theme_handler, InfoParserInterface $info_parser, AssetResolverInterface $asset_resolver, AssetCollectionRendererInterface $css_renderer, RendererInterface $renderer, EventDispatcherInterface $event_dispatcher, EntityTypeManagerInterface $entity_type_manager) {
-    parent::__construct($theme_handler, $info_parser, $asset_resolver, $css_renderer, $renderer, $event_dispatcher);
+  /**
+   * ContentEntityRenderer constructor.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\entity_print\Asset\AssetRendererInterface $asset_renderer
+   *   The asset renderer.
+   * @param \Drupal\entity_print\FilenameGeneratorInterface $filename_generator
+   *   A filename generator.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(CoreRendererInterface $renderer, AssetRendererInterface $asset_renderer, FilenameGeneratorInterface $filename_generator, EventDispatcherInterface $event_dispatcher, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($renderer, $asset_renderer, $filename_generator, $event_dispatcher);
     $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function render(EntityInterface $entity) {
-    $render_controller = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId());
-    return $render_controller->view($entity, $this->getViewMode($entity));
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+    return new static (
+      $container->get('renderer'),
+      $container->get('entity_print.asset_renderer'),
+      $container->get('entity_print.filename_generator'),
+      $container->get('event_dispatcher'),
+      $container->get('entity_type.manager')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFilename(array $entities) {
-    $filenames = [];
+  public function render(array $entities) {
+    $build = [];
     foreach ($entities as $entity) {
-      $filenames[] = $this->sanitizeFilename($entity->label());
+      $render_controller = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId());
+      $build[] = $render_controller->view($entity, $this->getViewMode($entity));
     }
-    return implode('-', $filenames);
+    return $build;
   }
 
   /**

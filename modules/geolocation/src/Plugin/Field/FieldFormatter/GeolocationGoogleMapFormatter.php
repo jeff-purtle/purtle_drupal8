@@ -7,6 +7,8 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\GoogleMapsDisplayTrait;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\geolocation\GeolocationItemTokenTrait;
 
 /**
  * Plugin implementation of the 'geolocation_latlng' formatter.
@@ -14,7 +16,7 @@ use Drupal\geolocation\GoogleMapsDisplayTrait;
  * @FieldFormatter(
  *   id = "geolocation_map",
  *   module = "geolocation",
- *   label = @Translation("Geolocation Google Map"),
+ *   label = @Translation("Geolocation Google Maps API - Map"),
  *   field_types = {
  *     "geolocation"
  *   }
@@ -23,6 +25,7 @@ use Drupal\geolocation\GoogleMapsDisplayTrait;
 class GeolocationGoogleMapFormatter extends FormatterBase {
 
   use GoogleMapsDisplayTrait;
+  use GeolocationItemTokenTrait;
 
   /**
    * {@inheritdoc}
@@ -37,8 +40,11 @@ class GeolocationGoogleMapFormatter extends FormatterBase {
   public static function defaultSettings() {
     $settings = [];
     $settings['title'] = '';
-    $settings += parent::defaultSettings();
+    $settings['set_marker'] = TRUE;
+    $settings['common_map'] = FALSE;
     $settings['info_text'] = '';
+    $settings += parent::defaultSettings();
+    $settings['use_overridden_map_settings'] = FALSE;
     $settings += self::getGoogleMapDefaultSettings();
 
     return $settings;
@@ -50,39 +56,75 @@ class GeolocationGoogleMapFormatter extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $settings = $this->getSettings();
 
-    $element['title'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Hover title'),
-      '#description' => $this->t('The hover title is a tool tip that will be displayed when the mouse is paused over the map marker.'),
-      '#default_value' => $settings['title'],
+    $element['set_marker'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Set map marker'),
+      '#description' => $this->t('The map will be centered on the stored location. Additionally a marker can be set at the exact location.'),
+      '#default_value' => $settings['set_marker'],
     ];
 
-    $element += $this->getGoogleMapsSettingsForm($settings);
+    $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
+    if (
+      $cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED
+      || $cardinality > 1
+    ) {
+      $element['common_map'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Display multiple values on a common map'),
+        '#description' => $this->t('By default, each value will be displayed in a separate map. Settings this option displays all values on a common map instead. This settings is only useful on multi-value fields.'),
+        '#default_value' => $settings['common_map'],
+        '#states' => [
+          'visible' => [
+            ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][set_marker]"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+    }
+
+    $element['title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Marker title'),
+      '#description' => $this->t('When the cursor hovers on the marker, this title will be shown as description.'),
+      '#default_value' => $settings['title'],
+      '#states' => [
+        'visible' => [
+          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][set_marker]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
 
     $element['info_text'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Info text'),
-      '#description' => $this->t('This text will be displayed in an "Info'
-        . ' window" above the map marker. The "Info window" will be displayed by'
-        . ' default unless the "Automatically show info text" format setting'
-        . ' is unchecked. Leave blank if you do not wish to display an "Info'
-        . ' window". See "REPLACEMENT PATTERNS" below for available replacements.'),
+      '#title' => $this->t('Marker info text'),
+      '#description' => $this->t('When the marker is clicked, this text will be shown in a popup above it. Leave blank to not display. Token replacement supported.'),
       '#default_value' => $settings['info_text'],
+      '#states' => [
+        'visible' => [
+          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][set_marker]"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
 
     $element['replacement_patterns'] = [
       '#type' => 'details',
       '#title' => 'Replacement patterns',
       '#description' => $this->t('The following replacement patterns are available for the "Info text" and the "Hover title" settings.'),
+      '#states' => [
+        'visible' => [
+          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][set_marker]"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
-    $element['replacement_patterns']['native'] = [
-      '#markup' => $this->t('<h4>Geolocation field data:</h4><ul><li>Latitude (%lat) or (:lat)</li><li>Longitude (%lng) or (:lng)</li></ul>'),
-    ];
-    // Add the token UI from the token module if present.
-    $element['replacement_patterns']['token_help'] = [
-      '#theme' => 'token_tree_link',
-      '#prefix' => $this->t('<h4>Tokens:</h4>'),
-      '#token_types' => [$this->fieldDefinition->getTargetEntityTypeId()],
+
+    $element['replacement_patterns']['token_geolocation'] = $this->getTokenHelp();
+
+    $element += $this->getGoogleMapsSettingsForm($settings, 'fields][' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][');
+
+    $element['use_overridden_map_settings'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use custom map settings if provided'),
+      '#description' => $this->t('The Geolocation GoogleGeocoder widget optionally allows to define custom map settings to use here.'),
+      '#default_value' => $settings['use_overridden_map_settings'],
     ];
 
     return $element;
@@ -95,11 +137,17 @@ class GeolocationGoogleMapFormatter extends FormatterBase {
     $settings = $this->getSettings();
 
     $summary = [];
-    $summary[] = $this->t('Hover Title: @type', ['@type' => $settings['title']]);
+    $summary[] = $this->t('Marker set: @marker', ['@marker' => $settings['set_marker'] ? $this->t('Yes') : $this->t('No')]);
+    if ($settings['set_marker']) {
+      $summary[] = $this->t('Marker Title: @type', ['@type' => $settings['title']]);
+      $summary[] = $this->t('Marker Info Text: @type', [
+        '@type' => current(explode(chr(10), wordwrap($settings['info_text'], 30))),
+      ]);
+      if (!empty($settings['common_map'])) {
+        $summary[] = $this->t('Common Map Display: Yes');
+      }
+    }
     $summary = array_merge($summary, $this->getGoogleMapsSettingsSummary($settings));
-    $summary[] = $this->t('Info Text: @type', [
-      '@type' => current(explode(chr(10), wordwrap($settings['info_text'], 30))),
-    ]);
 
     return $summary;
   }
@@ -108,62 +156,97 @@ class GeolocationGoogleMapFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    // Add formatter settings to the drupalSettings array.
-    $field_settings = $this->getGoogleMapsSettings($this->getSettings()) + $this->getSettings();
-    $elements = [];
-    // This is a list of tokenized settings that should have placeholders
-    // replaced with contextual values.
-    $tokenized_settings = [
-      'info_text',
-      'title',
+    $settings = $this->getSettings();
+    $map_settings = $this->getGoogleMapsSettings($this->getSettings());
+
+    if (
+      $settings['use_overridden_map_settings']
+      && !empty($items->get(0)->getValue()['data']['google_map_settings'])
+      && is_array($items->get(0)->getValue()['data']['google_map_settings'])
+    ) {
+      $map_settings = $this->getGoogleMapsSettings($items->get(0)->getValue()['data']);
+    }
+
+    $render_array = [
+      '#theme' => 'geolocation_map_formatter',
+      '#attached' => [
+        'library' => ['geolocation/geolocation.formatter.googlemap'],
+        'drupalSettings' => [
+          'geolocation' => [
+            'google_map_url' => $this->getGoogleMapsApiUrl(),
+          ],
+        ],
+      ],
     ];
 
-    foreach ($items as $delta => $item) {
-      // @todo: Add token support to the geolocaiton field exposing sub-fields.
-      // Get token context.
-      $token_context = [
-        'field' => $items,
-        $this->fieldDefinition->getTargetEntityTypeId() => $items->getEntity(),
+    if (empty($settings['set_marker'])) {
+      $single_map = $render_array;
+
+      $unique_id = uniqid("map-canvas-");
+
+      $single_map['#latitude'] = $items->get(0)->getValue()['lat'];
+      $single_map['#longitude'] = $items->get(0)->getValue()['lng'];
+      $single_map['#uniqueid'] = $unique_id;
+      $single_map['#attached']['drupalSettings']['geolocation']['maps'][$unique_id] = [
+        'settings' => $map_settings,
       ];
 
-      $uniqueue_id = uniqid("map-canvas-");
+      return $single_map;
+    }
 
-      $elements[$delta] = [
-        '#type' => 'markup',
-        '#markup' => '<div id="' . $uniqueue_id . '" class="geolocation-google-map"></div>',
-        '#attached' => [
-          'library' => ['geolocation/geolocation.formatter.googlemap'],
-          'drupalSettings' => [
-            'geolocation' => [
-              'maps' => [
-                $uniqueue_id => [
-                  'id' => "{$uniqueue_id}",
-                  'lat' => (float) $item->lat,
-                  'lng' => (float) $item->lng,
-                  'settings' => $field_settings,
-                ],
-              ],
-              'google_map_api_key' => \Drupal::config('geolocation.settings')->get('google_map_api_key'),
-              'google_map_additional_parameters' => \Drupal::config('geolocation.settings')->get('google_map_additional_parameters'),
-            ],
-          ],
+    $elements = [];
+
+    $token_context = [
+      $this->fieldDefinition->getTargetEntityTypeId() => $items->getEntity(),
+    ];
+
+    $locations = [];
+
+    foreach ($items as $delta => $item) {
+      $token_context['geolocation_current_item'] = $item;
+
+      $title = \Drupal::token()->replace($settings['title'], $token_context, ['callback' => [$this, 'geolocationItemTokens']]);
+      if (empty($title)) {
+        $title = $item->lat . ', ' . $item->lng;
+      }
+      $content = \Drupal::token()->replace($settings['info_text'], $token_context, ['callback' => [$this, 'geolocationItemTokens']]);
+
+      $location = [
+        '#theme' => 'geolocation_common_map_location',
+        '#content' => $content,
+        '#title' => $title,
+        '#position' => [
+          'lat' => $item->lat,
+          'lng' => $item->lng,
         ],
       ];
 
-      // Replace placeholders with token values.
-      $item_settings = &$elements[$delta]['#attached']['drupalSettings']['geolocation']['maps'][$uniqueue_id]['settings'];
-      array_walk($tokenized_settings, function ($v) use (&$item_settings, $token_context, $item) {
-        $item_settings[$v] = \Drupal::token()->replace($item_settings[$v], $token_context);
-        // TODO: Drupal does not like variables handed to t().
-        $item_settings[$v] = $this->t($item_settings[$v], [
-          ':lat' => (float) $item->lat,
-          '%lat' => (float) $item->lat,
-          ':lng' => (float) $item->lng,
-          '%lng' => (float) $item->lng,
-        ]);
-      });
+      if (!empty($settings['common_map'])) {
+        $locations[] = $location;
+      }
+      else {
+        $unique_id = uniqid("map-canvas-");
 
+        $elements[$delta] = $render_array;
+        $elements[$delta]['#locations'] = [$location];
+        $elements[$delta]['#uniqueid'] = $unique_id;
+        $elements[$delta]['#attached']['drupalSettings']['geolocation']['maps'][$unique_id] = [
+          'settings' => $map_settings,
+        ];
+      }
     }
+
+    if (!empty($settings['common_map'])) {
+      $unique_id = uniqid("map-canvas-");
+
+      $elements = $render_array;
+      $elements['#locations'] = $locations;
+      $elements['#uniqueid'] = $unique_id;
+      $elements['#attached']['drupalSettings']['geolocation']['maps'][$unique_id] = [
+        'settings' => $map_settings,
+      ];
+    }
+
     return $elements;
   }
 

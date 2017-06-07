@@ -5,6 +5,9 @@ namespace Drupal\entity_print\Plugin\EntityPrint\ExportType;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\entity_print\Plugin\ExportTypeInterface;
 
+/**
+ * Export type plugin class.
+ */
 class DefaultExportType extends PluginBase implements ExportTypeInterface {
 
   /**

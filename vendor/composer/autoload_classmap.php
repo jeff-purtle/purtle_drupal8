@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CallbackFilterIterator' => $vendorDir . '/symfony/polyfill-php54/Resources/stubs/CallbackFilterIterator.php',
+    'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'Drupal' => $baseDir . '/core/lib/Drupal.php',
     'Drupal\\Component\\Utility\\Timer' => $baseDir . '/core/lib/Drupal/Component/Utility/Timer.php',
     'Drupal\\Component\\Utility\\Unicode' => $baseDir . '/core/lib/Drupal/Component/Utility/Unicode.php',
@@ -78,6 +79,11 @@ return array(
     'Generic_Sniffs_WhiteSpace_DisallowSpaceIndentSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/WhiteSpace/DisallowSpaceIndentSniff.php',
     'Generic_Sniffs_WhiteSpace_DisallowTabIndentSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/WhiteSpace/DisallowTabIndentSniff.php',
     'Generic_Sniffs_WhiteSpace_ScopeIndentSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/WhiteSpace/ScopeIndentSniff.php',
+    'HTML5_Data' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Data.php',
+    'HTML5_InputStream' => $vendorDir . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+    'HTML5_Parser' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Parser.php',
+    'HTML5_Tokenizer' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+    'HTML5_TreeBuilder' => $vendorDir . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
     'MySource_Sniffs_CSS_BrowserSpecificStylesSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/MySource/Sniffs/CSS/BrowserSpecificStylesSniff.php',
     'MySource_Sniffs_Channels_DisallowSelfActionsSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/MySource/Sniffs/Channels/DisallowSelfActionsSniff.php',
     'MySource_Sniffs_Channels_IncludeOwnSystemSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/MySource/Sniffs/Channels/IncludeOwnSystemSniff.php',

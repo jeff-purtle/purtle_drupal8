@@ -18,7 +18,13 @@ class StyleSlideshowTest extends PluginTestBase {
    *
    * @var array
    */
-  public static $modules = ['views', 'views_slideshow', 'views_slideshow_cycle', 'views_test_config', 'views_slideshow_test'];
+  public static $modules = [
+    'views',
+    'views_slideshow',
+    'views_slideshow_cycle',
+    'views_test_config',
+    'views_slideshow_test',
+  ];
 
   /**
    * Views used by this test.

@@ -7,6 +7,8 @@ use Drupal\entity_print\Plugin\ExportTypeInterface;
 use Drupal\entity_print\Plugin\PrintEngineBase;
 
 /**
+ * TCPDF plugin implementation.
+ *
  * @PrintEngine(
  *   id = "tcpdfv1",
  *   label = @Translation("TCPDF (v1)"),
@@ -20,9 +22,6 @@ use Drupal\entity_print\Plugin\PrintEngineBase;
  * @endcode
  */
 class TcPdfv1 extends PrintEngineBase {
-
-  const PORTRAIT = 'PORTRAIT';
-  const LANDSCAPE = 'LANDSCAPE';
 
   /**
    * The TCPDF implementation.
@@ -69,11 +68,14 @@ class TcPdfv1 extends PrintEngineBase {
       '#description' => $this->t('The page size to print the PDF to.'),
     ];
     $form['orientation'] = [
-      '#title' => $this->t('Orientation'),
+      '#title' => $this->t('Paper Orientation'),
       '#type' => 'select',
-      '#options' => [static::PORTRAIT => 'Portrait', static::LANDSCAPE => 'Landscape'],
+      '#options' => [
+        static::PORTRAIT => $this->t('Portrait'),
+        static::LANDSCAPE => $this->t('Landscape'),
+      ],
       '#default_value' => $this->configuration['orientation'],
-      '#description' => $this->t('Select the page orientation'),
+      '#description' => $this->t('The paper orientation one of Landscape or Portrait'),
     ];
     return $form;
   }
@@ -89,10 +91,17 @@ class TcPdfv1 extends PrintEngineBase {
   /**
    * {@inheritdoc}
    */
-  public function send($filename = NULL) {
+  public function send($filename, $force_download = TRUE) {
     // If we have a filename then we force the download otherwise we open in the
     // browser.
-    $this->tcpdf->Output($filename, $filename ? 'D' : 'I');
+    $this->tcpdf->Output($filename, $force_download ? 'D' : 'I');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlob() {
+    return $this->tcpdf->Output('S');
   }
 
   /**
@@ -100,6 +109,13 @@ class TcPdfv1 extends PrintEngineBase {
    */
   public static function dependenciesAvailable() {
     return class_exists('\TCPDF') && !drupal_valid_test_ua();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrintObject() {
+    return $this->tcpdf;
   }
 
 }

@@ -3,16 +3,31 @@
 /**
  * @file
  * The theme system, which controls the output of views slideshow.
+ */
+
+/**
+ * @defgroup vss_templates Templates
+ * @{
+ * Slideshow and component templates.
  *
- * This just adds a wrapper div to the slideshow.
+ * @see vss_theme
+ * @}
+ */
+
+/**
+ * @defgroup vss_theme Theme Functions
+ * @{
+ * Theme processing and display generation.
+ *
+ * Most of the logic behind the generation of the slideshow is here.
+ *
+ * @see vss_templates
  */
 
 use Drupal\Component\Utility\Html;
 
 /**
  * Views Slideshow: slideshow.
- *
- * @ingroup themeable
  */
 function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
   $options = $vars['view']->style_plugin->options;
@@ -115,13 +130,22 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     // Build weights.
     $weight = [];
     for ($i = 1; $i <= count($widgetTypes); $i++) {
-      $weight['top'][$i] = '';
-      $weight['bottom'][$i] = '';
+      $weight['top'][$i] = [];
+      $weight['bottom'][$i] = [];
     }
 
+    $slide_count = count($view->result);
+    if ($slide_count && $vars['view']->style_plugin->options['slideshow_type'] == 'views_slideshow_cycle') {
+      $items_per_slide = $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide'];
+      $slide_count = $slide_count / $items_per_slide;
+    }
     foreach ($widgetTypes as $widgetTypeId => $widgetTypeName) {
       foreach ($weight as $location => $order) {
         if ($options['widgets'][$location][$widgetTypeId]['enable']) {
+          // If hide on single slide and only a single slide skip rendering.
+          if ($options['widgets'][$location][$widgetTypeId]['hide_on_single_slide'] && $slide_count < 2) {
+            continue;
+          }
           $widgetWeight = ($options['widgets'][$location][$widgetTypeId]['weight'] > count($widgetTypes)) ? count($widgetTypes) : $options['widgets'][$location][$widgetTypeId]['weight'];
 
           $weight[$location][$widgetWeight][] = [
@@ -134,7 +158,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
 
     // Build our widgets.
     foreach ($weight as $location => $order) {
-      $vars[$location . '_widget_rendered'] = '';
+      $vars[$location . '_widget_rendered'] = [];
       foreach ($order as $widgets) {
         if (is_array($widgets)) {
           foreach ($widgets as $widgetData) {
@@ -171,15 +195,9 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
 
 /**
  * Views Slideshow: pager.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
-  if (isset($vars['settings']['hide_on_single_slide']) && $vars['settings']['hide_on_single_slide'] === 1 && count($vars['rows']) < 2) {
-    return '';
-  }
-
-  // Add javascript settings for the pager type.
+  // Add JavaScript settings for the pager type.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPager'][$vars['vss_id']] = [
     $vars['location'] => [
@@ -207,7 +225,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
  * Theme pager fields.
  */
 function template_preprocess_views_slideshow_pager_fields(&$vars) {
-  // Add javascript settings for the field.
+  // Add JavaScript settings for the field.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPagerFields'][$vars['vss_id']] = [
     $vars['location'] => [
@@ -226,38 +244,34 @@ function template_preprocess_views_slideshow_pager_fields(&$vars) {
 
   // Render all the fields unless there is only 1 slide and the user specified
   // to hide them when there is only one slide.
-  $vars['rendered_field_items'] = '';
-  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['view']->result) > $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide']) {
-    foreach ($vars['view']->result as $count => $node) {
-      $rendered_fields = '';
-      foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
-        if ($use !== 0 && is_object($vars['view']->field[$field])) {
-          $rendered_fields[] = [
-            '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
-            '#view' => $vars['view'],
-            '#label' => $vars['view']->field[$field]->options['label'],
-            '#output' => $vars['view']->style_plugin->getField($count, $field),
-            '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
-          ];
-        }
+  $vars['rendered_field_items'] = [];
+  foreach ($vars['view']->result as $count => $node) {
+    $rendered_fields = [];
+    foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
+      if ($use !== 0 && is_object($vars['view']->field[$field])) {
+        $rendered_fields[] = [
+          '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
+          '#view' => $vars['view'],
+          '#label' => $vars['view']->field[$field]->options['label'],
+          '#output' => $vars['view']->style_plugin->getField($count, $field),
+          '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
+        ];
       }
-
-      $vars['rendered_field_items'][] = [
-        '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
-        '#vss_id' => $vars['vss_id'],
-        '#item' => $rendered_fields,
-        '#count' => $count,
-        '#location' => $vars['location'],
-        '#length' => count($vars['view']->result),
-      ];
     }
+
+    $vars['rendered_field_items'][] = [
+      '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
+      '#vss_id' => $vars['vss_id'],
+      '#item' => $rendered_fields,
+      '#count' => $count,
+      '#location' => $vars['location'],
+      '#length' => count($vars['view']->result),
+    ];
   }
 }
 
 /**
  * Views Slideshow: pager item.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_pager_field_item(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_pager_field_item';
@@ -272,11 +286,9 @@ function template_preprocess_views_slideshow_pager_field_item(&$vars) {
 
 /**
  * Views Slideshow: Controls.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
-  // Add javascript settings for the controls type.
+  // Add JavaScript settings for the controls type.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowControls'][$vars['vss_id']] = [
     $vars['location'] => [
@@ -284,25 +296,20 @@ function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
     ],
   ];
 
-  $output = '';
-  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['rows']) > $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide']) {
-    $output = [
-      '#theme' => $vars['view']->buildThemeFunctions($vars['settings']['type']),
-      '#vss_id' => $vars['vss_id'],
-      '#view' => $vars['view'],
-      '#settings' => $vars['settings'],
-      '#location' => $vars['location'],
-      '#rows' => $vars['rows'],
-    ];
-  }
+  $output = [
+    '#theme' => $vars['view']->buildThemeFunctions($vars['settings']['type']),
+    '#vss_id' => $vars['vss_id'],
+    '#view' => $vars['view'],
+    '#settings' => $vars['settings'],
+    '#location' => $vars['location'],
+    '#rows' => $vars['rows'],
+  ];
 
   return \Drupal::service('renderer')->render($output);
 }
 
 /**
  * The slideshow controls.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_text(&$vars) {
   $vars['#attached']['library'][] = 'views_slideshow/controls_text';
@@ -333,8 +340,6 @@ function template_preprocess_views_slideshow_controls_text(&$vars) {
 
 /**
  * Views Slideshow: "previous" control.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_text_previous(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_controls_text_previous';
@@ -342,8 +347,6 @@ function template_preprocess_views_slideshow_controls_text_previous(&$vars) {
 
 /**
  * Views Slideshow: "pause" control.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_text_pause(&$vars) {
   $vars['attributes']['class'][]  = 'views_slideshow_controls_text_pause  views-slideshow-controls-text-status-play';
@@ -352,8 +355,6 @@ function template_preprocess_views_slideshow_controls_text_pause(&$vars) {
 
 /**
  * Views Slideshow: "next" control.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_text_next(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_controls_text_next';
@@ -361,8 +362,6 @@ function template_preprocess_views_slideshow_controls_text_next(&$vars) {
 
 /**
  * Views Slideshow: Slide Counter.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars) {
   $slide = [
@@ -379,10 +378,12 @@ function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars)
 
 /**
  * Views Slideshow: slide counter.
- *
- * @ingroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_slide_counter';
   $vars['slide_count'] = count($vars['rows']);
 }
+
+/**
+ * @} End of "defgroup vss_theme".
+ */

@@ -23,11 +23,21 @@
         }
       });
 
-      $('.view-content').masonry({
+      var $view = $('.view-content');
+      // Save the scroll position.
+      var scroll = document.body.scrollTop;
+      // Remove old Masonry object if it exists. This allows modules like
+      // Views Infinite Scroll to function with File Browser.
+      if ($view.data('masonry')) {
+        $view.masonry('destroy');
+      }
+      $view.masonry({
         itemSelector: '.views-row',
         columnWidth: 350,
         gutter: 15
       });
+      // Jump to the old scroll position.
+      document.body.scrollTop = scroll;
     }
   };
 

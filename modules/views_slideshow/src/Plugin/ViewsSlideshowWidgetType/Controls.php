@@ -22,7 +22,6 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
    */
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
-      'hide_on_single_slide' => ['default' => 0],
       'type' => ['default' => 0],
     ];
   }
@@ -31,6 +30,8 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+
     /* @var \Drupal\Component\Plugin\PluginManagerInterface */
     $widgetManager = \Drupal::service('plugin.manager.views_slideshow.widget');
 
@@ -45,20 +46,6 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
       // Need to wrap this so it indents correctly.
       $form['views_slideshow_controls_wrapper'] = [
         '#markup' => '<div class="vs-dependent">',
-      ];
-
-      // Add field to see if they would like to hide controls if there is only
-      // one slide.
-      $form['hide_on_single_slide'] = [
-        '#type' => 'checkbox',
-        '#title' => t('Hide controls if there is only one slide'),
-        '#default_value' => $this->getConfiguration()['hide_on_single_slide'],
-        '#description' => t('Should the controls be hidden if there is only one slide.'),
-        '#states' => [
-          'visible' => [
-            ':input[name="' . $this->getConfiguration()['dependency'] . '[enable]"]' => ['checked' => TRUE],
-          ],
-        ],
       ];
 
       // Create the widget type field.

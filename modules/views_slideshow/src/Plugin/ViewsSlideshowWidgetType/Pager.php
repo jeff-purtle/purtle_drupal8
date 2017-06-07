@@ -27,7 +27,6 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
    */
   public function defaultConfiguration() {
     $options = parent::defaultConfiguration() + [
-      'hide_on_single_slide' => ['default' => 0],
       'type' => ['default' => 0],
       'views_slideshow_pager_numbered_hover' => ['default' => 0],
       'views_slideshow_pager_numbered_click_to_page' => ['default' => 0],
@@ -50,6 +49,7 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
     $view = $form_state->get('view')->get('executable');
 
     /* @var \Drupal\Component\Plugin\PluginManagerInterface */
@@ -68,20 +68,6 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
       // Need to wrap this so it indents correctly.
       $form['views_slideshow_pager_wrapper'] = [
         '#markup' => '<div class="vs-dependent">',
-      ];
-
-      // Add field to see if they would like to hide pager if there is only one
-      // slide.
-      $form['hide_on_single_slide'] = [
-        '#type' => 'checkbox',
-        '#title' => t('Hide pager if there is only one slide'),
-        '#default_value' => $this->getConfiguration()['hide_on_single_slide'],
-        '#description' => t('Should the pager be hidden if there is only one slide.'),
-        '#states' => [
-          'visible' => [
-            ':input[name="' . $this->getConfiguration()['dependency'] . '[enable]"]' => ['checked' => TRUE],
-          ],
-        ],
       ];
 
       // Create the widget type field.

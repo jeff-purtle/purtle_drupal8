@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\entity_print\Kernel;
 
+use Drupal\Core\Session\AccountInterface;
 use Drupal\entity_print\Controller\EntityPrintController;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\simpletest\ContentTypeCreationTrait;
@@ -18,7 +19,18 @@ class EntityPrintAccessTest extends KernelTestBase {
   use NodeCreationTrait;
   use ContentTypeCreationTrait;
 
-  public static $modules = ['system', 'user', 'node', 'field', 'text', 'filter', 'entity_print'];
+  /**
+   * {@inheritdoc}
+   */
+  public static $modules = [
+    'system',
+    'user',
+    'node',
+    'field',
+    'text',
+    'filter',
+    'entity_print',
+  ];
 
   /**
    * The node object to test against.
@@ -44,6 +56,8 @@ class EntityPrintAccessTest extends KernelTestBase {
   }
 
   /**
+   * Test access permissions.
+   *
    * @covers ::checkAccess
    * @dataProvider accessPermissionsDataProvider
    */
@@ -60,19 +74,28 @@ class EntityPrintAccessTest extends KernelTestBase {
    */
   public function accessPermissionsDataProvider() {
     return [
-      'Permission "bypass entity print access" only cannot view PDF.' => [['bypass entity print access'], FALSE],
-      'Permission "access content" only cannot view PDF.' => [['access content'], FALSE],
-      'Permission "access content" and "bypass entity print access" can view PDF.' => [['bypass entity print access', 'access content'], TRUE],
-      'Per entity type permissions allow access.' => [['entity print access type node', 'access content'], TRUE],
-      'Per bundle permissions allow access.' => [['entity print access bundle page', 'access content'], TRUE],
-      'Incorrect entity type permission cannot access' => [['entity print access type user', 'access content'], FALSE],
-      'Incorrect bundle permissions cannot access' => [['entity print access bundle article', 'access content'], FALSE],
-      'No permissions cannot access' => [[], FALSE],
-
+      'Permission "bypass entity print access" only cannot view PDF.' =>
+        [['bypass entity print access'], FALSE],
+      'Permission "access content" only cannot view PDF.' =>
+        [['access content'], FALSE],
+      'Permission "access content" and "bypass entity print access" can view PDF.' =>
+        [['bypass entity print access', 'access content'], TRUE],
+      'Per entity type permissions allow access.' =>
+        [['entity print access type node', 'access content'], TRUE],
+      'Per bundle permissions allow access.' =>
+        [['entity print access bundle page', 'access content'], TRUE],
+      'Incorrect entity type permission cannot access' =>
+        [['entity print access type user', 'access content'], FALSE],
+      'Incorrect bundle permissions cannot access' =>
+        [['entity print access bundle article', 'access content'], FALSE],
+      'No permissions cannot access' =>
+        [[], FALSE],
     ];
   }
 
   /**
+   * Test invalid route parameters.
+   *
    * @covers ::checkAccess
    * @dataProvider invalidRouteParametersDataProvider
    */
@@ -87,9 +110,12 @@ class EntityPrintAccessTest extends KernelTestBase {
    */
   public function invalidRouteParametersDataProvider() {
     return [
-      'Invalid entity type triggers access denied.' => ['invalid', FALSE, 'pdf'],
-      'Invalid entity id triggers access denied.' => ['node', 'invalid-entity-id', 'pdf'],
-      'Invalid export type triggers access denied.' => ['node', FALSE, 'invalid-export-type'],
+      'Invalid entity type triggers access denied.' =>
+        ['invalid', FALSE, 'pdf'],
+      'Invalid entity id triggers access denied.' =>
+        ['node', 'invalid-entity-id', 'pdf'],
+      'Invalid export type triggers access denied.' =>
+        ['node', FALSE, 'invalid-export-type'],
     ];
   }
 
@@ -100,7 +126,7 @@ class EntityPrintAccessTest extends KernelTestBase {
    */
   public function testSecondaryEntityTypeAccess() {
     // User with print entity type user permissions and entity view.
-    $account = $this->createUser(array('entity print access type user', 'access content'));
+    $account = $this->createUser(['entity print access type user', 'access content']);
     $this->assertTrue($this->checkAccess($account, 'user', $account->id()), 'User with "type user" permission and access content permission is allowed to see the content.');
   }
 
@@ -110,7 +136,7 @@ class EntityPrintAccessTest extends KernelTestBase {
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The account we're checking against.
    * @param string $entity_type
-   *   The entity type string
+   *   The entity type string.
    * @param string $entity_id
    *   The entity id.
    * @param string $export_type
@@ -119,7 +145,7 @@ class EntityPrintAccessTest extends KernelTestBase {
    * @return bool
    *   TRUE if the user has access otherwise FALSE.
    */
-  protected function checkAccess($account, $entity_type, $entity_id, $export_type = 'pdf') {
+  protected function checkAccess(AccountInterface $account, $entity_type, $entity_id, $export_type = 'pdf') {
     $this->container->get('current_user')->setAccount($account);
     $controller = EntityPrintController::create($this->container);
     return $controller->checkAccess($export_type, $entity_type, $entity_id)->isAllowed();

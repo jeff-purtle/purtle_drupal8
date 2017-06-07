@@ -4,6 +4,9 @@ namespace Drupal\entity_print\Plugin;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 
+/**
+ * Print plugin manager interface.
+ */
 interface EntityPrintPluginManagerInterface extends PluginManagerInterface {
 
   /**
@@ -21,7 +24,7 @@ interface EntityPrintPluginManagerInterface extends PluginManagerInterface {
    * Checks if a plugin is enabled based on its dependencies.
    *
    * @param string $plugin_id
-   *   The plugin id to check
+   *   The plugin id to check.
    *
    * @return bool
    *   TRUE if the plugin is disabled otherwise FALSE.

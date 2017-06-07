@@ -11,6 +11,8 @@ use Drupal\file\Entity\File;
 use Drupal\Tests\BrowserTestBase;
 
 /**
+ * Test base64 images in exports.
+ *
  * @group entity_print
  */
 class Base64ImageTest extends BrowserTestBase {
@@ -64,7 +66,7 @@ class Base64ImageTest extends BrowserTestBase {
     $this->node = $this->createNode([
       $field_name => [
         'target_id' => $image->id(),
-      ]
+      ],
     ]);
 
     $component = [

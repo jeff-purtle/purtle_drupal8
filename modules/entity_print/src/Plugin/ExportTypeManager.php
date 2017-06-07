@@ -9,6 +9,9 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
+/**
+ * Export type manager.
+ */
 class ExportTypeManager extends DefaultPluginManager implements ExportTypeManagerInterface {
 
   /**

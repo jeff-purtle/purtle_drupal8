@@ -41,7 +41,7 @@ class InstallationTest extends BrowserTestBase {
   protected function assertInstallationStatus($installed) {
     $this->drupalGet('admin/modules');
     foreach (['entity_print', 'entity_print_views'] as $module) {
-      $this->assertSession()->{$installed ? 'checkboxChecked' : 'checkboxNotChecked'}('modules[Entity Print][' . $module . '][enable]');
+      $this->assertSession()->{$installed ? 'checkboxChecked' : 'checkboxNotChecked'}('modules[' . $module . '][enable]');
     }
   }
 
@@ -64,8 +64,8 @@ class InstallationTest extends BrowserTestBase {
    */
   protected function installModules() {
     $this->drupalPostForm('admin/modules', [
-      'modules[Entity Print][entity_print][enable]' => TRUE,
-      'modules[Entity Print][entity_print_views][enable]' => TRUE,
+      'modules[entity_print][enable]' => TRUE,
+      'modules[entity_print_views][enable]' => TRUE,
     ], 'Install');
     // Continue is only required to confirm dependencies being enabled on the
     // first call of this function.

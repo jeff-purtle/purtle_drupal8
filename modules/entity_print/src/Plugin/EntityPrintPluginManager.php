@@ -11,6 +11,9 @@ use Drupal\entity_print\PrintEngineException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
+/**
+ * Entity print plugin manager.
+ */
 class EntityPrintPluginManager extends DefaultPluginManager implements EntityPrintPluginManagerInterface {
 
   /**

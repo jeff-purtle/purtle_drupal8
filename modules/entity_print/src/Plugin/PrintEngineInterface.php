@@ -6,6 +6,9 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Component\Plugin\ConfigurablePluginInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
 
+/**
+ * Print engine interface.
+ */
 interface PrintEngineInterface extends PluginInspectionInterface, PluginFormInterface, ConfigurablePluginInterface {
 
   /**
@@ -29,13 +32,23 @@ interface PrintEngineInterface extends PluginInspectionInterface, PluginFormInte
   /**
    * Send the Print contents to the browser.
    *
-   * @param $filename
-   *   (optional) The filename if we want to force the browser to download.
+   * @param string $filename
+   *   The filename if we want to force the browser to download.
+   * @param bool $force_download
+   *   TRUE to attempt to force the browser to download the PDF otherwise FALSE.
    *
    * @throws \Drupal\entity_print\PrintEngineException
    *   Thrown when Print generation fails.
    */
-  public function send($filename = NULL);
+  public function send($filename, $force_download = TRUE);
+
+  /**
+   * Gets the binary data for the printed document.
+   *
+   * @return mixed
+   *   The binary data.
+   */
+  public function getBlob();
 
   /**
    * Checks if the Print engine dependencies are available.
@@ -52,5 +65,16 @@ interface PrintEngineInterface extends PluginInspectionInterface, PluginFormInte
    *   A description of how the user can meet the dependencies for this engine.
    */
   public static function getInstallationInstructions();
+
+  /**
+   * Gets the object for this Print engine.
+   *
+   * Note, it is not advised that you use this method if you want your code to
+   * work generically across all print engines.
+   *
+   * @return object
+   *   The implementation specific print object being used.
+   */
+  public function getPrintObject();
 
 }

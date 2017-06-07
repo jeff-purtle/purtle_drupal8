@@ -116,7 +116,7 @@ class PrintDownload extends ConfigurableActionBase implements ContainerFactoryPl
    */
   public function executeMultiple(array $entities) {
     try {
-      (new StreamedResponse(function() use ($entities) {
+      (new StreamedResponse(function () use ($entities) {
         $this->printBuilder->deliverPrintable($entities, $this->entityPrintPluginManager->createSelectedInstance($this->configuration['export_type']), TRUE);
       }))->send();
     }

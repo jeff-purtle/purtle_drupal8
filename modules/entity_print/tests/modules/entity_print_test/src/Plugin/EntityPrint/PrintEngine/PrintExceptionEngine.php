@@ -6,6 +6,8 @@ use Drupal\entity_print\Plugin\PrintEngineBase;
 use Drupal\entity_print\PrintEngineException;
 
 /**
+ * A test print engine that throws an exception.
+ *
  * @PrintEngine(
  *   id = "print_exception_engine",
  *   label = @Translation("Print Exception Engine"),
@@ -17,8 +19,15 @@ class PrintExceptionEngine extends PrintEngineBase {
   /**
    * {@inheritdoc}
    */
-  public function send($filename = NULL) {
+  public function send($filename, $force_download = TRUE) {
     throw new PrintEngineException('Exception thrown by PrintExceptionEngine');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlob() {
+    return '';
   }
 
   /**
@@ -37,5 +46,10 @@ class PrintExceptionEngine extends PrintEngineBase {
   public static function dependenciesAvailable() {
     return TRUE;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrintObject() {}
 
 }

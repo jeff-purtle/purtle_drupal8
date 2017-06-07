@@ -58,19 +58,32 @@ class EntityPrintViewsLink extends AreaPluginBase {
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
-    $form['export_type'] = array(
+    $form['export_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Export Type'),
       '#options' => $this->exportTypeManager->getFormOptions(),
       '#required' => TRUE,
       '#default_value' => $this->options['export_type'],
-    );
-    $form['link_text'] = array(
+    ];
+    $form['link_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Link text'),
       '#required' => TRUE,
       '#default_value' => $this->options['link_text'],
-    );
+    ];
+
+    $displays = $this->view->displayHandlers->getConfiguration();
+    $display_options = [];
+    foreach ($displays as $display_id => $display_info) {
+      $display_options[$display_id] = $display_info['display_title'];
+    }
+    $form['display_id'] = [
+      '#type' => 'select',
+      '#title' => $this->t('View Display'),
+      '#options' => $display_options,
+      '#required' => TRUE,
+      '#default_value' => $this->options['display_id'],
+    ];
   }
 
   /**
@@ -80,7 +93,7 @@ class EntityPrintViewsLink extends AreaPluginBase {
     $route_params = [
       'export_type' => !empty($this->options['export_type']) ? $this->options['export_type'] : 'pdf',
       'view_name' => $this->view->storage->id(),
-      'display_id' => $this->view->current_display,
+      'display_id' => $this->options['display_id'],
     ];
 
     return [
@@ -99,6 +112,7 @@ class EntityPrintViewsLink extends AreaPluginBase {
     $options = parent::defineOptions();
     $options['export_type'] = ['default' => 'pdf'];
     $options['link_text'] = ['default' => 'View PDF'];
+    $options['display_id'] = ['default' => $this->view->current_display];
     return $options;
   }
 

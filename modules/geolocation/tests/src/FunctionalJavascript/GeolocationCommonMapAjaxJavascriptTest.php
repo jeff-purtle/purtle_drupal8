@@ -9,14 +9,14 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 
-use Zumba\GastonJS\Exception\JavascriptError;
-
 /**
  * Tests the common map style AJAX JavaScript functionality.
  *
  * @group geolocation
  */
 class GeolocationCommonMapAjaxJavascriptTest extends JavascriptTestBase {
+
+  use GeolocationGoogleTestTrait;
 
   /**
    * {@inheritdoc}
@@ -36,35 +36,6 @@ class GeolocationCommonMapAjaxJavascriptTest extends JavascriptTestBase {
    * @var array
    */
   public static $testViews = ['geolocation_common_map_ajax_test'];
-
-  /**
-   * Filter the missing key GoogleMapsAPI error.
-   *
-   * @param mixed $path
-   *   Path to get.
-   *
-   * @return string Return what drupal would.
-   *   Return what drupal would.
-   *
-   * @throws \Zumba\GastonJS\Exception\JavascriptError
-   */
-  protected function drupalGetFilterGoogleKey($path) {
-    try {
-      $this->drupalGet($path);
-      $this->getSession()->getDriver()->wait(1000, '1==2');
-    }
-    catch (JavascriptError $e) {
-      foreach ($e->javascriptErrors() as $errorItem) {
-        if (strpos((string) $errorItem, 'MissingKeyMapError') !== FALSE) {
-          continue;
-        }
-        else {
-          throw $e;
-        }
-      }
-    }
-    return FALSE;
-  }
 
   /**
    * {@inheritdoc}
@@ -143,8 +114,6 @@ class GeolocationCommonMapAjaxJavascriptTest extends JavascriptTestBase {
   public function testCommonMap() {
     $this->drupalGetFilterGoogleKey('geolocation-common-map-ajax-test');
 
-    $this->assertSession()->statusCodeEquals(200);
-
     $this->assertSession()->elementExists('css', '.geolocation-common-map-container');
     $this->assertSession()->elementExists('css', '.geolocation-common-map-locations');
 
@@ -159,8 +128,6 @@ class GeolocationCommonMapAjaxJavascriptTest extends JavascriptTestBase {
     $this->drupalGetFilterGoogleKey('geolocation-common-map-ajax-test');
 
     $session = $this->getSession();
-
-    $this->assertSession()->statusCodeEquals(200);
 
     $this->assertSession()->responseContains('Location 1');
     $this->assertSession()->responseContains('Location 3');

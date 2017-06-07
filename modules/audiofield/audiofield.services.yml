@@ -1,4 +1,4 @@
 services:
-  audiofield.player_manager:
+  plugin.manager.audiofield:
     class: Drupal\audiofield\AudioFieldPlayerManager
     parent: default_plugin_manager

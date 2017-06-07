@@ -2,7 +2,6 @@
 
 namespace Drupal\entity_print\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Entity\Entity;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
@@ -75,12 +74,6 @@ class Base64ImageFormatter extends ImageFormatter {
   /**
    * Gets the image style uri.
    *
-   * @TODO We should use ImageStyleDownloadController once core is fixed.
-   * Currently this code does not acquire a look to generate the derivative and
-   * may cause issues on high traffic sites with multiple web heads.
-   *
-   * @see https://drupal.org/node/1220116
-   *
    * @param \Drupal\image\Entity\ImageStyle $image_style
    *   The image style we want a URL for.
    * @param \Drupal\file\Entity\File $file
@@ -88,6 +81,12 @@ class Base64ImageFormatter extends ImageFormatter {
    *
    * @return bool|string
    *   A uri for this image style.
+   *
+   * @TODO We should use ImageStyleDownloadController once core is fixed.
+   * Currently this code does not acquire a look to generate the derivative and
+   * may cause issues on high traffic sites with multiple web heads.
+   *
+   * @see https://drupal.org/node/1220116
    */
   protected function getImageStyleUri(ImageStyle $image_style, File $file) {
     $file_uri = $file->getFileUri();
