@@ -29,4 +29,10 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_audio: true
+  field_date: true
+  field_l: true
+  field_lecture_person: true
+  field_lecture_topics: true
+  field_location: true
   langcode: true

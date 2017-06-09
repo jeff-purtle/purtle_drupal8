@@ -73,7 +73,7 @@ class ContentAccessPageForm extends FormBase {
         $update = (int) ($op == 'update');
         acl_node_add_acl($node->id(), $acl_id, $view, $update, (int) ($op == 'delete'), content_access_get_settings('priority', $node->getType()));
 
-        $form['acl'][$op] = acl_edit_form($form_state, $acl_id, t('Grant !op access', ['!op' => $op]));
+        $form['acl'][$op] = acl_edit_form($form_state, $acl_id, t("Grant $op access", ['!op' => $op]));
 
         $post_acl_id = \Drupal::request()->request->get('acl_' . $acl_id, NULL);
         $form['acl'][$op]['#collapsed'] = !isset($post_acl_id) && !unserialize($form['acl'][$op]['user_list']['#default_value']);

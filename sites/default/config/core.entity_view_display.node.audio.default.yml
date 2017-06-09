@@ -26,16 +26,16 @@ content:
     weight: 102
     label: above
     settings:
+      provide_download_link: '1'
       audio_attributes: ''
-      provide_download_link: 0
     third_party_settings: {  }
     type: audio_player_html5
     region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
