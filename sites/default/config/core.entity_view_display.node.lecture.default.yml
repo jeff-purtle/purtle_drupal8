@@ -12,8 +12,8 @@ dependencies:
     - field.field.node.lecture.field_location
     - node.type.lecture
   module:
+    - audiofield
     - datetime
-    - file
     - geolocation
     - text
     - user
@@ -32,9 +32,17 @@ content:
   field_audio:
     weight: 102
     label: above
-    settings: {  }
+    settings:
+      audio_player: default_mp3_player
+      audio_player_jplayer_theme: none
+      audio_player_wavesurfer_combine_files: false
+      audio_player_wordpress_combine_files: false
+      audio_player_wordpress_animation: true
+      audio_player_soundmanager_theme: default
+      audio_player_initial_volume: 8
+      download_link: false
     third_party_settings: {  }
-    type: file_default
+    type: audiofield_audioplayer
     region: content
   field_date:
     weight: 103
@@ -78,6 +86,8 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
