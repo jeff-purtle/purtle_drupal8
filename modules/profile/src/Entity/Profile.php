@@ -13,7 +13,6 @@ use Drupal\profile\Event\ProfileEvents;
 use Drupal\profile\Event\ProfileLabelEvent;
 use Drupal\user\UserInterface;
 
-
 /**
  * Defines the profile entity class.
  *
@@ -35,7 +34,7 @@ use Drupal\user\UserInterface;
  *       "delete" = "Drupal\profile\Form\ProfileDeleteForm",
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\profile\ProfileHtmlRouteProvider",
+ *       "html" = "Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider",
  *     },
  *   },
  *   bundle_entity_type = "profile_type",
@@ -220,6 +219,15 @@ class Profile extends ContentEntityBase implements ProfileInterface {
         $this->setDefault(FALSE);
       }
     }
+
+    // Mark a new revision if the profile type supports revisions, and if there
+    // has been field data changes.
+    if ($this->hasTranslationChanges()) {
+      /** @var \Drupal\profile\Entity\ProfileTypeInterface $profile_type */
+      $profile_type = \Drupal::entityTypeManager()->getStorage('profile_type')->load($this->bundle());
+      $this->setNewRevision($profile_type->shouldCreateNewRevision());
+    }
+
   }
 
   /**
