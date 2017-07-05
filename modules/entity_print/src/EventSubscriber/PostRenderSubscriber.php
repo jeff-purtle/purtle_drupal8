@@ -45,16 +45,18 @@ class PostRenderSubscriber implements EventSubscriberInterface {
   /**
    * Alter the HTML after it has been rendered.
    *
-   * This is a temporary workaround for a core issue.
-   * @see https://drupal.org/node/1494670
-   *
    * @param \Drupal\entity_print\Event\PrintHtmlAlterEvent $event
    *   The event object.
+   *
+   *   This is a temporary workaround for a core issue.
+   *
+   * @see https://drupal.org/node/1494670
    */
   public function postRender(PrintHtmlAlterEvent $event) {
-    // We only apply the fix to PHP Wkhtmltopdf because the other implementations
-    // allow us to specify a base url.
-    if ($this->configFactory->get('print_engine') !== 'phpwkhtmltopdf') {
+    // We only apply the fix to PHP Wkhtmltopdf because the other
+    // implementations allow us to specify a base url.
+    $config = $this->configFactory->get('entity_print.settings');
+    if ($config->get('print_engines.pdf_engine') !== 'phpwkhtmltopdf') {
       return;
     }
 
@@ -62,8 +64,9 @@ class PostRenderSubscriber implements EventSubscriberInterface {
     $html5 = new HTML5();
     $document = $html5->loadHTML($html_string);
 
-    // Define a function that will convert root relative uris into absolute urls.
-    $transform = function($tag, $attribute) use ($document) {
+    // Define a function that will convert root relative uris into absolute
+    // urls.
+    $transform = function ($tag, $attribute) use ($document) {
       $base_url = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
       foreach ($document->getElementsByTagName($tag) as $node) {
         $attribute_value = $node->getAttribute($attribute);

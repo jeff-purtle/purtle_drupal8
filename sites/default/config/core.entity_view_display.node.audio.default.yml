@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.audio.field_audio
     - node.type.audio
   module:
-    - media_entity_audio
+    - audiofield
     - text
     - user
 id: node.audio.default
@@ -21,16 +21,25 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_audio:
     weight: 102
     label: above
     settings:
-      audio_attributes: ''
-      provide_download_link: 0
+      audio_player: default_mp3_player
+      audio_player_jplayer_theme: none
+      audio_player_wavesurfer_combine_files: false
+      audio_player_wordpress_combine_files: false
+      audio_player_wordpress_animation: true
+      audio_player_soundmanager_theme: default
+      audio_player_initial_volume: 8
+      download_link: false
     third_party_settings: {  }
-    type: audio_player_html5
+    type: audiofield_audioplayer
+    region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
 hidden:

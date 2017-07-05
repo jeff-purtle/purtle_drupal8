@@ -5,9 +5,14 @@ namespace Drupal\entity_print\Event;
 use Drupal\entity_print\Plugin\PrintEngineInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * Event base class.
+ */
 abstract class PrintEventBase extends Event {
 
   /**
+   * The print engine plugin.
+   *
    * @var \Drupal\entity_print\Plugin\PrintEngineInterface
    */
   protected $printEngine;

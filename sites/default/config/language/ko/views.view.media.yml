@@ -1,8 +1,21 @@
-label: 미디어
 display:
   default:
-    display_title: 마스터
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: 공개
+          expose:
+            label: 참
+        bundle:
+          expose:
+            label: 제공자
+        langcode:
+          expose:
+            label: 언어
       exposed_form:
         options:
           submit_button: 적용
@@ -22,31 +35,20 @@ display:
           label: 글쓴이
         status:
           label: 상태
+          settings:
+            format_custom_true: 공개
         changed:
           label: 갱신됨
         operations:
           label: 작업
-      filters:
-        status:
-          expose:
-            label: 참
-          group_info:
-            group_items:
-              1:
-                title: 공개
-                value: '1'
-        bundle:
-          expose:
-            label: 제공자
-        langcode:
-          expose:
-            label: 언어
       title: 미디어
       empty:
         area_text_custom:
           content: '콘텐츠가 없습니다.'
+    display_title: 마스터
   media_page_list:
     display_title: 미디어
     display_options:
       menu:
         title: 미디어
+label: 미디어

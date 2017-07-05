@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\entity_print\Plugin\EntityPrintPluginManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -80,7 +81,7 @@ class ViewPrintController extends ControllerBase {
    * @param string $export_type
    *   The export type.
    * @param string $view_name
-   *   The view name
+   *   The view name.
    * @param string $display_id
    *   The view display to render.
    *
@@ -108,14 +109,41 @@ class ViewPrintController extends ControllerBase {
       // for installing dependencies can contain quotes.
       drupal_set_message(new FormattableMarkup('Error generating Print: ' . Xss::filter($e->getMessage()), []), 'error');
 
-      $url = $executable->hasUrl(NULL, $display_id) ? $executable->getUrl(NULL, $display_id)->toString() : Url::fromUserInput('<front>');
+      $url = $executable->hasUrl(NULL, $display_id) ? $executable->getUrl(NULL, $display_id)->toString() : Url::fromRoute('<front>');
       return new RedirectResponse($url);
     }
 
-    return (new StreamedResponse(function() use ($view, $print_engine, $config) {
+    return (new StreamedResponse(function () use ($view, $print_engine, $config) {
       // The printed document is sent straight to the browser.
       $this->printBuilder->deliverPrintable([$view], $print_engine, $config->get('force_download'), $config->get('default_css'));
     }))->send();
+  }
+
+  /**
+   * Print the debug output.
+   *
+   * @param string $export_type
+   *   The export type machine name.
+   * @param string $view_name
+   *   The machine name of the view.
+   * @param string $display_id
+   *   The machine name of the display.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The response object.
+   */
+  public function viewPrintDebug($export_type, $view_name, $display_id) {
+    /** @var \Drupal\views\Entity\View $view */
+    $view = $this->entityTypeManager->getStorage('view')->load($view_name);
+    $executable = $view->getExecutable();
+    $executable->setDisplay($display_id);
+
+    if ($args = $this->currentRequest->query->get('view_args')) {
+      $executable->setArguments($args);
+    }
+
+    $use_default_css = $this->config('entity_print.settings')->get('default_css');
+    return new Response($this->printBuilder->printHtml($view, $use_default_css, FALSE));
   }
 
   /**
@@ -127,7 +155,7 @@ class ViewPrintController extends ControllerBase {
    * @param string $export_type
    *   The export type.
    * @param string $view_name
-   *   The view name
+   *   The view name.
    * @param string $display_id
    *   The view display to render.
    *
@@ -145,6 +173,48 @@ class ViewPrintController extends ControllerBase {
 
     // Also check the permissions defined by the view.
     return $result->isAllowed() && $view->access($display_id, $account) ? $result : AccessResult::forbidden();
+  }
+
+  /**
+   * Provides a redirect BC layer for the old routes.
+   *
+   * @param string $export_type
+   *   The export type.
+   * @param string $view_name
+   *   The view machine name.
+   * @param string $display_id
+   *   The machine name of the display.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   The redirect response.
+   */
+  public function viewRedirect($export_type, $view_name, $display_id) {
+    return $this->redirect('entity_print_views.view', [
+      'export_type' => $export_type,
+      'view_name' => $view_name,
+      'display_id' => $display_id,
+    ]);
+  }
+
+  /**
+   * Provides a redirect BC layer for the old routes.
+   *
+   * @param string $export_type
+   *   The export type.
+   * @param string $view_name
+   *   The view machine name.
+   * @param string $display_id
+   *   The machine name of the display.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   The redirect response.
+   */
+  public function viewRedirectDebug($export_type, $view_name, $display_id) {
+    return $this->redirect('entity_print_views.view.debug', [
+      'export_type' => $export_type,
+      'view_name' => $view_name,
+      'display_id' => $display_id,
+    ]);
   }
 
 }

@@ -6,13 +6,16 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\field\FieldStorageConfigInterface;
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class GeolocationCore.
  *
  * @package Drupal\geolocation
  */
-class GeolocationCore {
+class GeolocationCore implements ContainerInjectionInterface {
   use StringTranslationTrait;
 
   const EARTH_RADIUS_KM = 6371;
@@ -32,16 +35,58 @@ class GeolocationCore {
   protected $entityManager;
 
   /**
+   * The required configuration object.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $config;
+
+  /**
+   * The GeocoderManager object.
+   *
+   * @var \Drupal\geolocation\GeocoderManager
+   */
+  protected $geocoderManager;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   A module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   An EntityTypeManager instance.
+   * @param \Drupal\Core\Config\ConfigFactory $config
+   *   The factory for configuration objects.
+   * @param \Drupal\geolocation\GeocoderManager $geocoder_manager
+   *   The GeocoderManager object.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager) {
+  public function __construct(ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigFactory $config, GeocoderManager $geocoder_manager) {
     $this->moduleHandler = $module_handler;
     $this->entityManager = $entity_manager;
+    $this->config = $config->get('geolocation.settings');
+    $this->geocoderManager = $geocoder_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('module_handler'),
+      $container->get('entity_type.manager'),
+      $container->get('config.factory'),
+      $container->get('plugin.manager.geolocation.geocoder')
+    );
+  }
+
+  /**
+   * Return current geocoder manager.
+   *
+   * @return \Drupal\geolocation\GeocoderManager
+   *   Geocoder manager.
+   */
+  public function getGeocoderManager() {
+    return $this->geocoderManager;
   }
 
   /**
@@ -98,7 +143,7 @@ class GeolocationCore {
 
       $field_coordinates_table_data = [];
       $entity_type_id = $field_storage->getTargetEntityTypeId();
-      $target_entity_type = \Drupal::entityTypeManager()->getDefinition($field_storage->getTargetEntityTypeId());
+      $target_entity_type = $this->entityManager->getDefinition($field_storage->getTargetEntityTypeId());
 
       if (array_key_exists($target_entity_type->getBaseTable() . '__' . $field_storage->getName(), $data)) {
         $field_coordinates_table_data = $data[$target_entity_type->getBaseTable() . '__' . $field_storage->getName()][$field_storage->getName()];
@@ -113,7 +158,7 @@ class GeolocationCore {
       $data[$table_name][$args['@field_name'] . '_proximity'] = [
         'group' => $target_entity_type->getLabel(),
         'title' => $this->t('Proximity (@field_name)', $args),
-        'title short' => isset($field_coordinates_table_data['title short']) ? $field_coordinates_table_data['title short'] . t(":proximity") : '',
+        'title short' => isset($field_coordinates_table_data['title short']) ? $field_coordinates_table_data['title short'] . $this->t(":proximity") : '',
         'help' => isset($field_coordinates_table_data['help']) ? $field_coordinates_table_data['help'] : '',
         'argument' => [
           'id' => 'geolocation_argument_proximity',
@@ -178,7 +223,7 @@ class GeolocationCore {
       $data[$table_name][$args['@field_name'] . '_boundary'] = [
         'group' => $target_entity_type->getLabel(),
         'title' => $this->t('Boundary (@field_name)', $args),
-        'title short' => isset($field_coordinates_table_data['title short']) ? $field_coordinates_table_data['title short'] . t(":boundary") : '',
+        'title short' => isset($field_coordinates_table_data['title short']) ? $field_coordinates_table_data['title short'] . $this->t(":boundary") : '',
         'help' => isset($field_coordinates_table_data['help']) ? $field_coordinates_table_data['help'] : '',
         'filter' => [
           'id' => 'geolocation_filter_boundary',
@@ -269,15 +314,15 @@ class GeolocationCore {
     $field_lng = "{$table_name}.{$field_id}_lng";
 
     /*
-     * GoogleMaps shows a map, not a globe. Therefore it will never flip over
+     * Google Maps shows a map, not a globe. Therefore it will never flip over
      * the poles, but it will move across -180°/+180° longitude.
      * So latitude will always have north larger than south, but east not
      * necessarily larger than west.
      */
-    return "($field_lat BETWEEN $filter_lat_south_west AND $filter_lat_north_east) 
+    return "($field_lat BETWEEN $filter_lat_south_west AND $filter_lat_north_east)
       AND
       (
-        ($filter_lng_south_west < $filter_lng_north_east AND $field_lng BETWEEN $filter_lng_south_west AND $filter_lng_north_east) 
+        ($filter_lng_south_west < $filter_lng_north_east AND $field_lng BETWEEN $filter_lng_south_west AND $filter_lng_north_east)
         OR
         (
           $filter_lng_south_west > $filter_lng_north_east AND (
@@ -294,12 +339,12 @@ class GeolocationCore {
    * Sexagesimal means a string like - X° Y' Z"
    *
    * @param string $sexagesimal
-   *  String in DMS notation.
+   *   String in DMS notation.
    *
-   * @return float|FALSE
-   *  The regular float notation or FALSE if not sexagesimal.
+   * @return float|false
+   *   The regular float notation or FALSE if not sexagesimal.
    */
-  public static function SexagesimalToDecimal($sexagesimal = '') {
+  public static function sexagesimalToDecimal($sexagesimal = '') {
     $pattern = "/(?<degree>-?\d{1,3})°[ ]?((?<minutes>\d{1,2})')?[ ]?((?<seconds>(\d{1,2}|\d{1,2}\.\d+))\")?/";
     preg_match($pattern, $sexagesimal, $gps_matches);
     if (
@@ -325,12 +370,12 @@ class GeolocationCore {
    * Sexagesimal means a string like - X° Y' Z"
    *
    * @param float|string $decimal
-   *  Either float or float-castable location.
+   *   Either float or float-castable location.
    *
-   * @return string|FALSE
-   *  The sexagesimal notation or FALSE on error.
+   * @return string|false
+   *   The sexagesimal notation or FALSE on error.
    */
-  public static function DecimalToSexagesimal($decimal = '') {
+  public static function decimalToSexagesimal($decimal = '') {
     $decimal = (float) $decimal;
 
     $degrees = floor($decimal);

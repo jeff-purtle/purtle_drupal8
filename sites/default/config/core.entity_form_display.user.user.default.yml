@@ -29,44 +29,53 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
   contact:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_birthdate:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_first_and_last_name:
     weight: 9
     settings:
       default_country: null
     third_party_settings: {  }
     type: address_default
+    region: content
   field_home_location:
     type: geolocation_latlng
     weight: 8
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_phone:
     weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
   google_analytics:
     weight: 6
     settings: {  }
     third_party_settings: {  }
+    region: content
   language:
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   timezone:
     weight: 7
     settings: {  }
     third_party_settings: {  }
+    region: content
   user_picture:
     type: image_image
     settings:
@@ -74,6 +83,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     weight: 4
+    region: content
 hidden:
   field_last_location: true
   field_testtoken: true

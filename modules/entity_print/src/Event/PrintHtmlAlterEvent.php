@@ -4,6 +4,9 @@ namespace Drupal\entity_print\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * An event to alter the HTML string.
+ */
 class PrintHtmlAlterEvent extends Event {
 
   /**
@@ -28,7 +31,7 @@ class PrintHtmlAlterEvent extends Event {
    * @param array $entities
    *   An array of entities we're rendering.
    */
-  public function __construct(&$html, $entities) {
+  public function __construct(&$html, array $entities) {
     $this->html = &$html;
     $this->entities = $entities;
   }

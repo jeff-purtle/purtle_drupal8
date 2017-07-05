@@ -6,6 +6,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\entity_print\Plugin\PrintEngineBase;
 
 /**
+ * A test print engine plugin.
+ *
  * @PrintEngine(
  *   id = "testprintengine",
  *   label = @Translation("Test Print Engine"),
@@ -15,6 +17,8 @@ use Drupal\entity_print\Plugin\PrintEngineBase;
 class TestPrintEngine extends PrintEngineBase {
 
   /**
+   * The HTML string.
+   *
    * @var string
    */
   protected $html;
@@ -22,11 +26,18 @@ class TestPrintEngine extends PrintEngineBase {
   /**
    * {@inheritdoc}
    */
-  public function send($filename = NULL) {
+  public function send($filename, $force_download = TRUE) {
     echo $filename;
     // Echo the response and then flush, just like a Print implementation would.
     echo 'Using testprintengine - ' . $this->configuration['test_engine_suffix'];
     echo $this->html;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlob() {
+    return 'Using testprintengine';
   }
 
   /**
@@ -54,16 +65,15 @@ class TestPrintEngine extends PrintEngineBase {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['test_engine_setting'] = $form_state->getValue('test_engine_setting');
-    $this->configuration['test_engine_suffix'] = $form_state->getValue('test_engine_suffix');
+    $this->configuration['test_engine_setting'] = $form_state->getValue(['testprintengine', 'test_engine_setting']);
+    $this->configuration['test_engine_suffix'] = $form_state->getValue(['testprintengine', 'test_engine_suffix']);
   }
-
 
   /**
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('test_engine_setting') === 'rejected') {
+    if ($form_state->getValue(['testprintengine', 'test_engine_setting']) === 'rejected') {
       $form_state->setErrorByName('test_engine_setting', 'Setting has an invalid value');
     }
   }
@@ -96,5 +106,10 @@ class TestPrintEngine extends PrintEngineBase {
   public static function dependenciesAvailable() {
     return TRUE;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrintObject() {}
 
 }

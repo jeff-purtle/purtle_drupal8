@@ -1,0 +1,95 @@
+uuid: c1d15a97-06e7-4f41-9522-b9a97619fcc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.lecture.body
+    - field.field.node.lecture.field_audio
+    - field.field.node.lecture.field_date
+    - field.field.node.lecture.field_l
+    - field.field.node.lecture.field_lecture_person
+    - field.field.node.lecture.field_lecture_topics
+    - field.field.node.lecture.field_location
+    - node.type.lecture
+  module:
+    - audiofield
+    - datetime
+    - geolocation
+    - text
+    - user
+id: node.lecture.default
+targetEntityType: node
+bundle: lecture
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_audio:
+    weight: 102
+    label: above
+    settings:
+      audio_player: default_mp3_player
+      audio_player_jplayer_theme: none
+      audio_player_wavesurfer_combine_files: false
+      audio_player_wordpress_combine_files: false
+      audio_player_wordpress_animation: true
+      audio_player_soundmanager_theme: default
+      audio_player_initial_volume: 8
+      download_link: false
+    third_party_settings: {  }
+    type: audiofield_audioplayer
+    region: content
+  field_date:
+    weight: 103
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_l:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_lecture_person:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_lecture_topics:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_location:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

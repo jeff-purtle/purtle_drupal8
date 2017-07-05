@@ -1,8 +1,27 @@
-label: コンテンツ
-description: コンテンツの検索と管理。
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: 掲載
+              2:
+                title: 非掲載
+            label: 掲載ステータス
+          expose:
+            label: 状態
+        title:
+          expose:
+            label: タイトル
+        type:
+          expose:
+            label: コンテンツタイプ
+        langcode:
+          expose:
+            label: 言語
       exposed_form:
         options:
           submit_button: フィルター
@@ -27,31 +46,13 @@ display:
           label: 投稿者
         status:
           label: 状態
+          settings:
+            format_custom_true: 掲載
+            format_custom_false: 非掲載
         changed:
           label: 更新
         operations:
           label: 操作
-      filters:
-        status:
-          expose:
-            label: 状態
-          group_info:
-            label: 掲載ステータス
-            group_items:
-              1:
-                title: 掲載
-                value: '1'
-              2:
-                title: 非掲載
-        type:
-          expose:
-            label: コンテンツタイプ
-        title:
-          expose:
-            label: タイトル
-        langcode:
-          expose:
-            label: 言語
       title: コンテンツ
       empty:
         area_text_custom:
@@ -65,3 +66,5 @@ display:
         title: コンテンツ
         description: コンテンツの検索と管理
     display_title: ページ
+label: コンテンツ
+description: コンテンツの検索と管理。

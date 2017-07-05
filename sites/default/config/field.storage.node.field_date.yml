@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - datetime
+    - field_permissions
     - node
 third_party_settings:
   field_permissions:

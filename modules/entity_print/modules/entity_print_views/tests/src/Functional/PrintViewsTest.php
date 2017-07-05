@@ -6,6 +6,8 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\user\Entity\Role;
 
 /**
+ * Test printing a view.
+ *
  * @group entity_print_views
  */
 class PrintViewsTest extends BrowserTestBase {
@@ -25,6 +27,8 @@ class PrintViewsTest extends BrowserTestBase {
   ];
 
   /**
+   * An array of nodes.
+   *
    * @var \Drupal\node\Entity\Node[]
    */
   protected $nodes;
@@ -46,7 +50,11 @@ class PrintViewsTest extends BrowserTestBase {
     $config
       ->set('print_engines.pdf_engine', 'testprintengine')
       ->save();
-    user_role_grant_permissions(Role::ANONYMOUS_ID, ['access content', 'entity print views access', 'administer nodes']);
+    user_role_grant_permissions(Role::ANONYMOUS_ID, [
+      'access content',
+      'entity print views access',
+      'administer nodes',
+    ]);
   }
 
   /**

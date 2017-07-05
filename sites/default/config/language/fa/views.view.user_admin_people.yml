@@ -1,9 +1,22 @@
-label: افراد
-description: 'یافتن و اداره افراد در تعامل با سایت شما.'
 display:
   default:
-    display_title: مدیر
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: ۱
+                title: فعال
+              2:
+                title: 'مسدود شده'
+            label: وضعیت
+        roles_target_id:
+          expose:
+            label: نقش
+        permission:
+          expose:
+            label: مجوز
       exposed_form:
         options:
           submit_button: فیلتر
@@ -24,6 +37,9 @@ display:
           label: 'نام کاربری'
         status:
           label: وضعیت
+          settings:
+            format_custom_true: فعال
+            format_custom_false: 'مسدود شده'
         roles_target_id:
           label: نقش‌ها
         created:
@@ -32,27 +48,12 @@ display:
           label: 'آخرین دسترسی'
         operations:
           label: کارکردها
-      filters:
-        roles_target_id:
-          expose:
-            label: نقش
-        permission:
-          expose:
-            label: مجوز
-        status:
-          group_info:
-            label: وضعیت
-            group_items:
-              1:
-                title: فعال
-                value: ۱
-              2:
-                title: 'مسدود شده'
       title: افراد
       empty:
         area_text_custom:
           content: 'هیچ فردی در دسترس نیست.'
       use_more_text: بیشتر
+    display_title: مدیر
   page_1:
     display_title: صفحه
     display_options:
@@ -62,3 +63,5 @@ display:
       tab_options:
         title: افراد
         description: 'مدیریت حساب‌های کاربری، نقش‌ها و مجوزها.'
+label: افراد
+description: 'یافتن و اداره افراد در تعامل با سایت شما.'

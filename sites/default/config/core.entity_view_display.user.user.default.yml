@@ -34,12 +34,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_first_and_last_name:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   field_home_location:
     weight: 4
     label: above
@@ -61,6 +63,7 @@ content:
       info_text: ''
     third_party_settings: {  }
     type: geolocation_map
+    region: content
   field_last_location:
     weight: 5
     label: above
@@ -82,6 +85,7 @@ content:
         style: ''
     third_party_settings: {  }
     type: geolocation_map
+    region: content
   field_phone:
     weight: 3
     label: above
@@ -89,6 +93,7 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_testtoken:
     type: text_trimmed
     weight: 6
@@ -96,10 +101,12 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   member_for:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   user_picture:
     type: image
     weight: 0
@@ -108,6 +115,7 @@ content:
       image_link: content
     third_party_settings: {  }
     label: hidden
+    region: content
 hidden:
   entity_print_view: true
   entity_print_view_epub: true

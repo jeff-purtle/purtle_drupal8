@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Post update hooks.
+ */
+
 use Drupal\entity_print\Entity\PrintEngineStorage;
 
 /**

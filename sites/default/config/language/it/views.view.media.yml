@@ -1,8 +1,24 @@
-label: Media
 display:
   default:
-    display_title: Principale
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Pubblicato
+              2:
+                title: 'Non pubblicato'
+            label: 'Stato di pubblicazione'
+          expose:
+            label: Vero
+        bundle:
+          expose:
+            label: 'Fonte esterna'
+        langcode:
+          expose:
+            label: Lingua
       exposed_form:
         options:
           submit_button: Applica
@@ -35,36 +51,23 @@ display:
           separator: ', '
         status:
           label: Stato
+          settings:
+            format_custom_true: Pubblicato
+            format_custom_false: 'Non pubblicato'
           separator: ', '
         changed:
           label: Aggiornato
           separator: ', '
         operations:
           label: Operazioni
-      filters:
-        status:
-          expose:
-            label: Vero
-          group_info:
-            label: 'Stato di pubblicazione'
-            group_items:
-              1:
-                title: Pubblicato
-                value: '1'
-              2:
-                title: 'Non pubblicato'
-        bundle:
-          expose:
-            label: 'Fonte esterna'
-        langcode:
-          expose:
-            label: Lingua
       title: Media
       empty:
         area_text_custom:
           content: 'Nessun contenuto disponibile.'
+    display_title: Principale
   media_page_list:
     display_title: Media
     display_options:
       menu:
         title: Media
+label: Media

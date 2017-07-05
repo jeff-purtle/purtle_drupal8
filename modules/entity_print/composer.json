@@ -11,8 +11,10 @@
       "homepage": "https://www.drupal.org/u/benjy"
     }
   ],
+  "require": {
+    "dompdf/dompdf": "0.8.0"
+  },
   "suggest": {
-    "dompdf/dompdf:0.7.0-beta3": "Dompdf provides a no config installation to convert HTML to PDF. Only tested with beta3",
     "mikehaertl/phpwkhtmltopdf": "PhpWkhtmlToPdf provides the PHP library to use Wkhtmltopdf"
   }
 }

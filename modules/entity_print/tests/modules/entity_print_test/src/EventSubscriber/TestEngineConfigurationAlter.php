@@ -26,6 +26,7 @@ class TestEngineConfigurationAlter implements EventSubscriberInterface {
 
   /**
    * Alter the CSS renderable array and add our CSS.
+   *
    * @param \Drupal\entity_print\Event\PrintCssAlterEvent $event
    *   The event object.
    */

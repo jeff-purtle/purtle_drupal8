@@ -32,6 +32,9 @@ display:
           label: サイズ
         status:
           label: 状態
+          settings:
+            format_custom_false: 一時的
+            format_custom_true: 恒久的
         created:
           label: アップロード日時
         changed:

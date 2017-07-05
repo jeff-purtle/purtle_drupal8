@@ -1,6 +1,8 @@
 langcode: und
 status: true
 dependencies:
+  config:
+    - views.view.content_browser
   enforced:
     module:
       - content_browser

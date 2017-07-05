@@ -1,7 +1,23 @@
-label: Μέσα
 display:
   default:
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Δημοσιευμένο
+              2:
+                title: 'Μη δημοσιευμένο'
+          expose:
+            label: Αληθής
+        bundle:
+          expose:
+            label: Πάροχος
+        langcode:
+          expose:
+            label: Γλώσσα
       exposed_form:
         options:
           submit_button: Εφαρμογή
@@ -32,29 +48,15 @@ display:
           separator: ', '
         status:
           label: Κατάσταση
+          settings:
+            format_custom_true: Δημοσιευμένο
+            format_custom_false: 'Μη δημοσιευμένο'
           separator: ', '
         changed:
           label: Ενημερώθηκε
           separator: ', '
         operations:
           label: Λειτουργίες
-      filters:
-        status:
-          expose:
-            label: Αληθής
-          group_info:
-            group_items:
-              1:
-                title: Δημοσιευμένο
-                value: '1'
-              2:
-                title: 'Μη δημοσιευμένο'
-        bundle:
-          expose:
-            label: Πάροχος
-        langcode:
-          expose:
-            label: Γλώσσα
       title: Μέσα
       empty:
         area_text_custom:
@@ -64,3 +66,4 @@ display:
     display_options:
       menu:
         title: Μέσα
+label: Μέσα

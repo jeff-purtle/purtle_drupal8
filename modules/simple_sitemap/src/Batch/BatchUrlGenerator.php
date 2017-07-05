@@ -15,8 +15,7 @@ use Drupal\Core\Path\PathValidator;
 use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
- * Class BatchUrlGenerator.
- *
+ * Class BatchUrlGenerator
  * @package Drupal\simple_sitemap\Batch
  */
 class BatchUrlGenerator {
@@ -24,35 +23,80 @@ class BatchUrlGenerator {
   use StringTranslationTrait;
 
   const ANONYMOUS_USER_ID = 0;
-  const PATH_DOES_NOT_EXIST_OR_NO_ACCESS_MESSAGE = "The path @path has been omitted from the XML sitemap as it either does not exist, or it is not accessible to anonymous users.";
+  const PATH_DOES_NOT_EXIST_OR_NO_ACCESS_MESSAGE = "The custom path @path has been omitted from the XML sitemap as it either does not exist, or it is not accessible to anonymous users. You can review custom paths <a href='@custom_paths_url'>here</a>.";
   const PROCESSING_PATH_MESSAGE = 'Processing path #@current out of @max: @path';
   const REGENERATION_FINISHED_MESSAGE = "The <a href='@url' target='_blank'>XML sitemap</a> has been regenerated for all languages.";
   const REGENERATION_FINISHED_ERROR_MESSAGE = 'The sitemap generation finished with an error.';
 
+  /**
+   * @var \Drupal\simple_sitemap\Simplesitemap
+   */
   protected $generator;
+
+  /**
+   * @var \Drupal\simple_sitemap\SitemapGenerator
+   */
   protected $sitemapGenerator;
+
+  /**
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
   protected $languageManager;
+
+  /**
+   * @var \Drupal\Core\Language\LanguageInterface[]
+   */
   protected $languages;
+
+  /**
+   * @var string
+   */
   protected $defaultLanguageId;
+
+  /**
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
+
+  /**
+   * @var \Drupal\Core\Path\PathValidator
+   */
   protected $pathValidator;
+
+  /**
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
   protected $entityQuery;
+
+  /**
+   * @var \Drupal\simple_sitemap\Logger
+   */
   protected $logger;
+
+  /**
+   * @var \Drupal\Core\Entity\EntityInterface|null
+   */
   protected $anonUser;
 
+  /**
+   * @var array
+   */
   protected $context;
+
+  /**
+   * @var array
+   */
   protected $batchInfo;
 
   /**
    * BatchUrlGenerator constructor.
-   *
-   * @param $generator
-   * @param $sitemap_generator
-   * @param $language_manager
-   * @param $entity_type_manager
-   * @param $path_validator
-   * @param $entity_query
-   * @param $logger
+   * @param \Drupal\simple_sitemap\Simplesitemap $generator
+   * @param \Drupal\simple_sitemap\SitemapGenerator $sitemap_generator
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Path\PathValidator $path_validator
+   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
+   * @param \Drupal\simple_sitemap\Logger $logger
    */
   public function __construct(
     Simplesitemap $generator,
@@ -86,10 +130,10 @@ class BatchUrlGenerator {
   }
 
   /**
-   * @param $batch_info
+   * @param array $batch_info
    * @return $this
    */
-  public function setBatchInfo($batch_info) {
+  public function setBatchInfo(array $batch_info) {
     $this->batchInfo = $batch_info;
     return $this;
   }
@@ -99,7 +143,7 @@ class BatchUrlGenerator {
    *
    * @param array $entity_info
    */
-  public function generateBundleUrls($entity_info) {
+  public function generateBundleUrls(array $entity_info) {
 
     foreach ($this->getBatchIterationEntities($entity_info) as $entity_id => $entity) {
 
@@ -155,7 +199,7 @@ class BatchUrlGenerator {
    *
    * @param array $custom_paths
    */
-  public function generateCustomUrls($custom_paths) {
+  public function generateCustomUrls(array $custom_paths) {
 
     $custom_paths = $this->getBatchIterationCustomPaths($custom_paths);
 
@@ -168,7 +212,9 @@ class BatchUrlGenerator {
 
       // todo: Change to different function, as this also checks if current user has access. The user however varies depending if process was started from the web interface or via cron/drush. Use getUrlIfValidWithoutAccessCheck()?
       if (!$this->pathValidator->isValid($custom_path['path'])) {
-        $this->logger->m(self::PATH_DOES_NOT_EXIST_OR_NO_ACCESS_MESSAGE, ['@path' => $custom_path['path']])
+//        if (!(bool) $this->pathValidator->getUrlIfValidWithoutAccessCheck($custom_path['path'])) {
+        $this->logger->m(self::PATH_DOES_NOT_EXIST_OR_NO_ACCESS_MESSAGE,
+          ['@path' => $custom_path['path'], '@custom_paths_url' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap/custom'])
           ->display('warning', 'administer sitemap settings')
           ->log('warning');
         continue;
@@ -187,7 +233,7 @@ class BatchUrlGenerator {
         'lastmod' => method_exists($entity, 'getChangedTime') ? date_iso8601($entity->getChangedTime()) : NULL,
         'priority' => isset($custom_path['priority']) ? $custom_path['priority'] : NULL,
       ];
-      if (!is_null($entity)) {
+      if (NULL !== $entity) {
         $path_data['entity_info'] = ['entity_type' => $entity->getEntityTypeId(), 'id' => $entity->id()];
       }
       $this->addUrlVariants($url_object, $path_data, $entity);
@@ -203,7 +249,7 @@ class BatchUrlGenerator {
   }
 
   /**
-   * @param $path
+   * @param string $path
    * @return bool
    */
   protected function pathProcessed($path) {
@@ -219,7 +265,7 @@ class BatchUrlGenerator {
    * @param $entity_info
    * @return mixed
    */
-  private function getBatchIterationEntities($entity_info) {
+  protected function getBatchIterationEntities($entity_info) {
     $query = $this->entityQuery->get($entity_info['entity_type_name']);
 
     if (!empty($entity_info['keys']['id'])) {
@@ -247,10 +293,10 @@ class BatchUrlGenerator {
   }
 
   /**
-   * @param $custom_paths
-   * @return mixed
+   * @param array $custom_paths
+   * @return array
    */
-  private function getBatchIterationCustomPaths($custom_paths) {
+  protected function getBatchIterationCustomPaths(array $custom_paths) {
 
     if ($this->needsInitialization()) {
       $this->initializeBatch(count($custom_paths));
@@ -268,27 +314,27 @@ class BatchUrlGenerator {
    * @param $path_data
    * @param $entity
    */
-  private function addUrlVariants($url_object, $path_data, $entity) {
+  protected function addUrlVariants($url_object, $path_data, $entity) {
     $alternate_urls = [];
 
-    $translation_languages = !is_null($entity) && $this->batchInfo['skip_untranslated']
+    $translation_languages = NULL !== $entity && $this->batchInfo['skip_untranslated']
       ? $entity->getTranslationLanguages() : $this->languages;
 
     // Entity is not translated.
-    if (!is_null($entity) && isset($translation_languages['und'])) {
+    if (NULL !== $entity && isset($translation_languages['und'])) {
       if ($url_object->access($this->anonUser)) {
         $url_object->setOption('language', $this->languages[$this->defaultLanguageId]);
-        $alternate_urls[$this->defaultLanguageId] = $url_object->toString();
+        $alternate_urls[$this->defaultLanguageId] = $this->replaceBaseUrlWithCustom($url_object->toString());
       }
     }
     else {
       // Including only translated variants of entity.
-      if (!is_null($entity) && $this->batchInfo['skip_untranslated']) {
+      if (NULL !== $entity && $this->batchInfo['skip_untranslated']) {
         foreach ($translation_languages as $language) {
           $translation = $entity->getTranslation($language->getId());
           if ($translation->access('view', $this->anonUser)) {
             $url_object->setOption('language', $language);
-            $alternate_urls[$language->getId()] = $url_object->toString();
+            $alternate_urls[$language->getId()] = $this->replaceBaseUrlWithCustom($url_object->toString());
           }
         }
       }
@@ -297,7 +343,7 @@ class BatchUrlGenerator {
       elseif ($url_object->access($this->anonUser)) {
         foreach ($translation_languages as $language) {
           $url_object->setOption('language', $language);
-          $alternate_urls[$language->getId()] = $url_object->toString();
+          $alternate_urls[$language->getId()] = $this->replaceBaseUrlWithCustom($url_object->toString());
         }
       }
     }
@@ -383,13 +429,23 @@ class BatchUrlGenerator {
    * @param $url_object
    * @return object|null
    */
-  private function getEntityFromUrlObject($url_object) {
+  protected function getEntityFromUrlObject($url_object) {
     $route_parameters = $url_object->getRouteParameters();
     return !empty($route_parameters) && $this->entityTypeManager
       ->getDefinition($entity_type_id = key($route_parameters), FALSE)
       ? $this->entityTypeManager->getStorage($entity_type_id)
         ->load($route_parameters[$entity_type_id])
       : NULL;
+  }
+
+  /**
+   * @param string $url
+   * @return string
+   */
+  protected function replaceBaseUrlWithCustom($url) {
+    return !empty($this->batchInfo['base_url'])
+      ? str_replace($GLOBALS['base_url'], $this->batchInfo['base_url'], $url)
+      : $url;
   }
 
   /**
@@ -406,6 +462,7 @@ class BatchUrlGenerator {
       Cache::invalidateTags(['simple_sitemap']);
       $this->logger->m(self::REGENERATION_FINISHED_MESSAGE,
         ['@url' => $GLOBALS['base_url'] . '/sitemap.xml'])
+//        ['@url' => $this->sitemapGenerator->getCustomBaseUrl() . '/sitemap.xml']) //todo: Use actual base URL for message.
         ->display('status')
         ->log('info');
     }

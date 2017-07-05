@@ -114,8 +114,6 @@ class ContentEmbedBlock extends BlockBase {
       '#header' => [
         t('Title'),
         t('Type'),
-        t('Author'),
-        t('Created'),
         t('Order', [], ['context' => 'Sort order']),
       ],
       '#empty' => t('No content yet'),
@@ -129,6 +127,7 @@ class ContentEmbedBlock extends BlockBase {
     ];
 
     $delta = 0;
+    $bundle_info = \Drupal::service('entity_type.bundle.info')->getBundleInfo('node');
 
     foreach ($nids as $nid) {
       /** @var \Drupal\node\Entity\Node $node */
@@ -140,9 +139,7 @@ class ContentEmbedBlock extends BlockBase {
           'data-entity-id' => $node->getEntityTypeId() . ':' . $nid,
         ],
         'title' => ['#markup' => $node->label()],
-        'type' => ['#markup' => $node->bundle()],
-        'author' => ['#markup' => $node->getOwner()->label()],
-        'craeted' => ['#markup' => \Drupal::service('date.formatter')->format($node->getCreatedTime())],
+        'type' => ['#markup' => $bundle_info[$node->bundle()]['label']],
         '_weight' => [
           '#type' => 'weight',
           '#title' => t('Weight for row @number', ['@number' => $delta + 1]),

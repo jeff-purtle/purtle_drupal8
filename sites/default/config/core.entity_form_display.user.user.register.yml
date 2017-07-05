@@ -9,6 +9,7 @@ dependencies:
     - field.field.user.user.field_home_location
     - field.field.user.user.field_last_location
     - field.field.user.user.field_phone
+    - field.field.user.user.field_testtoken
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -28,15 +29,18 @@ content:
     weight: -10
     settings: {  }
     third_party_settings: {  }
+    region: content
   contact:
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_birthdate:
     weight: 31
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_home_location:
     weight: 32
     settings:
@@ -57,29 +61,35 @@ content:
         style: ''
     third_party_settings: {  }
     type: geolocation_googlegeocoder
+    region: content
   field_last_location:
     weight: 34
     settings: {  }
     third_party_settings: {  }
     type: geolocation_html5
+    region: content
   field_phone:
     weight: 35
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
   google_analytics:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
   language:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
   timezone:
     weight: 6
     settings: {  }
     third_party_settings: {  }
+    region: content
   user_picture:
     type: image_image
     settings:
@@ -87,6 +97,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     weight: -1
+    region: content
 hidden:
   field_first_and_last_name: true
   field_testtoken: true

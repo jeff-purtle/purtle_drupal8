@@ -3,6 +3,7 @@
 namespace Drupal\entity_print\Plugin;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,12 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class PrintEngineBase extends PluginBase implements PrintEngineInterface, ContainerFactoryPluginInterface {
 
-  /**
-   * The Print library object.
-   *
-   * @var object
-   */
-  protected $print;
+  const PORTRAIT = 'portrait';
+  const LANDSCAPE = 'landscape';
 
   /**
    * The export type plugin.
@@ -80,8 +77,9 @@ abstract class PrintEngineBase extends PluginBase implements PrintEngineInterfac
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $values = OptGroup::flattenOptions($form_state->getValues());
     foreach ($this->defaultConfiguration() as $key => $value) {
-      $this->configuration[$key] = $form_state->getValue($key);
+      $this->configuration[$key] = isset($values[$key]) ? $values[$key] : NULL;
     }
   }
 

@@ -44,6 +44,7 @@ class EntityPrintAdminTest extends WebTestBase {
       'access content',
       'administer content types',
       'administer node display',
+      'administer user display',
     ]);
     $this->drupalLogin($account);
   }
@@ -66,14 +67,14 @@ class EntityPrintAdminTest extends WebTestBase {
     // Assert the intial config values.
     $this->drupalPostAjaxForm(NULL, ['pdf' => 'testprintengine'], 'pdf');
     $this->drupalPostAjaxForm(NULL, ['word_docx' => 'test_word_print_engine', 'pdf' => 'testprintengine'], 'word_docx');
-    $this->assertFieldByName('test_engine_setting', 'initial value');
-    $this->assertFieldByName('test_word_setting', 'my-default');
+    $this->assertFieldByName('testprintengine[test_engine_setting]', 'initial value');
+    $this->assertFieldByName('test_word_print_engine[test_word_setting]', 'my-default');
 
     // Ensure the plugin gets the chance to validate the form.
     $this->drupalPostForm(NULL, [
       'pdf' => 'testprintengine',
       'word_docx' => 'test_word_print_engine',
-      'test_engine_setting' => 'rejected',
+      'testprintengine[test_engine_setting]' => 'rejected',
     ], 'Save configuration');
     $this->assertText('Setting has an invalid value');
 
@@ -82,8 +83,8 @@ class EntityPrintAdminTest extends WebTestBase {
       'force_download' => 0,
       'pdf' => 'testprintengine',
       'word_docx' => 'test_word_print_engine',
-      'test_word_setting' => 'test word setting',
-      'test_engine_setting' => 'testvalue',
+      'test_word_print_engine[test_word_setting]' => 'test word setting',
+      'testprintengine[test_engine_setting]' => 'testvalue',
     ], 'Save configuration');
 
     /** @var \Drupal\entity_print\Entity\PrintEngineStorageInterface $config_entity */
@@ -121,7 +122,7 @@ class EntityPrintAdminTest extends WebTestBase {
     $random_text = $this->randomMachineName();
     $this->drupalPostForm('admin/structure/types/manage/page/display', [
       'fields[entity_print_view_pdf][empty_cell]' => $random_text,
-      'fields[entity_print_view_pdf][type]' => 'visible',
+      'fields[entity_print_view_pdf][region]' => 'content',
     ], 'Save');
 
     // Visit our page node and ensure the link is available.
@@ -140,7 +141,7 @@ class EntityPrintAdminTest extends WebTestBase {
     ], 'Save');
     $this->drupalPostForm('admin/structure/types/manage/page/display/pdf', [
       'fields[entity_print_view_pdf][empty_cell]' => $random_text,
-      'fields[entity_print_view_pdf][type]' => 'visible',
+      'fields[entity_print_view_pdf][region]' => 'content',
     ], 'Save');
 
     // Ensure the PDF view mode is now in use.
@@ -152,8 +153,11 @@ class EntityPrintAdminTest extends WebTestBase {
     // place.
     /** @var \Drupal\Core\Entity\Entity\EntityViewDisplay $display */
     $display = EntityViewDisplay::load('node.page.default');
-
     $this->assertIdentical($random_text, $display->getThirdPartySetting('entity_print', 'pdf_label'));
+
+    // Ensure the View PDF links appear on a entity type without a bundle.
+    $this->drupalGet('/admin/config/people/accounts/display');
+    $this->assertText('View PDF');
   }
 
 }

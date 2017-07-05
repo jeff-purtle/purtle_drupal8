@@ -1,9 +1,22 @@
-label: Pessoas
-description: 'Encontrar e gerenciar pessoas interagindo com seu site.'
 display:
   default:
-    display_title: Principal
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Ativo
+              2:
+                title: Bloqueado
+            label: Status
+        roles_target_id:
+          expose:
+            label: Papel
+        permission:
+          expose:
+            label: Permissão
       exposed_form:
         options:
           submit_button: Filtrar
@@ -24,6 +37,9 @@ display:
           label: Usuário
         status:
           label: Status
+          settings:
+            format_custom_true: Ativo
+            format_custom_false: Bloqueado
         roles_target_id:
           label: Papéis
         created:
@@ -34,27 +50,12 @@ display:
           label: Operações
         mail:
           separator: ', '
-      filters:
-        roles_target_id:
-          expose:
-            label: Papel
-        permission:
-          expose:
-            label: Permissão
-        status:
-          group_info:
-            label: Status
-            group_items:
-              1:
-                title: Ativo
-                value: '1'
-              2:
-                title: Bloqueado
       title: Pessoas
       empty:
         area_text_custom:
           content: 'Ninguém disponível.'
       use_more_text: mais
+    display_title: Principal
   page_1:
     display_title: Página
     display_options:
@@ -64,3 +65,5 @@ display:
       tab_options:
         title: Pessoas
         description: 'Gerenciar contas de usuário, papéis e permissões.'
+label: Pessoas
+description: 'Encontrar e gerenciar pessoas interagindo com seu site.'

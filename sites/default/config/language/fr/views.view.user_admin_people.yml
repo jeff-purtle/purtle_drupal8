@@ -1,9 +1,25 @@
-label: Personnes
-description: 'Trouver et gérer les personnes interagissant avec votre site.'
 display:
   default:
-    display_title: Maître
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: Actif
+              2:
+                title: Bloqué
+            label: Statut
+        combine:
+          expose:
+            label: 'Nom ou courriel contenant'
+        roles_target_id:
+          expose:
+            label: Rôle
+        permission:
+          expose:
+            label: Droit
       exposed_form:
         options:
           submit_button: Filtrer
@@ -29,6 +45,9 @@ display:
           label: 'Nom d''utilisateur'
         status:
           label: Statut
+          settings:
+            format_custom_true: Actif
+            format_custom_false: Bloqué
         roles_target_id:
           label: Rôles
         created:
@@ -39,30 +58,12 @@ display:
           label: Actions
         mail:
           separator: ', '
-      filters:
-        combine:
-          expose:
-            label: 'Nom ou courriel contenant'
-        roles_target_id:
-          expose:
-            label: Rôle
-        permission:
-          expose:
-            label: Droit
-        status:
-          group_info:
-            label: Statut
-            group_items:
-              1:
-                title: Actif
-                value: '1'
-              2:
-                title: Bloqué
       title: Personnes
       empty:
         area_text_custom:
           content: 'Personne n''est disponible.'
       use_more_text: plus
+    display_title: Maître
   page_1:
     display_title: Page
     display_options:
@@ -72,3 +73,5 @@ display:
       tab_options:
         title: Personnes
         description: 'Gérer les comptes utilisateurs, les rôles et les droits.'
+label: Personnes
+description: 'Trouver et gérer les personnes interagissant avec votre site.'

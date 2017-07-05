@@ -4,6 +4,9 @@ namespace Drupal\entity_print\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * This event allows the CSS libraries to be altered.
+ */
 class PrintCssAlterEvent extends Event {
 
   /**
@@ -28,7 +31,7 @@ class PrintCssAlterEvent extends Event {
    * @param array $entities
    *   An array of entities we're rendering.
    */
-  public function __construct(array &$build, $entities) {
+  public function __construct(array &$build, array $entities) {
     $this->build = &$build;
     $this->entities = $entities;
   }

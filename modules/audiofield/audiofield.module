@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Drupal Module: Audiofield.
+ *
+ * Allows the use of multiple audio player plugins for display of audio files.
+ */
+
+/**
+ * Implements hook_library_info_build().
+ */
+function audiofield_library_info_build() {
+  $libraries = [];
+
+  // Here we dynamically build a library for each skin.
+  // This allows users to add custom skins to the library's skins folder.
+  foreach (_audiofield_list_skins('jplayer_audio_player') as $skin) {
+    $libraries[$skin['library_name']] = [
+      'css' => [
+        'component' => [
+          $skin['path'] => [
+            'minified' => TRUE,
+          ],
+        ],
+      ],
+      'dependencies' => [
+        'core/jquery',
+      ],
+    ];
+  }
+
+  return $libraries;
+}
+
+/**
+ * Helper function to list available skins.
+ */
+function _audiofield_list_skins($player) {
+  $skins = [];
+  if ($player == 'jplayer_audio_player') {
+    $files = file_scan_directory(DRUPAL_ROOT . '/libraries/jplayer/dist/skin/', '#.*\.min\.css#');
+    foreach ($files as $file) {
+      // Generate a human readable name.
+      $name = preg_replace("/^(jplayer\.)(.*)(\.min)/", '$2', $file->name);
+      $skins[$name] = array(
+        'library_name' => 'audiofield.jplayer.theme_' . preg_replace('#[^A-Za-z0-9]#', '', $name),
+        'name' => $name,
+        'path' => str_replace(DRUPAL_ROOT, '', $file->uri),
+      );
+    }
+  }
+  ksort($skins);
+  return $skins;
+}

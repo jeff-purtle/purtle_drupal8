@@ -29,6 +29,8 @@ class PrintEngine extends Plugin {
    * The filetype to be exported to.
    *
    * @var string
+   *
+   * @codingStandardsIgnoreStart
    */
   public $export_type;
 

@@ -68,64 +68,75 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   entity_print_view_pdf:
     weight: 12
     settings: {  }
     third_party_settings: {  }
+    region: left
   field_assignment_1:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_2:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_3:
     weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_a:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_b:
     weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_c:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_d:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: left
   field_assignment_notes:
     weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: left
   field_breathing_exercise:
     weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: left
   field_date:
     weight: 13
     label: above
@@ -134,16 +145,19 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: right
   field_private_text_field:
     weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: left
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: left
 hidden:
   entity_print_view_epub: true
   entity_print_view_word_docx: true

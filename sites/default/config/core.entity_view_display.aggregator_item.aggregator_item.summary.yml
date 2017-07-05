@@ -15,8 +15,13 @@ mode: summary
 content:
   timestamp:
     weight: 0
+    region: content
 hidden:
   author: true
   description: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   feed: true
+  langcode: true
   link: true

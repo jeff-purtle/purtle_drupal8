@@ -10,6 +10,9 @@ views_slideshow_widget:
     weight:
       type: string
       label: 'Sort order'
+    hide_on_single_slide:
+      type: string
+      label: 'Hide if only one slide'
 
 views_slideshow_control_group:
   type: mapping

@@ -1,0 +1,31 @@
+uuid: 34e66ee0-2361-4f7f-aa3d-fdd0dd01c085
+langcode: en
+status: true
+dependencies: {  }
+id: assignments55
+migration_tags: null
+migration_group: null
+label: 'Import assignments'
+source:
+  plugin: csv
+  path: /home/cwf-dev-02/Downloads/purtle-assignments.csv
+  header_row_count: 1
+  keys:
+    - ID
+process:
+  title: title
+  field_date: field_date
+  field_breathing_exercise: field_breathing_exercise
+  field_student_s_first_and_last_n: field_student_s_first_and_last_n
+  field_assignment_a: field_assignment_a
+  field_assignment_b: field_assignment_b
+  field_assignment_c: field_assignment_c
+  field_assignment_1: field_assignment_1
+  field_assignment_2: field_assignment_2
+  field_assignment_3: field_assignment_3
+  type:
+    plugin: default_value
+    default_value: assignment
+destination:
+  plugin: 'entity:node'
+migration_dependencies: null

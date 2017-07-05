@@ -25,6 +25,9 @@ display:
           label: اندازه
         status:
           label: وضعیت
+          settings:
+            format_custom_false: موقت
+            format_custom_true: دائمی
         created:
           label: 'تاریخ بارگذاری'
         changed:

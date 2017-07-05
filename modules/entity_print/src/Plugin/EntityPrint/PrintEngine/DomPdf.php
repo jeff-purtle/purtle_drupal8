@@ -7,30 +7,27 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_print\Plugin\ExportTypeInterface;
 use Drupal\entity_print\PrintEngineException;
-use Drupal\entity_print\Plugin\PrintEngineBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Dompdf\Adapter\CPDF;
 
 /**
+ * A Entity Print plugin for the DomPdf library.
+ *
  * @PrintEngine(
  *   id = "dompdf",
  *   label = @Translation("Dompdf"),
  *   export_type = "pdf"
  * )
- *
- * To use this implementation you will need the DomPDF library, simply run
- *
- * @code
- *     composer require "dompdf/dompdf 0.7.0-beta3"
- * @endcode
  */
-class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface {
+class DomPdf extends PdfEngineBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The Dompdf instance.
+   *
    * @var \Dompdf\Dompdf
    */
-  protected $print;
+  protected $dompdf;
 
   /**
    * Keep track of HTML pages as they're added.
@@ -40,24 +37,24 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
   protected $html = '';
 
   /**
+   * Keep track of whether we've rendered or not.
+   *
+   * @var bool
+   */
+  protected $hasRendered;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ExportTypeInterface $export_type, Request $request) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $export_type);
-    $this->print = new DompdfLib($this->configuration);
-    $this->print
+    $this->dompdf = new DompdfLib($this->configuration);
+    $this->dompdf->setPaper($this->configuration['default_paper_size'], $this->configuration['orientation']);
+    $this->dompdf
       ->setBaseHost($request->getHttpHost())
       ->setProtocol($request->getScheme() . '://');
 
-    $context_options = [
-      'ssl' => [
-        'cafile' => $this->configuration['cafile'],
-        'verify_peer' => $this->configuration['verify_peer'],
-        'verify_peer_name' => $this->configuration['verify_peer_name'],
-      ],
-    ];
-    $http_context = stream_context_create($context_options);
-    $this->print->setHttpContext($http_context);
+    $this->setupHttpContext();
   }
 
   /**
@@ -77,17 +74,16 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
    * {@inheritdoc}
    */
   public static function getInstallationInstructions() {
-    return t('Please install with: @command', ['@command' => 'composer require "dompdf/dompdf 0.7.0-beta3"']);
+    return t('Please install with: @command', ['@command' => 'composer require "dompdf/dompdf 0.8.0"']);
   }
 
   /**
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return [
+    return parent::defaultConfiguration() + [
       'enable_html5_parser' => TRUE,
       'enable_remote' => TRUE,
-      'default_paper_size' => 'letter',
       'cafile' => '',
       'verify_peer' => TRUE,
       'verify_peer_name' => TRUE,
@@ -98,21 +94,12 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $paper_sizes = array_combine(array_keys(CPDF::$PAPER_SIZES), array_map(function($value) {
-      return ucfirst($value);
-    }, array_keys(CPDF::$PAPER_SIZES)));
-    $form['default_paper_size'] = [
-      '#title' => $this->t('Paper Size'),
-      '#type' => 'select',
-      '#options' => $paper_sizes,
-      '#default_value' => $this->configuration['default_paper_size'],
-      '#description' => $this->t('The page size to print the PDF to.'),
-    ];
+    $form = parent::buildConfigurationForm($form, $form_state);
     $form['enable_html5_parser'] = [
       '#title' => $this->t('Enable HTML5 Parser'),
       '#type' => 'checkbox',
       '#default_value' => $this->configuration['enable_html5_parser'],
-      '#description' => $this->t('Note, this library doesn\'t work without this option enabled.'),
+      '#description' => $this->t("Note, this library doesn't work without this option enabled."),
     ];
     $form['enable_remote'] = [
       '#title' => $this->t('Enable Remote URLs'),
@@ -120,23 +107,28 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
       '#default_value' => $this->configuration['enable_remote'],
       '#description' => $this->t('This settings must be enabled for CSS and Images to work unless you manipulate the source manually.'),
     ];
-    $form['cafile'] = [
+    $form['ssl_configuration'] = [
+      '#type' => 'details',
+      '#title' => $this->t('SSL Configuration'),
+      '#open' => !empty($this->configuration['cafile']) || empty($this->configuration['verify_peer']) || empty($this->configuration['verify_peer_name']),
+    ];
+    $form['ssl_configuration']['cafile'] = [
       '#title' => $this->t('CA File'),
       '#type' => 'textfield',
       '#default_value' => $this->configuration['cafile'],
       '#description' => $this->t('Path to the CA file. This may be needed for development boxes that use SSL'),
     ];
-    $form['verify_peer'] = [
+    $form['ssl_configuration']['verify_peer'] = [
       '#title' => $this->t('Verify Peer'),
       '#type' => 'checkbox',
       '#default_value' => $this->configuration['verify_peer'],
-      '#description' => $this->t('Verify an SSL Peer\'s certificate. For development only, do not disable this in production. See https://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html'),
+      '#description' => $this->t("Verify an SSL Peer's certificate. For development only, do not disable this in production. See https://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html"),
     ];
-    $form['verify_peer_name'] = [
+    $form['ssl_configuration']['verify_peer_name'] = [
       '#title' => $this->t('Verify Peer Name'),
       '#type' => 'checkbox',
       '#default_value' => $this->configuration['verify_peer_name'],
-      '#description' => $this->t('Verify an SSL Peer\'s certificate. For development only, do not disable this in production. See https://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html'),
+      '#description' => $this->t("Verify an SSL Peer's certificate. For development only, do not disable this in production. See https://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html"),
     ];
 
     return $form;
@@ -149,14 +141,14 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
     // We must keep adding to previously added HTML as loadHtml() replaces the
     // entire document.
     $this->html .= (string) $content;
-    $this->print->loadHtml($this->html);
+    $this->dompdf->loadHtml($this->html);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function send($filename = NULL) {
-    $this->print->render();
+  public function send($filename, $force_download = TRUE) {
+    $this->doRender();
 
     // Dompdf doesn't have a return value for send so just check the error
     // global it provides.
@@ -170,7 +162,25 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
 
     // If the filename received here is NULL, force open in the browser
     // otherwise attempt to have it downloaded.
-    $this->print->stream($filename, ['Attachment' => (bool) $filename]);
+    $this->dompdf->stream($filename, ['Attachment' => $force_download]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlob() {
+    $this->doRender();
+    return $this->dompdf->output();
+  }
+
+  /**
+   * Tell Dompdf to render the HTML into a PDF.
+   */
+  protected function doRender() {
+    if (!$this->hasRendered) {
+      $this->dompdf->render();
+      $this->hasRendered = TRUE;
+    }
   }
 
   /**
@@ -189,6 +199,44 @@ class DomPdf extends PrintEngineBase implements ContainerFactoryPluginInterface 
    */
   public static function dependenciesAvailable() {
     return class_exists('Dompdf\Dompdf') && !drupal_valid_test_ua();
+  }
+
+  /**
+   * Setup the HTTP Context used by Dompdf for requesting resources.
+   */
+  protected function setupHttpContext() {
+    $context_options = [
+      'ssl' => [
+        'cafile' => $this->configuration['cafile'],
+        'verify_peer' => $this->configuration['verify_peer'],
+        'verify_peer_name' => $this->configuration['verify_peer_name'],
+      ],
+    ];
+
+    // If we have authentication then add it to the request context.
+    if (!empty($this->configuration['username'])) {
+      $auth = base64_encode(sprintf('%s:%s', $this->configuration['username'], $this->configuration['password']));
+      $context_options['http']['header'] = [
+        'Authorization: Basic ' . $auth,
+      ];
+    }
+
+    $http_context = stream_context_create($context_options);
+    $this->dompdf->setHttpContext($http_context);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getPaperSizes() {
+    return array_combine(array_keys(CPDF::$PAPER_SIZES), array_map('ucfirst', array_keys(CPDF::$PAPER_SIZES)));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrintObject() {
+    return $this->dompdf;
   }
 
 }

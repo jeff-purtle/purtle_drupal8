@@ -4,6 +4,9 @@ namespace Drupal\entity_print\Plugin;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 
+/**
+ * Export type manager interface.
+ */
 interface ExportTypeManagerInterface extends PluginManagerInterface {
 
   /**

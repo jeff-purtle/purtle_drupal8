@@ -3,7 +3,9 @@
 namespace Drupal\entity_print_views\Renderer;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\entity_print\Renderer\RendererBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Providers a renderer for Views.
@@ -13,10 +15,35 @@ class ViewRenderer extends RendererBase {
   /**
    * {@inheritdoc}
    */
-  public function render(EntityInterface $view) {
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+    return new static (
+      $container->get('renderer'),
+      $container->get('entity_print.asset_renderer'),
+      $container->get('entity_print.filename_generator'),
+      $container->get('event_dispatcher')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(array $views) {
+    return array_map([$this, 'renderSingle'], $views);
+  }
+
+  /**
+   * Render a single entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $view
+   *   The entity we're rendering.
+   *
+   * @return array
+   *   A render array.
+   */
+  protected function renderSingle(EntityInterface $view) {
     /** @var \Drupal\views\Entity\View $view */
     $executable = $view->getExecutable();
-    $render = $executable->render();
+    $render = $executable->render() ?: [];
 
     // We must remove ourselves from all areas otherwise it will cause an
     // infinite loop when rendering.
@@ -33,12 +60,11 @@ class ViewRenderer extends RendererBase {
   /**
    * {@inheritdoc}
    */
-  public function getFilename(array $views) {
-    $filenames = [];
-    foreach ($views as $view) {
-      $filenames[] = $this->sanitizeFilename($view->getExecutable()->getTitle());
-    }
-    return implode('-', $filenames);
+  public function getFilename(array $entities) {
+    return $this->filenameGenerator->generateFilename($entities, function ($view) {
+      /** @var \Drupal\views\ViewEntityInterface $view */
+      return $view->getExecutable()->getTitle();
+    });
   }
 
   /**

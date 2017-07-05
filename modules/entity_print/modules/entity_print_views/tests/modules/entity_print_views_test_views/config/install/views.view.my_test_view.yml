@@ -3,9 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
+    - entity_print
     - entity_print_views
     - node
     - user
+_core:
+  default_config_hash: x5Kol1CeTHEDkN3pe8wDBVdIjAJZ8JCo-L2qRjurZQg
 id: my_test_view
 label: 'My Test view'
 module: views
@@ -826,6 +829,59 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: field
+        entity_print_node:
+          id: entity_print_node
+          table: node
+          field: entity_print_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Print link'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: 'View PDF'
+          open_new_window: false
+          export_type: pdf
+          entity_type: node
+          plugin_id: entity_print_link
       defaults:
         fields: false
     cache_metadata:

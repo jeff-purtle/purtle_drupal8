@@ -1,9 +1,22 @@
-label: 사용자
-description: '사이트에서 활동하는 사람들을 찾고 관리합니다.'
 display:
   default:
-    display_title: 마스터
     display_options:
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                value: '1'
+                title: 활동
+              2:
+                title: 차단됨
+            label: 상태
+        roles_target_id:
+          expose:
+            label: 역할
+        permission:
+          expose:
+            label: 권한
       exposed_form:
         options:
           submit_button: 필터
@@ -23,6 +36,9 @@ display:
           label: 아이디
         status:
           label: 상태
+          settings:
+            format_custom_true: 활동
+            format_custom_false: 차단됨
         roles_target_id:
           label: 역할
         created:
@@ -31,27 +47,12 @@ display:
           label: '마지막 접속'
         operations:
           label: 작업
-      filters:
-        roles_target_id:
-          expose:
-            label: 역할
-        permission:
-          expose:
-            label: 권한
-        status:
-          group_info:
-            label: 상태
-            group_items:
-              1:
-                title: 활동
-                value: '1'
-              2:
-                title: 차단됨
       title: 사용자
       empty:
         area_text_custom:
           content: '사용자가 없습니다.'
       use_more_text: '더 보기'
+    display_title: 마스터
   page_1:
     display_title: 페이지
     display_options:
@@ -61,3 +62,5 @@ display:
       tab_options:
         title: 사용자
         description: '사용자 계정, 역할, 권한을 관리합니다.'
+label: 사용자
+description: '사이트에서 활동하는 사람들을 찾고 관리합니다.'

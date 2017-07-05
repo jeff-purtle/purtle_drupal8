@@ -23,10 +23,10 @@ class EntityPrintPermissions implements ContainerInjectionInterface {
    */
   protected $entityTypeManager;
 
-  /*
+  /**
    * Entity type bundle info.
    *
-   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
    */
   protected $entityTypeBundleInfo;
 
@@ -34,7 +34,7 @@ class EntityPrintPermissions implements ContainerInjectionInterface {
    * Constructs a new EntityPrintPermissions.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *    The entity manager.
+   *   The entity manager.
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
    *   The entity type bundle info.
    * @param \Drupal\Core\StringTranslation\TranslationManager $translation_manager

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Views specific hooks.
+ */
+
+/**
  * Implements hook_views_data().
  */
 function entity_print_views_views_data() {

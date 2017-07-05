@@ -10,6 +10,8 @@ use Drupal\entity_print\Plugin\PrintEngineInterface;
 class PreSendPrintEvent extends PrintEventBase {
 
   /**
+   * An array of entities.
+   *
    * @var \Drupal\Core\Entity\EntityInterface[]
    */
   protected $entities;

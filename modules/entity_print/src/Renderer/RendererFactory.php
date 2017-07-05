@@ -17,23 +17,15 @@ class RendererFactory implements RendererFactoryInterface {
    * {@inheritdoc}
    */
   public function create($item, $context = 'entity') {
+    $entity_type_manager = $this->container->get('entity_type.manager');
+
     // If we get an array or something, just look at the first one.
     if (is_array($item)) {
       $item = array_pop($item);
     }
 
-    if ($item instanceof EntityInterface) {
-      // Support specific renderers for each entity type.
-      $id = $item->getEntityType()->id();
-      if ($this->container->has("entity_print.renderer.$id")) {
-        return $this->container->get("entity_print.renderer.$id");
-      }
-
-      // Returns the generic service for content/config entities.
-      $group = $item->getEntityType()->getGroup();
-      if ($this->container->has("entity_print.renderer.$group")) {
-        return $this->container->get("entity_print.renderer.$group");
-      }
+    if ($item instanceof EntityInterface && $entity_type_manager->hasHandler($item->getEntityTypeId(), 'entity_print')) {
+      return $entity_type_manager->getHandler($item->getEntityTypeId(), 'entity_print');
     }
 
     throw new PrintEngineException(sprintf('Rendering not yet supported for "%s". Entity Print context "%s"', is_object($item) ? get_class($item) : $item, $context));

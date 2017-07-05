@@ -30,6 +30,9 @@ display:
           label: Dimensione
         status:
           label: Stato
+          settings:
+            format_custom_false: Temporaneo
+            format_custom_true: Permanente
         created:
           label: 'Data di caricamento'
         changed:

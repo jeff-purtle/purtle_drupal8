@@ -15,22 +15,7 @@
     "source": "https://cgit.drupalcode.org/superfish"
   },
   "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "Superfish-for-Drupal/superfish",
-        "version": "2",
-        "type": "drupal-library",
-        "dist": {
-          "url": "https://github.com/mehrpadin/Superfish-for-Drupal/archive/2.x.zip",
-          "type": "zip"
-        }
-      }
-    }
-  ],
   "require": {
-    "Superfish-for-Drupal/superfish": "2"
+    "mehrpadin/superfish": "~2.0"
   }
 }

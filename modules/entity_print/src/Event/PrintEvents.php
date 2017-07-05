@@ -37,7 +37,8 @@ final class PrintEvents {
    *
    * This event allows custom code to add their own CSS assets. Note the
    * recommended way is to manage CSS from your theme.
-   * @link https://www.drupal.org/node/2430561#from-your-theme
+   *
+   * @link https://www.drupal.org/node/2430561#from-your-theme @endlink
    *
    * @code
    * $event->getBuild()['#attached']['library'][] = 'module/library';

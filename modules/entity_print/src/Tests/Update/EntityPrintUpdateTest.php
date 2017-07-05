@@ -5,6 +5,8 @@ namespace Drupal\entity_print\Tests\Update;
 use Drupal\system\Tests\Update\UpdatePathTestBase;
 
 /**
+ * Update from 1.x to 2.x test.
+ *
  * @group entity_print
  */
 class EntityPrintUpdateTest extends UpdatePathTestBase {
