@@ -121,26 +121,25 @@
 }
 .iphone{
   width:200px;
-  height:15px;
 }
 .facetime{
   width:200px;
-  height:15px;
   vertical-align: bottom;
 }
 .facetime a{
+  vertical-align: middle;
   display: inline-block;
 }
 .skype{
   width:200px;
-  height:15px;
   vertical-align: bottom;
 }
 .skype a{
+  vertical-align: middle;
   display:inline-block;
 }
 .name h4{
-  padding: 0px;
+  padding-bottom: 10px;
   margin: 0px;
   height: 5px;
 }
@@ -165,6 +164,9 @@ height: 50px;
   margin-top: 10px;
   color:red;
 }
+.red-left h4{
+  font-size:14px;
+}
 .red-right{
   position: absolute;
   top: 0%;
@@ -172,6 +174,10 @@ height: 50px;
   font-style: italic;
   color: red;
   margin-top: 10px;
+}
+.red-right h4{
+  color: red!important;
+  font-size:14px;
 }
 .margin-top{
   margin-top: -10px;
@@ -201,14 +207,14 @@ margin-top: 0px!important;
 <div class="clear">
 </div>
 <div class="logo-img">
-  <img src="/sites/default/files/purtle.png"/>
+  <img src="/purtle_drupal8/sites/default/files/purtle.png"/>
 </div>
 <div class="breathing-exercise margin-bot">
 {{ content.field_breathing_exercise }}
 </div>
 <div ="wrapper">
-  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
-  <div class="red-right"> <h3>Watch</br> The Tongue</h3> </div>
+  <div class="red-left"> <h4>Big Breath</br> Chest Up</h4> </div>
+  <div class="red-right"> <h4>Watch</br> The Tongue</h4> </div>
 </div>
 <div class="assignment-field margin-top">
 <h4>
@@ -243,8 +249,8 @@ margin-top: 0px!important;
 </p>
 </div>
 <div ="wrapper">
-  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
-  <div class="red-right"> <h3>Lift Fingers High</br>Strike Valves Hard</h3> </div>
+  <div class="red-left"> <h4>Big Breath</br> Chest Up</h4> </div>
+  <div class="red-right"> <h4>Lift Fingers High</br>Strike Valves Hard</h4> </div>
 </div>
 <div class="assignment-field margin-top">
   <h4>
@@ -255,7 +261,7 @@ margin-top: 0px!important;
 </p>
 </div>
 <div ="wrapper">
-  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+  <div class="red-left"> <h4>Big Breath</br> Chest Up</h4> </div>
 </div>
 
 <div class="assignment-field margin-bot margin-top">
@@ -267,7 +273,7 @@ margin-top: 0px!important;
 </p>
 </div>
 <div ="wrapper">
-  <div class="red-left"> <h3>Big Breath</br> Chest Up</h3> </div>
+  <div class="red-left"> <h4>Big Breath</br> Chest Up</h4> </div>
 </div>
 
 <div id="assignment-field3"class="assignment-field margin-top margin-bot">
@@ -278,7 +284,7 @@ margin-top: 0px!important;
 {{ content.field_assignment_3 }}
 </p>
 <div ="wrapper ">
-  <div id="last" class="red-right"> <h3>Relax Lip</br>Long Rest </h3> </div>
+  <div id="last" class="red-right"> <h4>Relax Lip</br>Long Rest </h4> </div>
 </div>
 </div>
 
@@ -289,13 +295,13 @@ margin-top: 0px!important;
   </div>
   <div class="iphface">
   <div class="iphone">
-    <p id="iphone">iPhone: 864.354.3223 </p>
+    iPhone: 864.354.3223
   </div>
 <div class="facetime">
-  <p>FaceTime &amp; iMessages:<a id="facetime">jeff@purtle.com</a></p>
+FaceTime &amp; iMessages:<a id="facetime">jeff@purtle.com</a>
 </div>
 <div class="skype">
-  <p>Skype:<a id="skype"> jeff_purtle</a></p>
+Skype:<a id="skype"> jeff_purtle</a>
 </div>
 </div>
   </div>
@@ -303,4 +309,3 @@ margin-top: 0px!important;
 </div>
 </body>
 </html>
-
