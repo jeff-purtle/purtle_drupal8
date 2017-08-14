@@ -1,0 +1,20 @@
+uuid: b47bcbef-6c29-4120-9a31-247269120d7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.slides
+  module:
+    - path
+id: node.slides.path
+field_name: path
+entity_type: node
+bundle: slides
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

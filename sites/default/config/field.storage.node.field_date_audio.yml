@@ -1,24 +1,21 @@
-uuid: 3e5f447a-5b7d-47e1-8b20-d0b8b2c7358d
+uuid: a7b8257a-c407-4839-81a8-3b3375d90deb
 langcode: en
 status: true
 dependencies:
   module:
+    - datetime
     - field_permissions
-    - file
     - node
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_audio
-field_name: field_audio
+id: node.field_date_audio
+field_name: field_date_audio
 entity_type: node
-type: file
+type: datetime
 settings:
-  display_field: false
-  display_default: false
-  uri_scheme: public
-  target_type: file
-module: file
+  datetime_type: datetime
+module: datetime
 locked: false
 cardinality: 1
 translatable: true

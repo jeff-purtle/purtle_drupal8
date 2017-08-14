@@ -1,0 +1,39 @@
+uuid: 9cc2f758-563f-477e-9c72-711ef8633bc8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.cttest.body
+    - field.field.node.cttest.field_music
+    - node.type.cttest
+  module:
+    - file
+    - text
+    - user
+id: node.cttest.default
+targetEntityType: node
+bundle: cttest
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_music:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true

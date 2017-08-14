@@ -8,5 +8,8 @@ settings:
   enable_remote: true
   default_paper_size: letter
   cafile: ''
-  verify_peer: true
-  verify_peer_name: true
+  verify_peer: false
+  verify_peer_name: false
+  orientation: portrait
+  username: ''
+  password: ''

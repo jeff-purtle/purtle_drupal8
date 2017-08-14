@@ -1,25 +1,27 @@
-uuid: a93ed2aa-16e3-4ebc-b7e1-acd3e8ff5a5d
+uuid: e4aa9c6d-5557-4568-9e7a-af20bae50aad
 langcode: en
 status: true
 dependencies:
   module:
     - field_permissions
+    - file
     - node
-    - text
 third_party_settings:
   field_permissions:
     permission_type: public
-_core:
-  default_config_hash: EBUo7qOWqaiZaQ_RC9sLY5IoDKphS34v77VIHSACmVY
-id: node.body
-field_name: body
+id: node.field_music
+field_name: field_music
 entity_type: node
-type: text_with_summary
-settings: {  }
-module: text
+type: file
+settings:
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  target_type: file
+module: file
 locked: false
 cardinality: 1
 translatable: true
 indexes: {  }
-persist_with_no_fields: true
+persist_with_no_fields: false
 custom_storage: false

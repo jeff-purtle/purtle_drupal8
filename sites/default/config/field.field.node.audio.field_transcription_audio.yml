@@ -1,18 +1,18 @@
-uuid: db7e3394-93f9-4480-a0da-0843fadf3439
+uuid: 48f36b4f-f3e0-491c-ba1d-e37beae67c17
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_transcription_audio
     - node.type.audio
   module:
     - text
-id: node.audio.body
-field_name: body
+id: node.audio.field_transcription_audio
+field_name: field_transcription_audio
 entity_type: node
 bundle: audio
-label: Body
-description: ''
+label: Transcription
+description: 'Text transcription for audio lecture.'
 required: false
 translatable: true
 default_value: {  }

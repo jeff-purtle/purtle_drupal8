@@ -5,8 +5,8 @@ features:
   favicon: true
 logo:
   use_default: false
-  path: core/themes/bartik/purtle_logo.png
+  path: sites/default/files/purtle_logo.png
 favicon:
-  use_default: false
+  use_default: true
   path: core/themes/bartik/purtle_favicon.ico
   mimetype: image/vnd.microsoft.icon

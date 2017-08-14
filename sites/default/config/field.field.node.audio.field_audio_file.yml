@@ -1,25 +1,25 @@
-uuid: 776ab0dc-3c29-42b9-83a1-80bfe2103603
+uuid: ff33d5fb-de5a-4641-81ea-5d1012dcf0c6
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_audio
-    - node.type.lecture
+    - field.storage.node.field_audio_file
+    - node.type.audio
   module:
     - file
-id: node.lecture.field_audio
-field_name: field_audio
+id: node.audio.field_audio_file
+field_name: field_audio_file
 entity_type: node
-bundle: lecture
+bundle: audio
 label: Audio
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: private
-  file_extensions: mp3
+  file_extensions: 'mp3 wav m4a'
   max_filesize: ''
   description_field: false
   handler: 'default:file'

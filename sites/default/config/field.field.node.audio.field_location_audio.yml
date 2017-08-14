@@ -1,18 +1,18 @@
-uuid: 3bab9b07-ec0d-4418-b461-c1be98a64206
+uuid: 6582ce6e-d7ef-4827-a41d-663d0206fb86
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_location
-    - node.type.lecture
+    - field.storage.node.field_location_audio
+    - node.type.audio
   module:
     - geolocation
-id: node.lecture.field_location
-field_name: field_location
+id: node.audio.field_location_audio
+field_name: field_location_audio
 entity_type: node
-bundle: lecture
+bundle: audio
 label: Location
-description: ''
+description: 'Location of recording'
 required: false
 translatable: true
 default_value: {  }

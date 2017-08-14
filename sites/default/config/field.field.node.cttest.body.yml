@@ -1,16 +1,16 @@
-uuid: 53d56ae5-91b0-4898-b8f6-76827491a69f
+uuid: 9e422a8d-5bd6-478b-8b05-6e60ff342a8f
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.lecture
+    - node.type.cttest
   module:
     - text
-id: node.lecture.body
+id: node.cttest.body
 field_name: body
 entity_type: node
-bundle: lecture
+bundle: cttest
 label: Body
 description: ''
 required: false

@@ -1,0 +1,18 @@
+uuid: ce25d601-0d50-4652-af9e-c93b1ecf753f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.brass_topics
+id: taxonomy_term.brass_topics.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: brass_topics
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

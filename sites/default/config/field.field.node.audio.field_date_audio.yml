@@ -1,16 +1,16 @@
-uuid: 0f0c1e94-cda3-4ffc-9aa3-ccbf0fb7e539
+uuid: 4494d14e-b312-43ce-b554-c557186906cb
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_date
-    - node.type.lecture
+    - field.storage.node.field_date_audio
+    - node.type.audio
   module:
     - datetime
-id: node.lecture.field_date
-field_name: field_date
+id: node.audio.field_date_audio
+field_name: field_date_audio
 entity_type: node
-bundle: lecture
+bundle: audio
 label: Date
 description: ''
 required: false

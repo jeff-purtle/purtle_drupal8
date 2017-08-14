@@ -1,17 +1,17 @@
-uuid: 2e0118b3-ff90-492c-89b0-900183f910ea
+uuid: 6f101633-3c02-4451-acb7-1366dce5bec4
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.lecture.body
-    - node.type.lecture
+    - field.field.node.cttest.body
+    - node.type.cttest
   module:
     - text
     - user
-id: node.lecture.teaser
+id: node.cttest.teaser
 targetEntityType: node
-bundle: lecture
+bundle: cttest
 mode: teaser
 content:
   body:
@@ -29,10 +29,5 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_audio: true
-  field_date: true
-  field_l: true
-  field_lecture_person: true
-  field_lecture_topics: true
-  field_location: true
+  field_music: true
   langcode: true

@@ -1,12 +1,16 @@
-uuid: 998ce68d-7205-4b2c-9bc9-7847febeef13
+uuid: 70ccd2f7-76a6-4175-a8ea-c0af7cd966f9
 langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
     - text
-id: node.field_l
-field_name: field_l
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_transcription_audio
+field_name: field_transcription_audio
 entity_type: node
 type: text_with_summary
 settings: {  }

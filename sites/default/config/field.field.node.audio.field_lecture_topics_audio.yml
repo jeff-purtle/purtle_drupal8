@@ -1,26 +1,26 @@
-uuid: 8ad0dcfd-0537-493b-84ed-e4264dd31eaa
+uuid: fdd72817-b6f7-4365-9962-1c745cedb37a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_lecture_topics
-    - node.type.lecture
-    - taxonomy.vocabulary.tags
-id: node.lecture.field_lecture_topics
-field_name: field_lecture_topics
+    - field.storage.node.field_lecture_topics_audio
+    - node.type.audio
+    - taxonomy.vocabulary.brass_topics
+id: node.audio.field_lecture_topics_audio
+field_name: field_lecture_topics_audio
 entity_type: node
-bundle: lecture
+bundle: audio
 label: 'Lecture Topics'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      tags: tags
+      brass_topics: brass_topics
     sort:
       field: _none
     auto_create: false

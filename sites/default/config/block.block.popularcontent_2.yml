@@ -17,7 +17,7 @@ settings:
   label: 'Popular content'
   provider: statistics
   label_display: visible
-  top_day_num: 3
-  top_all_num: 3
-  top_last_num: 3
+  top_day_num: 0
+  top_all_num: 5
+  top_last_num: 0
 visibility: {  }

@@ -1,0 +1,20 @@
+uuid: 9c84651e-1687-4a0f-8581-6ed668ac4acc
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.brass_topics
+  module:
+    - path
+id: taxonomy_term.brass_topics.path
+field_name: path
+entity_type: taxonomy_term
+bundle: brass_topics
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

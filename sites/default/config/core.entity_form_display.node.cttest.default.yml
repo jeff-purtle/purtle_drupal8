@@ -1,25 +1,18 @@
-uuid: fd7440cd-9120-445d-8cd0-0ba4eff96ccb
+uuid: 86a9ad0c-72f2-4707-8ec6-864c0d25986f
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.lecture.body
-    - field.field.node.lecture.field_audio
-    - field.field.node.lecture.field_date
-    - field.field.node.lecture.field_l
-    - field.field.node.lecture.field_lecture_person
-    - field.field.node.lecture.field_lecture_topics
-    - field.field.node.lecture.field_location
-    - node.type.lecture
+    - field.field.node.cttest.body
+    - field.field.node.cttest.field_music
+    - node.type.cttest
   module:
-    - datetime
     - file
-    - geolocation
     - path
     - text
-id: node.lecture.default
+id: node.cttest.default
 targetEntityType: node
-bundle: lecture
+bundle: cttest
 mode: default
 content:
   body:
@@ -37,50 +30,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_audio:
+  field_music:
     weight: 32
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
-    region: content
-  field_date:
-    weight: 33
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_l:
-    weight: 36
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea_with_summary
-    region: content
-  field_lecture_person:
-    weight: 35
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_lecture_topics:
-    weight: 37
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_location:
-    weight: 34
-    settings: {  }
-    third_party_settings: {  }
-    type: geolocation_latlng
     region: content
   langcode:
     type: language_select

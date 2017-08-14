@@ -1,17 +1,17 @@
-uuid: 376d6c3f-5e68-4064-a0c9-940c58b25d63
+uuid: bda21287-4ba4-4ac8-8433-28c23ccb02be
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_audio
-    - node.type.audio
+    - field.storage.node.field_music
+    - node.type.cttest
   module:
     - file
-id: node.audio.field_audio
-field_name: field_audio
+id: node.cttest.field_music
+field_name: field_music
 entity_type: node
-bundle: audio
-label: Audio
+bundle: cttest
+label: music
 description: ''
 required: false
 translatable: false

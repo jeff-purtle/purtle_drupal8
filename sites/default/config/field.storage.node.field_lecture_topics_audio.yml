@@ -1,4 +1,4 @@
-uuid: 7b3fd878-16cc-4b51-8565-4d36b7b2c98c
+uuid: 60b972d5-b180-4755-9394-892c38fa5d0e
 langcode: en
 status: true
 dependencies:
@@ -9,8 +9,8 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_lecture_topics
-field_name: field_lecture_topics
+id: node.field_lecture_topics_audio
+field_name: field_lecture_topics_audio
 entity_type: node
 type: entity_reference
 settings:

@@ -1,34 +1,51 @@
-uuid: bd81d947-675b-4267-b5c2-ef3f22788b9c
+uuid: 38ede784-2559-4df9-b7e7-30c1e6c3c0e5
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.audio.body
-    - field.field.node.audio.field_audio
+    - field.field.node.audio.field_audio_file
+    - field.field.node.audio.field_date_audio
+    - field.field.node.audio.field_lecture_person_audio
+    - field.field.node.audio.field_lecture_topics_audio
+    - field.field.node.audio.field_location_audio
+    - field.field.node.audio.field_transcription_audio
     - node.type.audio
   module:
-    - text
+    - audiofield
     - user
 id: node.audio.teaser
 targetEntityType: node
 bundle: audio
 mode: teaser
 content:
-  body:
+  field_audio_file:
+    type: audiofield_audioplayer
+    weight: 1
+    region: content
     label: hidden
-    type: text_summary_or_trimmed
-    weight: 101
     settings:
-      trim_length: 600
+      audio_player: default_mp3_player
+      audio_player_jplayer_theme: none
+      audio_player_wavesurfer_combine_files: false
+      audio_player_wordpress_combine_files: false
+      audio_player_wordpress_animation: true
+      audio_player_soundmanager_theme: default
+      audio_player_initial_volume: 8
+      download_link: false
     third_party_settings: {  }
-    region: content
   links:
-    weight: 100
+    weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_audio: true
+  field_date_audio: true
+  field_lecture_person_audio: true
+  field_lecture_topics_audio: true
+  field_location_audio: true
+  field_transcription_audio: true
   langcode: true

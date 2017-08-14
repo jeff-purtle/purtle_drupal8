@@ -1,0 +1,20 @@
+uuid: ff229e8b-a2df-4ea9-a7ce-c9cb488267f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.brass_topics
+  module:
+    - text
+id: taxonomy_term.brass_topics.description
+field_name: description
+entity_type: taxonomy_term
+bundle: brass_topics
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

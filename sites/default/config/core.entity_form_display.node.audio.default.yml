@@ -1,13 +1,19 @@
-uuid: 695b4077-dc9f-4e80-863a-83aa002531d1
+uuid: c6bd9667-9cb9-4717-af59-b8fd4577a7ac
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.audio.body
-    - field.field.node.audio.field_audio
+    - field.field.node.audio.field_audio_file
+    - field.field.node.audio.field_date_audio
+    - field.field.node.audio.field_lecture_person_audio
+    - field.field.node.audio.field_lecture_topics_audio
+    - field.field.node.audio.field_location_audio
+    - field.field.node.audio.field_transcription_audio
     - node.type.audio
   module:
+    - datetime
     - file
+    - geolocation
     - path
     - text
 id: node.audio.default
@@ -15,61 +21,93 @@ targetEntityType: node
 bundle: audio
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 31
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 10
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_audio:
+  field_audio_file:
     weight: 32
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
     region: content
+  field_date_audio:
+    weight: 33
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_lecture_person_audio:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_lecture_topics_audio:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_location_audio:
+    weight: 36
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+    region: content
+  field_transcription_audio:
+    weight: 37
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+    region: content
   langcode:
     type: language_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 30
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
-    third_party_settings: {  }
     region: content
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
-    third_party_settings: {  }
     region: content
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: -5
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  translation:
+    weight: 10
     region: content
   uid:
     type: entity_reference_autocomplete
@@ -78,6 +116,6 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
-    third_party_settings: {  }
     region: content
+    third_party_settings: {  }
 hidden: {  }

@@ -8,9 +8,9 @@ palette:
   titleslogan: '#fffeff'
   text: '#3b3b3b'
   link: '#0071B3'
-logo: 'public://color/bartik-65cbe320/logo.svg'
+logo: 'public://color/bartik-56068f0f/logo.svg'
 stylesheets:
-  - 'public://color/bartik-65cbe320/colors.css'
+  - 'public://color/bartik-56068f0f/colors.css'
 files:
-  - 'public://color/bartik-65cbe320/logo.svg'
-  - 'public://color/bartik-65cbe320/colors.css'
+  - 'public://color/bartik-56068f0f/logo.svg'
+  - 'public://color/bartik-56068f0f/colors.css'
